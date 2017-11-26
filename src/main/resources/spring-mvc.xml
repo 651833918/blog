@@ -14,6 +14,7 @@
     <!--开启切面自动代理-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
