@@ -723,6 +723,66 @@ public class UserExample {
             addCriterion("birthday not between", value1, value2, "birthday");
             return (Criteria) this;
         }
+
+        public Criteria andLooknumIsNull() {
+            addCriterion("looknum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumIsNotNull() {
+            addCriterion("looknum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumEqualTo(Integer value) {
+            addCriterion("looknum =", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotEqualTo(Integer value) {
+            addCriterion("looknum <>", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumGreaterThan(Integer value) {
+            addCriterion("looknum >", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("looknum >=", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumLessThan(Integer value) {
+            addCriterion("looknum <", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumLessThanOrEqualTo(Integer value) {
+            addCriterion("looknum <=", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumIn(List<Integer> values) {
+            addCriterion("looknum in", values, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotIn(List<Integer> values) {
+            addCriterion("looknum not in", values, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumBetween(Integer value1, Integer value2) {
+            addCriterion("looknum between", value1, value2, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotBetween(Integer value1, Integer value2) {
+            addCriterion("looknum not between", value1, value2, "looknum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
