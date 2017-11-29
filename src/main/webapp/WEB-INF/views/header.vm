@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>慵懒时光</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!--[if lte IE 8]>
+    <script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/static/assets/css/main.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/weblogo1.jpg" media="screen"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/static/assets/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/static/assets/css/ie8.css"/><![endif]-->
+##    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
+##    <script type="text/javascript" src="/static/js/login.js"></script>
+##    <link href="/static/css/login2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="/mainHome/${pageInfo.pageNum}">慵懒时光</a></h1>
+        <nav class="links">
+            <ul>
+                <li><a href="/mainHome/1">主页</a></li>
+                <li><a href="#">站长博客</a></li>
+                #if(!${sessionUser})
+                    <li><a href="/user/logInPage">登录</a></li>
+                #end
+
+                #if(${sessionUser})
+                    <li><a href="#">个人博客</a></li>
+                    <li><a href="#">个人资料</a></li>
+                    <li><a href="#">博客管理</a></li>
+                    <li><a href="#">博客标签</a></li>
+                #end
+            </ul>
+        </nav>
+        <nav class="main">
+            <ul>
+                <li class="search">
+                    <a class="fa-search" href="#search">Search</a>
+                    <form id="search" method="get" action="#">
+                        <input type="text" name="query" placeholder="博客搜索"/>
+                    </form>
+                </li>
+                <li class="menu">
+                    <a class="fa-bars" href="#menu">Menu</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <section id="menu">
+
+        <!-- Search -->
+        <section>
+            <form class="search" method="get" action="#">
+                <input type="text" name="query" placeholder="博主搜索"/>
+            </form>
+        </section>
+
+        <!-- Links -->
+        <section>
+            <h2 style="color: lawngreen">热门博主</h2>
+            <ul class="links">
+                <li>
+                    <a href="#">
+                        <h3>Lorem ipsum</h3>
+                        <p>Feugiat tempus veroeros dolor</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <!-- Actions -->
+        <section>
+            <ul class="actions vertical">
+                #if(${sessionUser})
+                    <li><button id="logout" class="button big fit">Log Out</button></li>
+                #end
+            </ul>
+        </section>
+
+    </section>

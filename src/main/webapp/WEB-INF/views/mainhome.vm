@@ -1,0 +1,95 @@
+#parse("header.vm")
+<!-- Main -->
+<div id="main">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+    #foreach(${article} in ${lookHotList})
+        <article class="post" back>
+            <header>
+                <div class="title">
+                    <h2><a href="#">${article.title}</a></h2>
+                </div>
+                <div class="meta">
+                    <time class="published" >${article.time}</time>
+                    <a href="#" class="author"><span class="name">${article.username}</span><img src="/static/images/avatar.jpg"
+                                                                                      alt=""/></a>
+                </div>
+            </header>
+            <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
+            <p>${article.content}</p>
+            <footer>
+                <ul class="actions">
+                    <li><a href="#" class="button big">Continue Reading</a></li>
+                </ul>
+                <ul class="stats">
+                    <li><span href="#" class="icon fa-eye" style="color:deepskyblue;">${article.looknum}</span></li>
+                    <li><span href="#" class="icon fa-heart" style="color: orangered">${article.likenum}</span></li>
+                    <li><span href="#" class="icon fa-comment" style="color: darkgoldenrod">128</span></li>
+                </ul>
+            </footer>
+        </article>
+    #end
+    <!-- Pagination -->
+    <ul class="actions pagination">
+        #if(${pageInfo.hasPreviousPage})
+        <li><button class="button big previous" id="pre">Previous Page</button></li>
+        #end
+        #if(!${pageInfo.hasPreviousPage})
+        <li><button class="disabled button big previous" id="pre">Previous Page</button></li>
+        #end
+        #if(${pageInfo.hasNextPage})
+            <li><button class="button big next" id="next">Next Page</button></li>
+        #end
+        #if(!${pageInfo.hasNextPage})
+        <li><button class="disabled button big next" id="next">Next Page</button></li>
+        #end
+    </ul>
+</div>
+#parse("sidebar.vm")
+
+</div>
+
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#next").click(function(){
+            window.location.href="/mainHome/"+${pageInfo.nextPage};
+        });
+        $("#pre").click(function(){
+            window.location.href="/mainHome/"+${pageInfo.prePage};
+        });
+        $("#logout").click(function () {
+            var logout = $("#logout").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success:function (data) {
+                    if(data == "logout_succ"){
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        })
+        //用户进入登录页面摧毁session
+        $("#loginPage").click(function () {
+            var loginPage = $("#loginPage").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success:function (data) {
+                    if(data == "logout_succ"){
+                        window.location.href = "/user/logInPage";
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

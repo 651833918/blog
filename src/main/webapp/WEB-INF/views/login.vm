@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>慵懒时光</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/weblogo1.jpg" media="screen"/>
+    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="/static/js/login.js"></script>
+    <link href="/static/css/login2.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<h1>Login</h1>
+
+<div class="login" style="margin-top:50px;">
+
+    <div class="header">
+        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);"
+                                           tabindex="7">账号登录</a>
+            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">账号注册</a>
+            <div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
+        </div>
+    </div>
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">
+
+        <!--登录-->
+        <div class="web_login" id="web_login">
+
+
+            <div class="login-box">
+
+
+                <div class="login_form">
+##                    <form action="/user/login" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
+                        <input type="hidden" name="to" value="log"/>
+                        <div class="uinArea" id="uinArea">
+                            <label class="input-tips" for="u">帐号：</label>
+                            <div class="inputOuter" id="uArea">
+
+                                <input type="text" id="u" name="username" class="inputstyle"/>
+                            </div>
+                        </div>
+                        <div class="pwdArea" id="pwdArea">
+                            <label class="input-tips" for="p">密码：</label>
+                            <div class="inputOuter" id="pArea">
+
+                                <input type="password" id="p" name="password" class="inputstyle"/>
+                            </div>
+                        </div>
+
+                        <div style="padding-left:50px;margin-top:20px;"><input type="submit" id="login" value="登 录" style="width:150px;" class="button_blue"/></div>
+##                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!--登录end-->
+    </div>
+
+    <!--注册-->
+    <div class="qlogin" id="qlogin" style="display: none; ">
+
+        <div class="web_login">
+            <input type="hidden" name="to" value="reg"/>
+            <input type="hidden" name="did" value="0"/>
+            <ul class="reg_form" id="reg-ul">
+                <li>
+                    <label for="user" class="input-tips2">用户名：</label>
+                    <div class="inputOuter2">
+                        <input type="text" id="user" name="user" maxlength="16" class="inputstyle2"/>
+                        <span id="user_alert" style="color: red;visibility: hidden">请输入以字母开头的5-16位用户名</span>
+                    </div>
+                </li>
+                <li>
+                    <label for="qq" class="input-tips2">邮箱：</label>
+                    <div class="inputOuter2">
+                        <input type="text" id="email" name="email" class="inputstyle2"/>
+                        <span id="email_alert" style="color: red;visibility: hidden">邮箱输入不合法</span>
+                    </div>
+                </li>
+                <li>
+                    <label for="passwd" class="input-tips2">密码：</label>
+                    <div class="inputOuter2">
+                        <input type="password" id="passwd" name="passwd" maxlength="20" class="inputstyle2"/>
+                    </div>
+                </li>
+                <li>
+                    <label for="passwd2" class="input-tips2">确认密码：</label>
+                    <div class="inputOuter2">
+                        <input type="password" id="passwd2" name="passwd2" maxlength="20" class="inputstyle2"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="inputArea">
+                        <input type="button" id="reg" style="margin-top:10px;margin-left:85px;" class="button_blue"
+                               value="快速注册"/> <a href="/user/logIn" class="zcxy">已有账号?</a>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+    <!--注册end-->
+</div>
+<script>
+    $(function () {
+        $("#user").blur(function () {
+            var userVal = $("#user").val();
+            var userReg = /^([a-zA-Z]+)[a-zA-Z0-9_-]{4,16}$/;
+            if (!userReg.test(userVal)) {
+                $("#user_alert").css("visibility", "visible");
+            } else {
+                $("#user_alert").css("visibility", "hidden");
+                $.ajax({
+                    type: "POST",
+                    url: "/user/checkUsername",
+                    data: {"username": userVal},
+                    success: function (data) {
+                        if (data == "username_fail") {
+                            alert(userVal + "已经被注册");
+                        }
+                    }
+                });
+            }
+        });
+        $("#email").blur(function () {
+            var emailVar = $("#email").val();
+            var emailReg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (!emailReg.test(emailVar)) {
+                $("#email_alert").css("visibility", "visible");
+            } else {
+                $("#email_alert").css("visibility", "hidden");
+                $.ajax({
+                    type: "POST",
+                    url: "/user/checkEmail",
+                    data: {"email": emailVar},
+                    success: function (data) {
+                        if (data == "email_fail") {
+                            alert(emailVar + "已经被注册");
+                        }
+                    }
+                });
+            }
+        });
+        $("#passwd2").blur(function () {
+            var pass = $("#passwd").val();
+            var repass = $("#passwd2").val();
+            if (pass != repass) {
+                alert("两次输入密码不一致!");
+            }
+        });
+        $("#reg").click(function () {
+            var pass = $("#passwd").val();
+            var emailVar = $("#email").val();
+            var userVal = $("#user").val();
+            var data = {"username": userVal, "password": pass, "email": emailVar};
+
+            $.ajax({
+                type: "POST",
+                url: "/user/register",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data == "regist_succ") {
+                        window.location.href = "/user/logInPage";
+                    } else {
+                        alert("服务器原因注册失败");
+                    }
+                }
+            });
+        });
+//        登录
+        $("#login").click(function () {
+            var username = $("#u").val();
+            var password = $("#p").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/login",
+                data: {"username": username, "password": password},
+                success: function (data) {
+                    if (data == "login_succ") {
+                        //登录成功后删除浏览器登录页面记录
+                        window.history.replaceState(null,null,"/mainHome/1");
+                        window.location.href = "/mainHome/1";
+                    } else {
+                        alert("密码错误");
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
