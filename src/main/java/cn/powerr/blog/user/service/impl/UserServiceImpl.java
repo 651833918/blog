@@ -52,4 +52,22 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    /**
+     * 用户名或者邮箱登录
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public User checkUser(String username, String password) {
+        User user = null;
+        try {
+            String passEncrypted = MD5Utils.encryptPassword(password);
+            user = userMapper.selectUser(username,passEncrypted);
+        } catch (Exception e) {
+           log.error("用户检查密码错误:"+e.getMessage());
+        }
+        return user;
+    }
 }

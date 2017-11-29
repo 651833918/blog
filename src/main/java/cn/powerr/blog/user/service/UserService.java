@@ -8,4 +8,6 @@ public interface UserService {
      String checkEmail(String email);
 
      Integer register(User user);
+
+    User checkUser(String username, String password);
 }

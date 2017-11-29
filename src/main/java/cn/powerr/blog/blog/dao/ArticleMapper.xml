@@ -10,6 +10,7 @@
     <result column="time" property="time" jdbcType="VARCHAR" />
     <result column="tag_id" property="tagId" jdbcType="INTEGER" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="cn.powerr.blog.blog.entity.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, title, likenum, looknum, time, tag_id, img_url
+    id, user_id, title, likenum, looknum, time, tag_id, img_url, username
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -129,12 +130,12 @@
   <insert id="insert" parameterType="cn.powerr.blog.blog.entity.Article" >
     insert into article (id, user_id, title, 
       likenum, looknum, time, 
-      tag_id, img_url, content
-      )
+      tag_id, img_url, username, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{likenum,jdbcType=INTEGER}, #{looknum,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, 
-      #{tagId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{tagId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Article" >
     insert into article
@@ -162,6 +163,9 @@
       </if>
       <if test="imgUrl != null" >
         img_url,
+      </if>
+      <if test="username != null" >
+        username,
       </if>
       <if test="content != null" >
         content,
@@ -191,6 +195,9 @@
       </if>
       <if test="imgUrl != null" >
         #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -230,6 +237,9 @@
       <if test="record.imgUrl != null" >
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -248,6 +258,7 @@
       time = #{record.time,jdbcType=VARCHAR},
       tag_id = #{record.tagId,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,7 +273,8 @@
       looknum = #{record.looknum,jdbcType=INTEGER},
       time = #{record.time,jdbcType=VARCHAR},
       tag_id = #{record.tagId,jdbcType=INTEGER},
-      img_url = #{record.imgUrl,jdbcType=VARCHAR}
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -291,6 +303,9 @@
       <if test="imgUrl != null" >
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -306,6 +321,7 @@
       time = #{time,jdbcType=VARCHAR},
       tag_id = #{tagId,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -317,7 +333,8 @@
       looknum = #{looknum,jdbcType=INTEGER},
       time = #{time,jdbcType=VARCHAR},
       tag_id = #{tagId,jdbcType=INTEGER},
-      img_url = #{imgUrl,jdbcType=VARCHAR}
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
