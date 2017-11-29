@@ -14,7 +14,6 @@
     <!--开启切面自动代理-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
@@ -37,13 +36,13 @@
     <!--前端静态资源处理-->
     <mvc:default-servlet-handler/>
 
-    <!--<mvc:interceptors>-->
-        <!--<bean class="cn.powerr.blogn.common.intercepter.SessionInterceptor"/>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <bean class="cn.powerr.blog.common.interceptor.SessionInterceptor"/>
+    </mvc:interceptors>
 
     <!--velocity输出-->
     <bean class="org.springframework.web.servlet.view.velocity.VelocityConfigurer" id="velocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/views/"/>
+        <property name="resourceLoaderPath" value="/WEB-INF/views"/>
         <property name="velocityProperties">
             <props>
                 <prop key="input.encoding">utf-8</prop>
@@ -70,6 +69,10 @@
         <property name="contentType" value="text/html;charset=utf-8"/>
         <!--日期函数名称-->
         <property name="dateToolAttribute" value="date"/>
+        <!--前端能够直接获取session的设置-->
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="requestContextAttribute" value="rc" />
     </bean>
-
 </beans>

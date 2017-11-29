@@ -17,6 +17,8 @@ public class Article {
 
     private String imgUrl;
 
+    private String username;
+
     private String content;
 
     public Integer getId() {
@@ -81,6 +83,14 @@ public class Article {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getContent() {

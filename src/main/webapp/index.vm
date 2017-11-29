@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function directUrl() {
-        window.location.href="/mainHome";
+        window.location.href="/mainHome/1";
         return;
     }
 </script>
