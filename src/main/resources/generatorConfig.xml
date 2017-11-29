@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 
+
+
     <!--classPathEntry:数据库的JDBC驱动 -->
     <classPathEntry
             location="C:\Program Files\MySQL-java-connector\mysql-connector-java-5.1.41\mysql-connector-java-5.1.41-bin.jar"/>
