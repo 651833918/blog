@@ -9,7 +9,6 @@
 
     <context id="MysqlTables" targetRuntime="MyBatis3">
 
-
         <!-- 注意这里面的顺序确定的，不能随变更改 -->
         <!-- 自定义的分页插件 <plugin type="com.deppon.foss.module.helloworld.shared.PaginationPlugin"/> -->
 
