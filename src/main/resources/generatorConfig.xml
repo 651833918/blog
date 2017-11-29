@@ -54,6 +54,7 @@
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
+
         <!-- 可选的（0 or 1） -->
         <!-- mapper 或者就是dao接口生成器 -->
         <javaClientGenerator targetPackage="cn.powerr.blog.blog.dao"
