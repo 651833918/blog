@@ -6,6 +6,8 @@ import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.ArticleExample;
 import cn.powerr.blog.blog.service.MainhomeService;
 import cn.powerr.blog.user.dao.UserMapper;
+import cn.powerr.blog.user.entity.User;
+import cn.powerr.blog.user.entity.UserExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -103,5 +105,20 @@ public class MainhomeServiceImpl implements MainhomeService {
             log.error("查询最近发表文章失败");
         }
         return recentPublish;
+    }
+
+    /**
+     * 热门博主实现
+     * @return
+     */
+    @Override
+    public List<User> searchHotUser() {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andNickNameIsNotNull();
+        example.setOrderByClause("looknum DESC");
+        PageHelper.startPage(1,5);
+        List<User> users = userMapper.selectByExample(example);
+        return users;
     }
 }
