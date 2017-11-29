@@ -71,24 +71,25 @@
                 url: "/user/logOut",
                 success:function (data) {
                     if(data == "logout_succ"){
+                        window.history.replaceState(null,null,"/mainHome/1");
                         window.location.href = "/mainHome/1";
                     }
                 }
             });
         })
-        //用户进入登录页面摧毁session
-        $("#loginPage").click(function () {
-            var loginPage = $("#loginPage").val();
-            $.ajax({
-                type: "POST",
-                url: "/user/logOut",
-                success:function (data) {
-                    if(data == "logout_succ"){
-                        window.location.href = "/user/logInPage";
-                    }
-                }
-            });
-        });
+//        //用户进入登录页面摧毁session
+//        $("#loginPage").click(function () {
+//            var loginPage = $("#loginPage").val();
+//            $.ajax({
+//                type: "POST",
+//                url: "/user/logOut",
+//                success:function (data) {
+//                    if(data == "logout_succ"){
+//                        window.location.href = "/user/logInPage";
+//                    }
+//                }
+//            });
+//        });
     });
 </script>
 </body>
