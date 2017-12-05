@@ -34,7 +34,7 @@
 
                 #if(${sessionUser})
                     <li><a href="#">个人博客</a></li>
-                    <li><a href="#">个人资料</a></li>
+                    <li><a href="/getPersonData">个人资料</a></li>
                     <li><a href="#">博客管理</a></li>
                     <li><a href="#">博客标签</a></li>
                 #end

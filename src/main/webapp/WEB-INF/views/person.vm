@@ -1,0 +1,72 @@
+#parse("header.vm")
+<!-- Main -->
+<div id="main" xmlns="http://www.w3.org/1999/html">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+
+    <article class="post" back>
+        <header style="text-align: center;display: inline-block"><span><font size="6">个人资料</font></span></header>
+        <form id="form" action="/savePersonData" method="post" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">昵称：</label>
+                    <div class="col-sm-9">
+                        #if(!${userInfo})
+                            <input type="text" id="nickName" name="nickName" class="form-control" placeholder="请输入昵称">
+                        #end
+                        #if(${userInfo})
+                            <input type="text" id="nickName" name="nickName" class="form-control"
+                                   placeholder="${userInfo.nickName}">
+                        #end
+                    </div>
+                </div>
+                <label class="col-sm-3 control-label">性别：</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="sex" id="sex">
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">简介：</label>
+                    <div class="col-sm-9">
+                        #if(${userInfo})
+                            <input type="text" id="intro" name="userIntro" class="form-control"
+                                   placeholder="${userInfo.userIntro}">
+                        #end
+                        #if(!${userInfo})
+                            <input type="text" id="intro" name="userIntro" class="form-control"
+                                   placeholder="请输入个人简介">
+                        #end
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">头像选择：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <button id="savePerson" style="width: 400px;text-align: center;margin:0px auto"><font size="6">点击修改</font>
+            </button>
+        </form>
+    </article>
+
+</div>
+
+
+</div>
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+
+    });
+</script>
+</body>
+</html>

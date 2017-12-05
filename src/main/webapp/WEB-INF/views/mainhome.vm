@@ -10,9 +10,10 @@
                     <h2><a href="#">${article.title}</a></h2>
                 </div>
                 <div class="meta">
-                    <time class="published" >${article.time}</time>
-                    <a href="#" class="author"><span class="name">${article.username}</span><img src="/static/images/avatar.jpg"
-                                                                                      alt=""/></a>
+                    <time class="published">${article.time}</time>
+                    <a href="#" class="author"><span class="name">${article.username}</span><img
+                            src="/static/images/avatar.jpg"
+                            alt=""/></a>
                 </div>
             </header>
             <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
@@ -32,16 +33,25 @@
     <!-- Pagination -->
     <ul class="actions pagination">
         #if(${pageInfo.hasPreviousPage})
-        <li><button class="button big previous" id="pre">Previous Page</button></li>
+            <li>
+                <button class="button big previous" id="pre">Previous Page</button>
+            </li>
         #end
         #if(!${pageInfo.hasPreviousPage})
-        <li><button class="disabled button big previous" id="pre">Previous Page</button></li>
+            <li>
+                <button class="disabled button big previous" id="pre">Previous Page</button>
+            </li>
         #end
+        <li><span style="color: #2ebaae">${pageInfo.pageNum}/${pageInfo.pages}</span></li>
         #if(${pageInfo.hasNextPage})
-            <li><button class="button big next" id="next">Next Page</button></li>
+            <li>
+                <button class="button big next" id="next">Next Page</button>
+            </li>
         #end
         #if(!${pageInfo.hasNextPage})
-        <li><button class="disabled button big next" id="next">Next Page</button></li>
+            <li>
+                <button class="disabled button big next" id="next">Next Page</button>
+            </li>
         #end
     </ul>
 </div>
@@ -58,20 +68,20 @@
 <script src="/static/assets/js/main.js"></script>
 <script>
     $(function () {
-        $("#next").click(function(){
-            window.location.href="/mainHome/"+${pageInfo.nextPage};
+        $("#next").click(function () {
+            window.location.href = "/mainHome/" +${pageInfo.nextPage};
         });
-        $("#pre").click(function(){
-            window.location.href="/mainHome/"+${pageInfo.prePage};
+        $("#pre").click(function () {
+            window.location.href = "/mainHome/" +${pageInfo.prePage};
         });
         $("#logout").click(function () {
             var logout = $("#logout").val();
             $.ajax({
                 type: "POST",
                 url: "/user/logOut",
-                success:function (data) {
-                    if(data == "logout_succ"){
-                        window.history.replaceState(null,null,"/mainHome/1");
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.history.replaceState(null, null, "/mainHome/1");
                         window.location.href = "/mainHome/1";
                     }
                 }

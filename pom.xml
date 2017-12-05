@@ -134,9 +134,9 @@
         </dependency>
         <!--&lt;!&ndash; 映入JSON &ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.codehaus.jackson</groupId>-->
-            <!--<artifactId>jackson-mapper-asl</artifactId>-->
-            <!--<version>1.9.13</version>-->
+        <!--<groupId>org.codehaus.jackson</groupId>-->
+        <!--<artifactId>jackson-mapper-asl</artifactId>-->
+        <!--<version>1.9.13</version>-->
         <!--</dependency>-->
         <!--日志输出管理-->
         <dependency>
@@ -191,6 +191,24 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
         </dependency>
+        <!--丰富的数据结构和工具类-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+        <!--时间处理-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--集合工具类-->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
         <!--lombok快捷工具-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -208,7 +226,12 @@
             <artifactId>velocity-tools</artifactId>
             <version>2.0</version>
         </dependency>
-
+        <!--七牛对象存储-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>[7.2.0, 7.2.99]</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>blog</finalName>
