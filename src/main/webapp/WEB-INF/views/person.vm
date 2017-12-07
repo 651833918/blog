@@ -11,12 +11,13 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">昵称：</label>
                     <div class="col-sm-9">
-                        #if(!${userInfo})
-                            <input type="text" id="nickName" name="nickName" class="form-control" placeholder="请输入昵称">
-                        #end
                         #if(${userInfo})
                             <input type="text" id="nickName" name="nickName" class="form-control"
                                    placeholder="${userInfo.nickName}">
+                        #end
+                        #if(!${userInfo})
+                            <input type="text" id="nickName" name="nickName" class="form-control"
+                                   placeholder="请输入昵称">
                         #end
                     </div>
                 </div>
@@ -30,6 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">简介：</label>
                     <div class="col-sm-9">
+
                         #if(${userInfo})
                             <input type="text" id="intro" name="userIntro" class="form-control"
                                    placeholder="${userInfo.userIntro}">

@@ -3,6 +3,8 @@ package cn.powerr.blog.blog.dao;
 import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.ArticleExample;
 import java.util.List;
+
+import cn.powerr.blog.blog.entity.ArticleWithUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface ArticleMapper {
@@ -33,4 +35,7 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+
+    List<ArticleWithUser> selectMainPost();
+    List<ArticleWithUser> selectMediumPost();
 }

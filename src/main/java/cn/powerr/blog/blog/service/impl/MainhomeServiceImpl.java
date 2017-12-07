@@ -4,6 +4,7 @@ import cn.powerr.blog.blog.dao.ArticleMapper;
 import cn.powerr.blog.blog.dao.CommentMapper;
 import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.ArticleExample;
+import cn.powerr.blog.blog.entity.ArticleWithUser;
 import cn.powerr.blog.blog.service.MainhomeService;
 import cn.powerr.blog.user.dao.UserMapper;
 import cn.powerr.blog.user.entity.User;
@@ -34,26 +35,22 @@ public class MainhomeServiceImpl implements MainhomeService {
     @Override
     @Transactional
     public Map searchLookHotInfo(Integer pageNum) {
-        List<Article> lookHot = null;
         Map result = new HashMap();
         try {
-            ArticleExample articleExample = new ArticleExample();
-            articleExample.setOrderByClause("looknum DESC,likenum DESC");
-            PageHelper.startPage(pageNum,3);
-            lookHot = articleMapper.selectByExampleWithBLOBs(articleExample);
-            PageInfo<Article> pageInfo = new PageInfo<>(lookHot);
-            Iterator<Article> iterator = lookHot.iterator();
+            PageHelper.startPage(pageNum,4);
+            List<ArticleWithUser> lookHotList = articleMapper.selectMainPost();
+            PageInfo<ArticleWithUser> pageInfo = new PageInfo<>(lookHotList);
+            Iterator<ArticleWithUser> iterator = lookHotList.iterator();
             while (iterator.hasNext()){
                 Article next = iterator.next();
                 String content = next.getContent().substring(0,100);
                 next.setContent(content);
             }
             result.put("pageInfo",pageInfo);
-            result.put("lookHot",lookHot);
+            result.put("lookHot",lookHotList);
         } catch (Exception e) {
             log.error("查询热门文章失败");
         }
-
         return result;
     }
 
@@ -63,16 +60,14 @@ public class MainhomeServiceImpl implements MainhomeService {
      */
     @Override
     @Transactional
-    public List<Article> searchLikeHotInfo(){
-        List<Article> likeHot = null;
+    public List<ArticleWithUser> searchLikeHotInfo(){
+        List<ArticleWithUser> likeHot = null;
         try {
-            ArticleExample articleExample2 = new ArticleExample();
-            articleExample2.setOrderByClause("likenum DESC");
             PageHelper.startPage(1, 4);
-            likeHot = articleMapper.selectByExampleWithBLOBs(articleExample2);
-            Iterator<Article> iterator = likeHot.iterator();
+            likeHot = articleMapper.selectMediumPost();
+            Iterator<ArticleWithUser> iterator = likeHot.iterator();
             while (iterator.hasNext()){
-                Article next = iterator.next();
+                ArticleWithUser next = iterator.next();
                 String content = next.getContent().substring(0,50);
                 next.setContent(content);
             }

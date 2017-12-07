@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andEmailEqualTo(email);
         List<User> userList = userMapper.selectByExample(example);
-        if (!userList.isEmpty()){
+        if (!userList.isEmpty()) {
             return "email_fail";
         }
         return "email_succ";
@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户名或者邮箱登录
+     *
      * @param username
      * @param password
      * @return
@@ -68,9 +69,9 @@ public class UserServiceImpl implements UserService {
         User user = null;
         try {
             String passEncrypted = MD5Utils.encryptPassword(password);
-            user = userMapper.selectUser(username,passEncrypted);
+            user = userMapper.selectUser(username, passEncrypted);
         } catch (Exception e) {
-           log.error("用户检查密码错误:"+e.getMessage());
+            log.error("用户检查密码错误:" + e.getMessage());
         }
         return user;
     }
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int savePersonData(User user, MultipartFile file) throws IOException {
         String fileName = QiniuFileUploadUtil.uploadHeadImg(file);
-        String headImgUrl = Constants.QINIU_HEAD_IMG_BUCKET_URL+"/" + fileName;
+        String headImgUrl = Constants.QINIU_PROTOCOL + Constants.QINIU_HEAD_IMG_BUCKET_URL + "/" + fileName;
         user.setHeadImg(headImgUrl);
         int result = userMapper.updateByPrimaryKeySelective(user);
         return result;

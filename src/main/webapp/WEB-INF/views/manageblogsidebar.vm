@@ -1,0 +1,98 @@
+<!-- Sidebar -->
+<section id="sidebar">
+
+##    <!-- Intro -->
+##    <section id="intro">
+##        <a href="/mainHome/${pageInfo.pageNum}" class="logo"><img src="/static/images/weblogo2.jpg" alt=""/></a>
+##        <header>
+##            <h2><span style="color: greenyellow">原</span><span style="color: lawngreen">谅</span><span
+##                    style="color: limegreen">色</span></h2>
+##            <p><span style="color: gold">阳光</span>,<span style="color: orange">沙滩</span>,<span style="color: orangered">海浪</span>,<span
+##                    style="color: red">人字拖</span>!</p>
+##        </header>
+##    </section>
+
+
+##    <!-- Mini Posts -->
+##    <section>
+##        <div class="mini-posts">
+##            <!-- Mini Post -->
+##            <!--每栏四个最佳-->
+##            #foreach(${article} in ${likeHotList})
+##                <article class="mini-post">
+##                    <header>
+##                        <h3><a href="#">${article.title}</a></h3>
+##                        <a href="#" class="author"><img src="${article.user.headImg}" alt=""/></a>
+##                        <span href="#" class="icon fa-heart" style="color: darkred">${article.likenum}</span>
+##                    </header>
+##                    <a href="#" class="image"><img src="/static/images/pic04.jpg" alt=""/></a>
+##                </article>
+##            #end
+##        </div>
+##    </section>
+
+    <!-- Posts List -->
+    <section>
+        <ul class="posts">
+                <li>
+                    <article>
+                        <header>
+                            <h2 style="text-align: left" ><a href="/blogManage">博客配置</a></h2>
+                        </header>
+                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar1.jpg" alt=""/></a>
+                    </article>
+                </li><li>
+                    <article>
+                        <header>
+                            <h2 style="text-align: center"><a href="/commentManage">评论管理</a></h2>
+                        </header>
+                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar2.jpg" alt=""/></a>
+                    </article>
+                </li><li>
+                    <article>
+                        <header>
+                            <h2 style="text-align: right"><a href="/tagManage">标签管理</a></h2>
+                        </header>
+                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar3.jpg" alt=""/></a>
+                    </article>
+                </li>
+            <li>
+                <article>
+                    <header>
+                        <h2 style="text-align: center"><a href="/blogManage">友链管理</a></h2>
+                    </header>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar4.jpg" alt=""/></a>
+                </article>
+            </li>
+            <li>
+                <article>
+                    <header>
+                        <h2 style="text-align: left"><a href="/draftsManage">草稿箱</a></h2>
+                    </header>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar5.jpg" alt=""/></a>
+                </article>
+            </li>
+        </ul>
+    </section>
+
+##    <!-- About -->
+##    <section class="blurb">
+##        <h2>About</h2>
+##        <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet
+##            placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+##        <ul class="actions">
+##            <li><a href="#" class="button">Learn More</a></li>
+##        </ul>
+##    </section>
+
+##    <!-- Footer -->
+##    <section id="footer">
+##        <!--友情链接-->
+##        <nav class="links">
+##            <ul>
+##                <li><a href="http://www.baidu.com">百度</a></li>
+##                <li><a href="http://www.coder520.com">码码在线</a></li>
+##            </ul>
+##        </nav>
+##    </section>
+</section>

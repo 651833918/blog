@@ -15,6 +15,7 @@
 ##    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
 ##    <script type="text/javascript" src="/static/js/login.js"></script>
 ##    <link href="/static/css/login2.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 
@@ -23,7 +24,7 @@
 
     <!-- Header -->
     <header id="header">
-        <h1><a href="/mainHome/${pageInfo.pageNum}">慵懒时光</a></h1>
+        <h1><a href="/mainHome/1">慵懒时光</a></h1>
         <nav class="links">
             <ul>
                 <li><a href="/mainHome/1">主页</a></li>
@@ -35,7 +36,8 @@
                 #if(${sessionUser})
                     <li><a href="#">个人博客</a></li>
                     <li><a href="/getPersonData">个人资料</a></li>
-                    <li><a href="#">博客管理</a></li>
+                    <li><a href="#">写博客</a></li>
+                    <li><a href="/blogManage">博客管理</a></li>
                     <li><a href="#">博客标签</a></li>
                 #end
             </ul>
@@ -95,3 +97,14 @@
         </section>
 
     </section>
+##    <script src="/static/assets/js/jquery.min.js"></script>
+##    <script src="/static/assets/js/skel.min.js"></script>
+##    <script src="/static/assets/js/util.js"></script>
+##    <!--[if lte IE 8]>
+##    <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+##    <script src="/static/assets/js/main.js"></script>
+##    <script>
+##        $(function () {
+##
+##        });
+##    </script>

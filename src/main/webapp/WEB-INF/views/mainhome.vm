@@ -11,12 +11,13 @@
                 </div>
                 <div class="meta">
                     <time class="published">${article.time}</time>
-                    <a href="#" class="author"><span class="name">${article.username}</span><img
-                            src="/static/images/avatar.jpg"
-                            alt=""/></a>
+                    <a href="#" class="author">
+                        <span class="name">${article.user.nickName}</span>
+                        <img src="${article.user.headImg}" alt=""/>
+                    </a>
                 </div>
             </header>
-            <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
+        ##            <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
             <p>${article.content}</p>
             <footer>
                 <ul class="actions">
@@ -81,6 +82,7 @@
                 url: "/user/logOut",
                 success: function (data) {
                     if (data == "logout_succ") {
+                        //跳过登录页面
                         window.history.replaceState(null, null, "/mainHome/1");
                         window.location.href = "/mainHome/1";
                     }
