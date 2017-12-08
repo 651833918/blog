@@ -11,10 +11,7 @@
 
 </div>
 
-<script src="/static/js/jquery.min.js"></script>
-<script src='/static/js/jquery.jplayer.min.js'></script>
-<script src='/static/js/jplayer.playlist.min.js'></script>
-<script src="/static/js/lanrenzhijia.js"></script>
+
 <!-- Scripts -->
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/skel.min.js"></script>

@@ -164,6 +164,7 @@
                 data: JSON.stringify(data),
                 success: function (data) {
                     if (data == "regist_succ") {
+                        alert("注册成功");
                         window.location.href = "/user/logInPage";
                     } else {
                         alert("服务器原因注册失败");

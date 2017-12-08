@@ -148,7 +148,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="selectBlogThroughUserId" resultMap="BaseResultMap">
+      SELECT blog_name,blog_intro,blog_url,user_id
+      FROM blog
+      WHERE user_id = #{id}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update blog
     <set >
       <if test="record.id != null" >

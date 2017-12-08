@@ -27,4 +27,6 @@ public interface BlogMapper {
     int updateByPrimaryKeySelective(Blog record);
 
     int updateByPrimaryKey(Blog record);
+
+    Blog selectBlogThroughUserId(Integer id);
 }

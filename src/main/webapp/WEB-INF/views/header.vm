@@ -8,10 +8,14 @@
     <script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="/static/assets/css/main.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="/static/images/weblogo1.jpg" media="screen"/>
+    <link href="https://dn-leanote.qbox.me/css/font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://dn-leanote.qbox.me/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://dn-leanote.qbox.me/member/css/member.css?i=2" rel="stylesheet">
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/static/assets/css/ie9.css"/><![endif]-->
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="/static/assets/css/ie8.css"/><![endif]-->
+
 ##    <script type="text/javascript" src="/static/js/jquery-1.9.0.min.js"></script>
 ##    <script type="text/javascript" src="/static/js/login.js"></script>
 ##    <link href="/static/css/login2.css" rel="stylesheet" type="text/css" />
@@ -24,7 +28,7 @@
 
     <!-- Header -->
     <header id="header">
-        <h1><a href="/mainHome/1">慵懒时光</a></h1>
+        <h4><a href="/mainHome/1">慵懒时光</a></h4>
         <nav class="links">
             <ul>
                 <li><a href="/mainHome/1">主页</a></li>

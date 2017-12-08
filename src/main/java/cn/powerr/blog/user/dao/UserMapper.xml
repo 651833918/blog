@@ -119,7 +119,7 @@
       #{headImg,jdbcType=VARCHAR}, #{userIntro,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.powerr.blog.user.entity.User" >
+  <insert id="insertSelective" parameterType="cn.powerr.blog.user.entity.User" keyProperty="id" useGeneratedKeys="true" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

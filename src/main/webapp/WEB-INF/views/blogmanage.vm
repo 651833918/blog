@@ -2,19 +2,80 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-        <article class="post" back>
+    <article class="post" back>
+        <div id="formData">
+            <section class="panel panel-default">
+                <form action="/saveBlog" method="post" enctype="multipart/form-data">
+                    <div class="panel-body">
+                        <div class="alert alert-danger" id="baseMsg" style="display: none"></div>
+                        <div role="form" id="userBlogForm">
 
-        </article>
+                            <div class="form-group">
+                                <label for="title">博客标题</label>
+                                #if(${blogInfo.blogName})
+                                    <input type="text" class="form-control" id="Title" name="blogName"
+                                           placeholder="请输入博客名"
+                                           value="${blogInfo.blogName}">
+                                #else
+                                    <input type="text" class="form-control" id="Title" name="blogName"
+                                           placeholder="请输入博客名">
+                                #end
+                            ##                                #if(${blogConfig.blogName})
+                            ##                                    <input type="text" class="form-control" id="Title" name="blogName"
+                            ##                                           placeholder="请输入博客名"
+                            ##                                           value="${blogConfig.blogName}">
+                            ##                                #end
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="logo">博客Logo</label>
+
+                                <input type="file" class="form-control" id="logo2" name="file"/>
+                                <div id="logoImg">
+                                    <img src="${blogInfo.blogUrl}" style="height: 40px"/> <a
+                                        href="#" id="deleteLogo">删除</a>
+                                </div>
+
+                                <input type="hidden" name="Logo" id="Logo"
+                                       value=""/>
+                                <iframe id="logoTarget" name="logoTarget" src="#" style="display: none"></iframe>
+                            </div>
+                            <div class="form-group">
+                                <label for="subTitle">博客描述</label>
+                                #if(${blogInfo.blogIntro})
+                                    <input type="text" class="form-control" id="SubTitle"
+                                           name="blogIntro" value="${blogInfo.blogIntro}"
+                                           placeholder="请输入博客描述">
+                                #else
+                                    <input type="text" class="form-control" id="SubTitle"
+                                           name="blogIntro"
+                                           placeholder="请输入博客描述">
+                                #end
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aboutMe" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <div id="popularToolbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer text-right bg-light lter">
+                        <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+                    </footer>
+                </form>
+            </section>
+        </div>
+    </article>
 </div>
 
 #parse("manageblogsidebar.vm")
 
 </div>
 
-<script src="/static/js/jquery.min.js"></script>
-<script src='/static/js/jquery.jplayer.min.js'></script>
-<script src='/static/js/jplayer.playlist.min.js'></script>
-<script src="/static/js/lanrenzhijia.js"></script>
+
 <!-- Scripts -->
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/skel.min.js"></script>
@@ -22,8 +83,19 @@
 <!--[if lte IE 8]>
 <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="/static/assets/js/main.js"></script>
+<script src="https://dn-leanote.qbox.me/js/jquery-1.9.0.min.js"></script>
+<script src="https://dn-leanote.qbox.me/js/bootstrap.js"></script>
+<script src="https://dn-leanote.qbox.me/js/i18n/msg.zh-cn.js?m=2"></script>
+<script src="https://dn-leanote.qbox.me/admin/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="https://dn-leanote.qbox.me/js/common.js"></script>
+<script src="https://dn-leanote.qbox.me/member/js/member.js"></script>
 <script>
     $(function () {
+        $("#deleteLogo").click(function () {
+            $("#Logo").val("");
+            $("#logoImg").hide();
+        });
+
 
     });
 </script>

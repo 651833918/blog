@@ -1,5 +1,6 @@
 package cn.powerr.blog;
 
+import cn.powerr.blog.common.utils.MD5Utils;
 import cn.powerr.blog.user.dao.UserMapper;
 import cn.powerr.blog.user.entity.User;
 import cn.powerr.blog.user.entity.UserExample;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class Tests {
     @Autowired
     private UserMapper userMapper;
 
+    @Transactional
     @Test
     public void testPageHelper() {
         PageHelper.startPage(1, 10);
@@ -28,5 +31,15 @@ public class Tests {
 
         PageInfo<User> info = new PageInfo<>(list);
         System.out.println(info.getTotal());
+    }
+
+    @Test
+    public void insertTest(){
+        User user = new User();
+        user.setUsername("xuebengang");
+        user.setPassword("1111");
+        userMapper.insertSelective(user);
+        User resultUser = userMapper.selectByPrimaryKey(user.getId());
+        System.out.println(resultUser.getId());
     }
 }

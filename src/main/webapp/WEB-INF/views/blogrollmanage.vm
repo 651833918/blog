@@ -1,0 +1,73 @@
+#parse("header.vm")
+<div id="main">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+    <article class="post" back>
+        <div id="formData">
+            <section class="panel panel-default">
+                <div class="panel-body">
+                    <div class="alert alert-danger" id="baseMsg" style="display: none"></div>
+                    <div role="form" id="userBlogForm">
+
+                        <div class="form-group">
+                            <label for="title" >博客标题</label>
+                            <input type="text" class="form-control" id="Title" name="Title"
+                                   placeholder="请输入博客名"
+                                   value="${blogInfo.blogName}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="logo">博客Logo</label>
+                            <input type="hidden" name="Logo" id="Logo"
+                                   value="" />
+                            <form id="formLogo" action="/file/uploadBlogLogo" method="post"
+                                  enctype="multipart/form-data" target="logoTarget">
+                                <input type="file" class="form-control" id="logo2" name="file"
+                                       onChange='$("#formLogo").submit();' />
+                                <div id="logoImg">
+                                    <img src="${blogInfo.blogUrl}" style="height: 40px" /> <a
+                                        href="#" id="deleteLogo">删除</a>
+                                </div>
+                            </form>
+                            <iframe id="logoTarget" name="logoTarget" src="#" style="display: none"></iframe>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subTitle">博客描述</label>
+                            <input type="text" class="form-control" id="SubTitle"
+                                   name="SubTitle" value="${blogInfo.blogIntro}"
+                                   placeholder="请输入博客描述">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aboutMe" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <div id="popularToolbar"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <footer class="panel-footer text-right bg-light lter">
+                    <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+                </footer>
+            </section>
+        </div>
+    </article>
+</div>
+
+#parse("manageblogsidebar.vm")
+
+</div>
+
+
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+</body>
+</html>

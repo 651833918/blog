@@ -46,11 +46,14 @@
                     <label class="col-sm-3 control-label">头像选择：</label>
                     <div class="col-sm-9">
                         <input type="file" name="file" class="form-control">
+                        <img src="${userInfo.headImg}" style="height: 40px"/>
                     </div>
+
                 </div>
             </div>
-            <button id="savePerson" style="width: 400px;text-align: center;margin:0px auto"><font size="6">点击修改</font>
-            </button>
+            <footer class="panel-footer text-right bg-light lter">
+                <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+            </footer>
         </form>
     </article>
 

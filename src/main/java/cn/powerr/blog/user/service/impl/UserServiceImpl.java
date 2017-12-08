@@ -1,5 +1,7 @@
 package cn.powerr.blog.user.service.impl;
 
+import cn.powerr.blog.blog.dao.BlogMapper;
+import cn.powerr.blog.blog.entity.Blog;
 import cn.powerr.blog.common.constants.Constants;
 import cn.powerr.blog.common.utils.MD5Utils;
 import cn.powerr.blog.common.utils.QiniuFileUploadUtil;
@@ -10,6 +12,7 @@ import cn.powerr.blog.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +23,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private BlogMapper blogMapper;
 
     @Override
     public String checkUsername(String username) {
@@ -45,12 +50,19 @@ public class UserServiceImpl implements UserService {
         return "email_succ";
     }
 
+    @Transactional
     @Override
     public Integer register(User user) {
         int result = 0;
         try {
             user.setPassword(MD5Utils.encryptPassword(user.getPassword()));
-            result = userMapper.insertSelective(user);
+            userMapper.insertSelective(user);
+            Blog blog = new Blog();
+            blog.setUserId(user.getId());
+            result = blogMapper.insertSelective(blog);
+//            userMapper.sele
+//            blog.setUserId();
+//            blogMapper.insertSelective()
         } catch (Exception e) {
             log.error(e.getMessage());
         }

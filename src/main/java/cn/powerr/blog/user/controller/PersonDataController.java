@@ -36,7 +36,7 @@ public class PersonDataController {
             User sessionUser = (User) session.getAttribute("sessionUser");
             user.setId(sessionUser.getId());
             int result = userService.savePersonData(user, file);
-            session.setAttribute("userInfo", sessionUser);
+            session.setAttribute("userInfo", user);
         } catch (IOException e) {
             log.error("资料修改失败");
         }
