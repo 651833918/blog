@@ -34,42 +34,44 @@
     <!-- Posts List -->
     <section>
         <ul class="posts">
-                <li>
-                    <article>
-                        <header>
-                            <h3 style="text-align: left" ><a href="/blogManage">博客配置</a></h3>
-                        </header>
-                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar1.jpg" alt=""/></a>
-                    </article>
-                </li><li>
-                    <article>
-                        <header>
-                            <h3 style="text-align: center"><a href="/commentManage">评论管理</a></h3>
-                        </header>
-                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar2.jpg" alt=""/></a>
-                    </article>
-                </li><li>
-                    <article>
-                        <header>
-                            <h3 style="text-align: right"><a href="/tagManage">标签管理</a></h3>
-                        </header>
-                        <a href="#" class="image"><img src="/static/images/blogmanagesidebar3.jpg" alt=""/></a>
-                    </article>
-                </li>
             <li>
                 <article>
                     <header>
-                        <h3 style="text-align: center"><a href="/blogrollManage">友链管理</a></h3>
+                        <h3 style="text-align: left"><a href="/blogManage">博客配置</a></h3>
                     </header>
-                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar4.jpg" alt=""/></a>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar1.jpg" alt=""/></a>
                 </article>
             </li>
             <li>
                 <article>
                     <header>
-                        <h3 style="text-align: left"><a href="/draftsManage">草稿箱</a></h3>
+                        <h3 style="text-align: center"><a href="/commentManage">评论管理</a></h3>
+                    </header>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar2.jpg" alt=""/></a>
+                </article>
+            </li>
+            <li>
+                <article>
+                    <header>
+                        <h3 style="text-align: right"><a href="/articleManage">文章管理</a></h3>
                     </header>
                     <a href="#" class="image"><img src="/static/images/blogmanagesidebar5.jpg" alt=""/></a>
+                </article>
+            </li>
+            <li>
+                <article>
+                    <header>
+                        <h3 style="text-align: center"><a href="/tagManage">标签管理</a></h3>
+                    </header>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar3.jpg" alt=""/></a>
+                </article>
+            </li>
+            <li>
+                <article>
+                    <header>
+                        <h3 style="text-align: left"><a href="/blogrollManage">友链管理</a></h3>
+                    </header>
+                    <a href="#" class="image"><img src="/static/images/blogmanagesidebar4.jpg" alt=""/></a>
                 </article>
             </li>
         </ul>

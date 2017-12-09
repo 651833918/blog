@@ -1,66 +1,58 @@
 #parse("header.vm")
 <!-- Main -->
-<div id="main" xmlns="http://www.w3.org/1999/html">
+<div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-
-    <article class="post" back>
-        <header style="text-align: center;display: inline-block"><span><font size="6">个人资料</font></span></header>
-        <form id="form" action="/savePersonData" method="post" enctype="multipart/form-data">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">昵称：</label>
-                    <div class="col-sm-9">
-                        #if(${userInfo})
-                            <input type="text" id="nickName" name="nickName" class="form-control"
-                                   placeholder="${userInfo.nickName}">
-                        #end
-                        #if(!${userInfo})
-                            <input type="text" id="nickName" name="nickName" class="form-control"
-                                   placeholder="请输入昵称">
-                        #end
-                    </div>
-                </div>
-                <label class="col-sm-3 control-label">性别：</label>
-                <div class="col-sm-9">
-                    <select class="form-control" name="sex" id="sex">
-                        <option>男</option>
-                        <option>女</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">简介：</label>
-                    <div class="col-sm-9">
-
-                        #if(${userInfo})
-                            <input type="text" id="intro" name="userIntro" class="form-control"
-                                   placeholder="${userInfo.userIntro}">
-                        #end
-                        #if(!${userInfo})
-                            <input type="text" id="intro" name="userIntro" class="form-control"
-                                   placeholder="请输入个人简介">
-                        #end
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">头像选择：</label>
-                    <div class="col-sm-9">
-                        <input type="file" name="file" class="form-control">
-                        <img src="${userInfo.headImg}" style="height: 40px"/>
-                    </div>
-
-                </div>
-            </div>
-            <footer class="panel-footer text-right bg-light lter">
-                <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+    #foreach(${article} in ${articleInfo3})
+        <article class="post">
+            <header>
+                <h3 style="text-align: center;margin: auto"><a href="#">${article.title}</a></h3>
+            </header>
+            <main style="margin-top: -30px">
+                <span>${article.content}</span>
+            </main>
+            <footer>
+                <ul class="stats" style="text-align: right;margin: auto">
+                    <li><span href="#" class="icon fa-eye">${article.looknum}</span></li>
+                    <li><span href="#" class="icon fa-heart">${article.likenum}</span></li>
+                    <li><span href="#" class="icon fa-comment">${article.commentnum}</span></li>
+                    <li>
+                        <time class="published" style="color: darkslateblue ">${article.time}</time>
+                    </li>
+                </ul>
             </footer>
-        </form>
-    </article>
+        </article>
+    #end
+
+    <!-- Pagination -->
+    <ul class="actions pagination">
+        #if(${pageInfo3.hasPreviousPage})
+            <li>
+                <button class="button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        #if(!${pageInfo3.hasPreviousPage})
+            <li>
+                <button class="disabled button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        <li><span style="color: #2ebaae">${pageInfo3.pageNum}/${pageInfo3.pages}</span></li>
+        #if(${pageInfo3.hasNextPage})
+            <li>
+                <button class="button big next" id="next">Next Page</button>
+            </li>
+        #end
+        #if(!${pageInfo3.hasNextPage})
+            <li>
+                <button class="disabled button big next" id="next">Next Page</button>
+            </li>
+        #end
+    </ul>
+</div>
+#parse("personsidebar.vm")
 
 </div>
 
-
-</div>
 <!-- Scripts -->
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/skel.min.js"></script>
@@ -70,6 +62,24 @@
 <script src="/static/assets/js/main.js"></script>
 <script>
     $(function () {
+        $("#next").click(function () {
+            window.location.href = "/showPerosonPage/${userInfo3.userId}/" +${pageInfo3.nextPage};
+        });
+        $("#pre").click(function () {
+            window.location.href = "/showPerosonPage/${userInfo3.userId}/" +${pageInfo3.prePage};
+        });
+        $("#logout").click(function () {
+            var logout = $("#logout").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        })
 
     });
 </script>

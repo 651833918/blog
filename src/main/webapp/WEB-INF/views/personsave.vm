@@ -1,0 +1,95 @@
+#parse("header.vm")
+<!-- Main -->
+<div id="main" xmlns="http://www.w3.org/1999/html">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+
+    <article class="post" back>
+        <header style="text-align: center;display: inline-block"><span><font size="6">个人资料</font></span></header>
+        <form id="form" action="/savePersonData" method="post" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">昵称：</label>
+                    <div class="col-sm-9">
+                        #if(${userInfo.nickName})
+                            <input type="text" id="nickName" name="nickName" maxlength="20" class="form-control"
+                                   placeholder="请输入昵称" value="${userInfo.nickName}">
+                        #else
+                            <input type="text" id="nickName" name="nickName" maxlength="20" class="form-control"
+                                   placeholder="请输入昵称">
+                        #end
+                    </div>
+                </div>
+                <label class="col-sm-3 control-label">性别：</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="sex" id="sex">
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">简介：</label>
+                    <div class="col-sm-9">
+
+                        #if(${userInfo.userIntro})
+                            <input type="text" id="intro" name="userIntro" class="form-control"
+                                   placeholder="请输入个人简介" value="${userInfo.userIntro}">
+                        #else
+                            <input type="text" id="intro" name="userIntro" class="form-control"
+                                   placeholder="请输入个人简介">
+                        #end
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">头像选择：</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file" class="form-control">
+                        <div id="logoImg">
+                            <img src="${userInfo.headImg}" style="height: 40px"/> <a
+                                href="#" id="deleteLogo">删除</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+                <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+            </footer>
+        </form>
+    </article>
+
+</div>
+
+
+</div>
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#logout").click(function () {
+            var logout = $("#logout").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        })
+        $(function () {
+            $("#deleteLogo").click(function () {
+                $("#Logo").val("");
+                $("#logoImg").hide();
+            });
+        });
+    });
+</script>
+</body>
+</html>

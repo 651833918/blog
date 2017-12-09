@@ -3,33 +3,21 @@
 
     <!-- Intro -->
     <section id="intro">
-        <a class="logo" href=""><img src="${blogInfo2.blogUrl}" alt=""/></a>
+        <a class="logo" href=""><img src="${blogInfo1.blogUrl}" alt=""/></a>
         <header>
-            #if(${blogInfo2.blogName})
-                <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${blogInfo2.blogName}</h5>
-            #else
-                <h4 style="text-align: left;color: indigo">请完成博客配置</h4>
-            #end
-            #if(${blogInfo2.blogIntro})
-                <p style="word-wrap:break-word;overflow:hidden;">博客简介：${blogInfo2.blogIntro}</p>
-            #end
-            <p>访问人数：<font style="color: purple">${userInfo2.looknum}</font></p>
+            <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${blogInfo1.blogName}</h5>
+            <p style="word-wrap:break-word;overflow:hidden;">博客简介：${blogInfo1.blogIntro}</p>
+            <p>访问人数：<font style="color: purple">${userInfo1.looknum}</font></p>
         </header>
     </section>
 
     <!--博主简介-->
     <section id="intro">
-        <a class="logo" href=""><img src="${userInfo2.headImg}" alt=""/></a>
+        <a class="logo" href=""><img src="${userInfo1.headImg}" alt=""/></a>
         <header>
-            #if(${userInfo2.nickName})
-                <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo2.nickName}</h5>
-            #else
-                <h4 style="text-align: left;color: indigo">请完成资料配置</h4>
-            #end
-            #if(${userInfo2.userIntro})
-                <p style="word-wrap:break-word;overflow:hidden;">博主简介：${userInfo2.userIntro}</p>
-            #end
-            <p>博主邮箱：${userInfo2.email}</p>
+            <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo1.nickName}</h5>
+            <p style="word-wrap:break-word;overflow:hidden;">博主简介：${userInfo1.userIntro}</p>
+            <p>博主邮箱：${userInfo1.email}</p>
         </header>
     </section>
 
@@ -58,7 +46,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: mediumpurple">阅读排行</h5>
-            #foreach(${article} in ${readHot2})
+            #foreach(${article} in ${readHot1})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="#">${article.title}</a>
@@ -75,7 +63,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: rebeccapurple">评论排行</h5>
-            #foreach(${article} in ${commentHot2})
+            #foreach(${article} in ${commentHot1})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="#">${article.title}</a>
@@ -93,16 +81,16 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: purple">推荐文章</h5>
-            #foreach(${article} in ${likeHot2})
+            #foreach(${article} in ${likeHot1})
 
-                <article class="mini-post" style="text-align: center;margin: auto">
-                    <div>
-                        <h5><a href="#">${article.title}</a>
-                            <span href="#" class="icon fa-heart" style="color:darkred;">${article.likenum}</span>
-                        </h5>
+            <article class="mini-post" style="text-align: center;margin: auto">
+                <div>
+                    <h5><a href="#">${article.title}</a>
+                        <span href="#" class="icon fa-heart" style="color:darkred;">${article.likenum}</span>
+                    </h5>
 
-                    </div>
-                </article>
+                </div>
+            </article>
             #end
         </div>
     </section>

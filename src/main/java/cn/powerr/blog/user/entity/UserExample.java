@@ -104,63 +104,63 @@ public class UserExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andUserIdIsNull() {
+            addCriterion("user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andUserIdEqualTo(Integer value) {
+            addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andUserIdNotEqualTo(Integer value) {
+            addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andUserIdGreaterThan(Integer value) {
+            addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andUserIdLessThan(Integer value) {
+            addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andUserIdIn(List<Integer> values) {
+            addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andUserIdNotIn(List<Integer> values) {
+            addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
 
@@ -721,6 +721,66 @@ public class UserExample {
 
         public Criteria andBirthdayNotBetween(String value1, String value2) {
             addCriterion("birthday not between", value1, value2, "birthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumIsNull() {
+            addCriterion("looknum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumIsNotNull() {
+            addCriterion("looknum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumEqualTo(Integer value) {
+            addCriterion("looknum =", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotEqualTo(Integer value) {
+            addCriterion("looknum <>", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumGreaterThan(Integer value) {
+            addCriterion("looknum >", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("looknum >=", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumLessThan(Integer value) {
+            addCriterion("looknum <", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumLessThanOrEqualTo(Integer value) {
+            addCriterion("looknum <=", value, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumIn(List<Integer> values) {
+            addCriterion("looknum in", values, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotIn(List<Integer> values) {
+            addCriterion("looknum not in", values, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumBetween(Integer value1, Integer value2) {
+            addCriterion("looknum between", value1, value2, "looknum");
+            return (Criteria) this;
+        }
+
+        public Criteria andLooknumNotBetween(Integer value1, Integer value2) {
+            addCriterion("looknum not between", value1, value2, "looknum");
             return (Criteria) this;
         }
     }

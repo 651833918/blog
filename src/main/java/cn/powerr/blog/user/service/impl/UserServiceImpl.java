@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(MD5Utils.encryptPassword(user.getPassword()));
             userMapper.insertSelective(user);
             Blog blog = new Blog();
-            blog.setUserId(user.getId());
+            blog.setUserId(user.getUserId());
             result = blogMapper.insertSelective(blog);
 //            userMapper.sele
 //            blog.setUserId();
@@ -95,5 +95,27 @@ public class UserServiceImpl implements UserService {
         user.setHeadImg(headImgUrl);
         int result = userMapper.updateByPrimaryKeySelective(user);
         return result;
+    }
+
+    @Override
+    public User searchUser(Integer id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        return user;
+    }
+
+    /**
+     * 站长页面所需博主
+     * @return
+     */
+    @Override
+    public User searchUserByEmail() {
+
+        User user = null;
+        try {
+            user = userMapper.selectByEmail("651833918@qq.com");
+        } catch (Exception e) {
+            log.error("通过EMAIL查询用户失败");
+        }
+        return user;
     }
 }

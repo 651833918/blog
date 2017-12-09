@@ -28,21 +28,20 @@
 
     <!-- Header -->
     <header id="header">
-        <h4><a href="/mainHome/1">慵懒时光</a></h4>
         <nav class="links">
             <ul>
                 <li><a href="/mainHome/1">主页</a></li>
-                <li><a href="#">站长博客</a></li>
+                <li><a href="/showStationMasterBlog/1">站长博客</a></li>
                 #if(!${sessionUser})
                     <li><a href="/user/logInPage">登录</a></li>
-                #end
 
+                #end
                 #if(${sessionUser})
-                    <li><a href="#">个人博客</a></li>
+                    <li><a href="/showUserBlog/1">个人博客</a></li>
                     <li><a href="/getPersonData">个人资料</a></li>
-                    <li><a href="#">写博客</a></li>
                     <li><a href="/blogManage">博客管理</a></li>
-                    <li><a href="#">博客标签</a></li>
+                    <li><a href="#">写文章</a></li>
+                    <li><a href="/draftsManage">草稿箱</a></li>
                 #end
             </ul>
         </nav>
@@ -73,11 +72,11 @@
 
         <!-- Links -->
         <section>
-            <h1 style="color:darkred">热门博主</h1>
+            <h5 style="color:darkred;text-align: center;margin-top: -20px">热门博主</h5>
             <ul class="links">
                 #foreach(${user} in ${users})
-                    <li>
-                        <a href="#">
+                    <li style="text-align: center">
+                        <a href="/showPerosonPage/${user.userId}/1">
                             <h3>${user.nickName}</h3>
                             #if(!${user.userIntro})
                                 <p></p>

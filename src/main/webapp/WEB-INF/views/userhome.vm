@@ -3,41 +3,53 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-    <article class="post">
-        <header>
-            <div class="title">
-                <h2><a href="#">Magna sed adipiscing</a></h2>
-                <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-            </div>
-            <div class="meta">
-                <time class="published" datetime="2015-11-01">November 1, 2015</time>
-                <a href="#" class="author"><span class="name">Jane Doe</span><img src="/static/images/avatar.jpg" alt=""/></a>
-            </div>
-        </header>
-        <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
-        <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
-            placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-            congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus
-            vitae, ultricies congue gravida diam non fringilla.</p>
-        <footer>
-            <ul class="actions">
-                <li><a href="#" class="button big">Continue Reading</a></li>
-            </ul>
-            <ul class="stats">
-                <li><a href="#">General</a></li>
-                <li><a href="#" class="icon fa-heart">28</a></li>
-                <li><a href="#" class="icon fa-comment">128</a></li>
-            </ul>
-        </footer>
-    </article>
+    #foreach(${article} in ${articleInfo2})
+        <article class="post">
+            <header>
+                <h3 style="text-align: center;margin: auto"><a href="#">${article.title}</a></h3>
+            </header>
+            <main style="margin-top: -30px">
+                <span>${article.content}</span>
+            </main>
+            <footer>
+                <ul class="stats" style="text-align: right;margin: auto">
+                    <li><span href="#" class="icon fa-eye">${article.looknum}</span></li>
+                    <li><span href="#" class="icon fa-heart">${article.likenum}</span></li>
+                    <li><span href="#" class="icon fa-comment">${article.commentnum}</span></li>
+                    <li>
+                        <time class="published"  style="color: darkslateblue ">${article.time}</time>
+                    </li>
+                </ul>
+            </footer>
+        </article>
+    #end
 
     <!-- Pagination -->
     <ul class="actions pagination">
-        <li><a href="" class="disabled button big previous">Previous Page</a></li>
-        <li><a href="#" class="button big next">Next Page</a></li>
+        #if(${pageInfo2.hasPreviousPage})
+            <li>
+                <button class="button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        #if(!${pageInfo2.hasPreviousPage})
+            <li>
+                <button class="disabled button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        <li><span style="color: #2ebaae">${pageInfo2.pageNum}/${pageInfo2.pages}</span></li>
+        #if(${pageInfo2.hasNextPage})
+            <li>
+                <button class="button big next" id="next">Next Page</button>
+            </li>
+        #end
+        #if(!${pageInfo2.hasNextPage})
+            <li>
+                <button class="disabled button big next" id="next">Next Page</button>
+            </li>
+        #end
     </ul>
 </div>
-#parse("sidebar.vm")
+#parse("usersidebar.vm")
 
 </div>
 
@@ -48,6 +60,28 @@
 <!--[if lte IE 8]>
 <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#next").click(function () {
+            window.location.href = "/showUserBlog/" +${pageInfo2.nextPage};
+        });
+        $("#pre").click(function () {
+            window.location.href = "/showUserBlog/" +${pageInfo2.prePage};
+        });
+        $("#logout").click(function () {
+            var logout = $("#logout").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        })
 
+    });
+</script>
 </body>
 </html>

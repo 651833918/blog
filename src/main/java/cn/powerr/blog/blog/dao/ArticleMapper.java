@@ -38,4 +38,10 @@ public interface ArticleMapper {
 
     List<ArticleWithUser> selectMainPost();
     List<ArticleWithUser> selectMediumPost();
+
+    List<Article> selectReadHot(@Param("userId") Integer userId);
+
+    List<Article> selectCommentHot(@Param("userId")Integer userId);
+
+    List<Article> selectLikeHot(@Param("userId")Integer userId);
 }

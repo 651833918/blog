@@ -2,17 +2,17 @@ package cn.powerr.blog.blog.controller;
 
 import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
+import cn.powerr.blog.blog.entity.Blog;
 import cn.powerr.blog.blog.service.MainhomeService;
+import cn.powerr.blog.blog.service.StationMasterBlogService;
 import cn.powerr.blog.user.entity.User;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -23,6 +23,8 @@ import java.util.Map;
 public class ShowPageController {
     @Autowired
     private MainhomeService mainhomeService;
+    @Autowired
+    private StationMasterBlogService stationMasterBlogService;
 
 
     /**
@@ -32,7 +34,6 @@ public class ShowPageController {
      * @return
      */
     @RequestMapping(value = "/mainHome/{pageNum}")
-    @Transactional
     public String redirctToMainHome(@PathVariable("pageNum") Integer pageNum, Model model, HttpSession session) {
         String mainHomeUrl = "mainhome";
         try {

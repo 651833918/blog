@@ -3,33 +3,34 @@
 
     <!-- Intro -->
     <section id="intro">
-        <a class="logo" href=""><img src="${blogInfo2.blogUrl}" alt=""/></a>
+        <a class="logo" href=""><img src="${blogInfo3.blogUrl}" alt=""/></a>
         <header>
-            #if(${blogInfo2.blogName})
-                <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${blogInfo2.blogName}</h5>
+            #if(${blogInfo3.blogName})
+                <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${blogInfo3.blogName}</h5>
             #else
-                <h4 style="text-align: left;color: indigo">请完成博客配置</h4>
+                <h4 style="text-align: left;color: indigo"></h4>
             #end
-            #if(${blogInfo2.blogIntro})
-                <p style="word-wrap:break-word;overflow:hidden;">博客简介：${blogInfo2.blogIntro}</p>
+            #if(${blogInfo3.blogIntro})
+                ## style="word-wrap:break-word;overflow:hidden;" 解决英文单词过长问题
+                <p style="word-wrap:break-word;overflow:hidden;">博客简介：${blogInfo3.blogIntro}</p>
             #end
-            <p>访问人数：<font style="color: purple">${userInfo2.looknum}</font></p>
+            <p>访问人数：<font style="color: purple">${userInfo3.looknum}</font></p>
         </header>
     </section>
 
     <!--博主简介-->
     <section id="intro">
-        <a class="logo" href=""><img src="${userInfo2.headImg}" alt=""/></a>
+        <a class="logo" href=""><img src="${userInfo3.headImg}" alt=""/></a>
         <header>
-            #if(${userInfo2.nickName})
-                <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo2.nickName}</h5>
+            #if(${userInfo3.nickName})
+                <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo3.nickName}</h5>
             #else
-                <h4 style="text-align: left;color: indigo">请完成资料配置</h4>
+                <h4 style="text-align: left;color: indigo"></h4>
             #end
-            #if(${userInfo2.userIntro})
-                <p style="word-wrap:break-word;overflow:hidden;">博主简介：${userInfo2.userIntro}</p>
+            #if(${userInfo3.userIntro})
+                <p style="word-wrap:break-word;overflow:hidden;">博主简介：${userInfo3.userIntro}</p>
             #end
-            <p>博主邮箱：${userInfo2.email}</p>
+            <p>博主邮箱：${userInfo3.email}</p>
         </header>
     </section>
 
@@ -58,7 +59,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: mediumpurple">阅读排行</h5>
-            #foreach(${article} in ${readHot2})
+            #foreach(${article} in ${readHot3})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="#">${article.title}</a>
@@ -75,7 +76,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: rebeccapurple">评论排行</h5>
-            #foreach(${article} in ${commentHot2})
+            #foreach(${article} in ${commentHot3})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="#">${article.title}</a>
@@ -93,7 +94,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: purple">推荐文章</h5>
-            #foreach(${article} in ${likeHot2})
+            #foreach(${article} in ${likeHot3})
 
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>

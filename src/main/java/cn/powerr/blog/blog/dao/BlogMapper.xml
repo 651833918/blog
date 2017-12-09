@@ -149,7 +149,7 @@
     </if>
   </select>
     <select id="selectBlogThroughUserId" resultMap="BaseResultMap">
-      SELECT blog_name,blog_intro,blog_url,user_id
+      SELECT id,blog_name,blog_intro,blog_url,user_id
       FROM blog
       WHERE user_id = #{id}
     </select>

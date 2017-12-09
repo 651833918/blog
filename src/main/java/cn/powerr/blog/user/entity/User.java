@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class User {
-    private Integer id;
+    private Integer userId;
 
     private String username;
 
@@ -22,8 +22,6 @@ public class User {
 
     private String birthday;
 
-    public Integer getId() {
-        return id;
-    }
+    private String looknum;
 
 }

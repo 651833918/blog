@@ -15,4 +15,9 @@ public interface UserService {
     User checkUser(String username, String password);
 
     int savePersonData(User user, MultipartFile file) throws IOException;
+
+    User searchUser(Integer id);
+
+    User searchUserByEmail();
+
 }

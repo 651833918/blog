@@ -5,14 +5,14 @@
     <!--article每页三个展示最佳-->
     #foreach(${article} in ${lookHotList})
         <article class="post" back>
-            <header>
+            <header style="margin-top: -70px">
                 <div class="title">
-                    <h2><a href="#">${article.title}</a></h2>
+                    <h2 ><a href="#">${article.title}</a></h2>
                 </div>
                 <div class="meta">
                     <time class="published">${article.time}</time>
-                    <a href="#" class="author">
-                        <span class="name">${article.user.nickName}</span>
+                    <a href="/showPerosonPage/${article.user.userId}/1" class="author">
+                        <span class="name" >${article.user.nickName}</span>
                         <img src="${article.user.headImg}" alt=""/>
                     </a>
                 </div>
@@ -24,15 +24,15 @@
                     <li><a href="#" class="button big">Continue Reading</a></li>
                 </ul>
                 <ul class="stats">
-                    <li><span href="#" class="icon fa-eye" style="color:deepskyblue;">${article.looknum}</span></li>
-                    <li><span href="#" class="icon fa-heart" style="color: orangered">${article.likenum}</span></li>
-                    <li><span href="#" class="icon fa-comment" style="color: darkgoldenrod">128</span></li>
+                    <li><span href="#" class="icon fa-eye" style="color:darkred;">${article.looknum}</span></li>
+                    <li><span href="#" class="icon fa-heart" style="color: darkred">${article.likenum}</span></li>
+                    <li><span href="#" class="icon fa-comment" style="color: darkred">${article.commentnum}</span></li>
                 </ul>
             </footer>
         </article>
     #end
     <!-- Pagination -->
-    <ul class="actions pagination">
+    <ul class="actions pagination" >
         #if(${pageInfo.hasPreviousPage})
             <li>
                 <button class="button big previous" id="pre">Previous Page</button>

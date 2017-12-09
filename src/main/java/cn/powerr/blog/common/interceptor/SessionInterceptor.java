@@ -11,10 +11,10 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String uri = httpServletRequest.getRequestURI();
-        if ((uri.indexOf("register") >= 0) || (uri.indexOf("login") > 0) || (uri.indexOf("mainHome") >= 0 || (uri.indexOf("logInPage") >= 0 || (uri.equals("/"))))) {
+        if ((uri.indexOf("register") >= 0) || (uri.indexOf("login") > 0) || (uri.indexOf("mainHome") >= 0 || (uri.indexOf("showStationMasterBlog")) >= 0 || (uri.indexOf("logInPage") >= 0 || (uri.equals("/"))))) {
             return true;
         }
-        if ((uri.indexOf("checkUsername") >= 0)|| (uri.indexOf("checkEmail") >= 0)) {
+        if ((uri.indexOf("checkUsername") >= 0) || (uri.indexOf("checkEmail") >= 0) || (uri.indexOf("showPerosonPage") >= 0)) {
             return true;
         }
         User user = (User) httpServletRequest.getSession().getAttribute("sessionUser");

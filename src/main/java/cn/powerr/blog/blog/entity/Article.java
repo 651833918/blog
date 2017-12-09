@@ -21,9 +21,11 @@ public class Article {
 
     private String imgUrl;
 
-    private String username;
-
     private String content;
+
+    private String commentnum;
+
+    private Integer state;
 
 
 }

@@ -26,21 +26,24 @@ public class PersonDataController {
     private MainhomeService mainhomeService;
 
     @RequestMapping("/getPersonData")
-    public String getPersonData() {
-        return "person";
+    public String getPersonData(HttpSession session,Model model) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        User user = userService.searchUser(sessionUser.getUserId());
+        model.addAttribute("userInfo",user);
+        return "personsave";
     }
 
     @RequestMapping("/savePersonData")
     public String savePersonData(User user, HttpSession session, @RequestParam(value = "file", required = true) MultipartFile file, Model model) {
         try {
             User sessionUser = (User) session.getAttribute("sessionUser");
-            user.setId(sessionUser.getId());
-            int result = userService.savePersonData(user, file);
-            session.setAttribute("userInfo", user);
+            user.setUserId(sessionUser.getUserId());
+            userService.savePersonData(user, file);
+            model.addAttribute("userInfo", user);
         } catch (IOException e) {
             log.error("资料修改失败");
         }
-        return "person";
+        return "personsave";
     }
 
 }

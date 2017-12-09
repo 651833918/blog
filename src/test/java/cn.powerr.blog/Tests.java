@@ -34,12 +34,12 @@ public class Tests {
     }
 
     @Test
-    public void insertTest(){
+    public void insertTest() {
         User user = new User();
         user.setUsername("xuebengang");
         user.setPassword("1111");
         userMapper.insertSelective(user);
-        User resultUser = userMapper.selectByPrimaryKey(user.getId());
-        System.out.println(resultUser.getId());
+        User resultUser = userMapper.selectByPrimaryKey(user.getUserId());
+        System.out.println(resultUser.getUserId());
     }
 }
