@@ -10,5 +10,8 @@ public class Constants {
     public static final String QINIU_HEAD_IMG_BUCKET_NAME = "blog";
     public static final String QINIU_HEAD_IMG_BUCKET_URL = "p0hvx0jyc.bkt.clouddn.com";
     //public static final String QINIU_HEAD_IMG_URL = "p086oszzx.bkt.clouddn.com";
+
+    public static final String QINIU_ARTICLE_IMG_BUCKET_NAEME = "blogarticle";
+    public static final String QINIU_ARTICLE_IMG_BUCKET_URL = "p0qa06yqw.bkt.clouddn.com";
     /**七牛云存储key结束**/
 }

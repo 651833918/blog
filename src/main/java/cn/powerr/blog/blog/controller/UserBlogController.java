@@ -26,34 +26,34 @@ public class UserBlogController {
     private UserService userService;
 
     @RequestMapping("/showUserBlog/{pageNum}")
-    public String showUserBlog(@PathVariable("pageNum") Integer pageNum, Model model, HttpSession session){
+    public String showUserBlog(@PathVariable("pageNum") Integer pageNum, Model model, HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         try {
-            Map articles =  stationMasterBlogService.searchArticle(sessionUser.getUserId(),pageNum);
+            Map articles = stationMasterBlogService.searchArticle(sessionUser.getUserId(), pageNum);
             PageInfo pageInfo = (PageInfo) articles.get("pageInfo");
             List<Article> articleInfo = (List<Article>) articles.get("articles");
-            model.addAttribute("pageInfo2",pageInfo);
-            model.addAttribute("articleInfo2",articleInfo);
+            model.addAttribute("pageInfo2", pageInfo);
+            model.addAttribute("articleInfo2", articleInfo);
         } catch (Exception e) {
             log.error("文章查询失败");
         }
         try {
-            Map<String, Object> blogAndUser =  stationMasterBlogService.searchBlogAndUser(sessionUser.getUserId());
+            Map<String, Object> blogAndUser = stationMasterBlogService.searchBlogAndUser(sessionUser.getUserId());
             User userInfo = (User) blogAndUser.get("user");
             Blog blogInfo = (Blog) blogAndUser.get("blog");
-            model.addAttribute("userInfo2",userInfo);
-            model.addAttribute("blogInfo2",blogInfo);
+            model.addAttribute("userInfo2", userInfo);
+            model.addAttribute("blogInfo2", blogInfo);
         } catch (Exception e) {
             log.error("用户信息或者博客信息查找失败");
         }
         try {
-            Map<String,List> sidebarExceptTag =  stationMasterBlogService.searchsidebarExceptTag(sessionUser.getUserId());
-            List<Article> readHot =  sidebarExceptTag.get("readHot");
+            Map<String, List> sidebarExceptTag = stationMasterBlogService.searchsidebarExceptTag(sessionUser.getUserId());
+            List<Article> readHot = sidebarExceptTag.get("readHot");
             List<Article> likeHot = sidebarExceptTag.get("likeHot");
             List<Article> commentHot = sidebarExceptTag.get("commentHot");
-            model.addAttribute("readHot2",readHot);
-            model.addAttribute("likeHot2",likeHot);
-            model.addAttribute("commentHot2",commentHot);
+            model.addAttribute("readHot2", readHot);
+            model.addAttribute("likeHot2", likeHot);
+            model.addAttribute("commentHot2", commentHot);
         } catch (Exception e) {
             log.error("排行信息错误");
         }
@@ -61,7 +61,11 @@ public class UserBlogController {
     }
 
     @RequestMapping("/showPerosonPage/{userId}/{pageNum}")
-    public String getUserPage(@PathVariable(value = "userId") Integer userId, @PathVariable("pageNum") Integer pageNum, Model model) {
+    public String getUserPage(@PathVariable(value = "userId") Integer userId,
+                              @PathVariable("pageNum") Integer pageNum, Model model, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        //用户登录后自己的id
+        Integer userIdLocal = sessionUser.getUserId();
         try {
             Map articles = stationMasterBlogService.searchArticle(userId, pageNum);
             PageInfo pageInfo = (PageInfo) articles.get("pageInfo");
@@ -70,9 +74,9 @@ public class UserBlogController {
             model.addAttribute("articleInfo3", articleInfo);
         } catch (Exception e) {
             log.error("文章查询失败");
-    }
+        }
         try {
-            Map<String, Object> blogAndUser = stationMasterBlogService.searchBlogAndUser(userId);
+            Map<String, Object> blogAndUser = stationMasterBlogService.searchBlogAndUser(userId,userIdLocal);
             User userInfo = (User) blogAndUser.get("user");
             Blog blogInfo = (Blog) blogAndUser.get("blog");
             model.addAttribute("userInfo3", userInfo);

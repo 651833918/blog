@@ -43,7 +43,7 @@ public class StationMasterBlogController {
             log.error("文章查询失败");
         }
         try {
-            Map<String, Object> blogAndUser =  stationMasterBlogService.searchBlogAndUser(user.getUserId());
+            Map<String, Object> blogAndUser =  stationMasterBlogService.searchStationMaster(user.getUserId());
             User userInfo = (User) blogAndUser.get("user");
             Blog blogInfo = (Blog) blogAndUser.get("blog");
             model.addAttribute("userInfo1",userInfo);

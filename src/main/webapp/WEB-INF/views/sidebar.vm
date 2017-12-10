@@ -40,8 +40,8 @@
                 <li style="margin-bottom: -10px;text-align: center">
                     <article>
                         <header>
-                            <h3><a href="#">${article.title}</a></h3>
-                            <time class="published" datet="2015-10-20">${article.time}</time>
+                            <h3 style="font-size: medium;"><a href="#">${article.title}</a></h3>
+                            <time class="published" style="font-size: x-small">${article.time}</time>
                         </header>
                     ##                    <a href="#" class="image"><img src="/static/images/pic02.jpg" alt=""/></a>
                     </article>

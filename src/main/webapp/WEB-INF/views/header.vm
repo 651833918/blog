@@ -11,6 +11,9 @@
     <link href="https://dn-leanote.qbox.me/css/font-awesome-4.2.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://dn-leanote.qbox.me/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://dn-leanote.qbox.me/member/css/member.css?i=2" rel="stylesheet">
+    <link rel="stylesheet" href="/static/mdueditor/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/static/mdueditor/css/editormd.preview.min.css">
+
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/static/assets/css/ie9.css"/><![endif]-->
     <!--[if lte IE 8]>
@@ -40,7 +43,7 @@
                     <li><a href="/showUserBlog/1">个人博客</a></li>
                     <li><a href="/getPersonData">个人资料</a></li>
                     <li><a href="/blogManage">博客管理</a></li>
-                    <li><a href="#">写文章</a></li>
+                    <li><a href="/writeArticle">写文章</a></li>
                     <li><a href="/draftsManage">草稿箱</a></li>
                 #end
             </ul>

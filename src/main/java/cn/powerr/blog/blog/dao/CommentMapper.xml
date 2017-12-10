@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.powerr.blog.blog.dao.CommentMapper" >
   <resultMap id="BaseResultMap" type="cn.powerr.blog.blog.entity.Comment" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="article_id" property="articleId" jdbcType="INTEGER" />
     <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, article_id, comment_content, commont_time
+    comment_id, user_id, article_id, comment_content, commont_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.powerr.blog.blog.entity.CommentExample" >
     select
@@ -87,11 +87,11 @@
     select 
     <include refid="Base_Column_List" />
     from comment
-    where id = #{id,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
-    where id = #{id,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="cn.powerr.blog.blog.entity.CommentExample" >
     delete from comment
@@ -100,16 +100,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.powerr.blog.blog.entity.Comment" >
-    insert into comment (id, user_id, article_id, 
+    insert into comment (comment_id, user_id, article_id, 
       comment_content, commont_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
+    values (#{commentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
       #{commentContent,jdbcType=VARCHAR}, #{commontTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Comment" >
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="commentId != null" >
+        comment_id,
       </if>
       <if test="userId != null" >
         user_id,
@@ -125,8 +125,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
@@ -151,8 +151,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update comment
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.commentId != null" >
+        comment_id = #{record.commentId,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -173,7 +173,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update comment
-    set id = #{record.id,jdbcType=INTEGER},
+    set comment_id = #{record.commentId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       article_id = #{record.articleId,jdbcType=INTEGER},
       comment_content = #{record.commentContent,jdbcType=VARCHAR},
@@ -198,7 +198,7 @@
         commont_time = #{commontTime,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.powerr.blog.blog.entity.Comment" >
     update comment
@@ -206,6 +206,6 @@
       article_id = #{articleId,jdbcType=INTEGER},
       comment_content = #{commentContent,jdbcType=VARCHAR},
       commont_time = #{commontTime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
   </update>
 </mapper>

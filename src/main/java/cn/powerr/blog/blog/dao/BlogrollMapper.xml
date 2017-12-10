@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.powerr.blog.blog.dao.BlogrollMapper" >
   <resultMap id="BaseResultMap" type="cn.powerr.blog.blog.entity.Blogroll" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="blogroll_id" property="blogrollId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="describe" property="describe" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, describe, url
+    blogroll_id, user_id, describe, url
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.powerr.blog.blog.entity.BlogrollExample" >
     select
@@ -86,11 +86,11 @@
     select 
     <include refid="Base_Column_List" />
     from blogroll
-    where id = #{id,jdbcType=INTEGER}
+    where blogroll_id = #{blogrollId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from blogroll
-    where id = #{id,jdbcType=INTEGER}
+    where blogroll_id = #{blogrollId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="cn.powerr.blog.blog.entity.BlogrollExample" >
     delete from blogroll
@@ -99,16 +99,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.powerr.blog.blog.entity.Blogroll" >
-    insert into blogroll (id, user_id, describe, 
+    insert into blogroll (blogroll_id, user_id, describe, 
       url)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR}, 
+    values (#{blogrollId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Blogroll" >
     insert into blogroll
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="blogrollId != null" >
+        blogroll_id,
       </if>
       <if test="userId != null" >
         user_id,
@@ -121,8 +121,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="blogrollId != null" >
+        #{blogrollId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
@@ -144,8 +144,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update blogroll
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.blogrollId != null" >
+        blogroll_id = #{record.blogrollId,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -163,7 +163,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update blogroll
-    set id = #{record.id,jdbcType=INTEGER},
+    set blogroll_id = #{record.blogrollId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       describe = #{record.describe,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR}
@@ -184,13 +184,13 @@
         url = #{url,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where blogroll_id = #{blogrollId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.powerr.blog.blog.entity.Blogroll" >
     update blogroll
     set user_id = #{userId,jdbcType=INTEGER},
       describe = #{describe,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where blogroll_id = #{blogrollId,jdbcType=INTEGER}
   </update>
 </mapper>

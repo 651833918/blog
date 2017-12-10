@@ -73,4 +73,9 @@ public class BlogController {
     public String manageArticle(Model model){
         return "articlemanage";
     }
+
+    @RequestMapping("/writeArticle")
+    public String writeArticle(){
+        return "write_article";
+    }
 }

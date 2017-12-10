@@ -12,11 +12,15 @@ import cn.powerr.blog.user.entity.UserExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -25,9 +29,8 @@ public class MainhomeServiceImpl implements MainhomeService {
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired
-    private CommentMapper commentMapper;
-    @Autowired
     private UserMapper userMapper;
+    private DateTime dateTime;
 
     /**
      * 主页MainPost浏览数最多文章
@@ -45,6 +48,8 @@ public class MainhomeServiceImpl implements MainhomeService {
             Iterator<ArticleWithUser> iterator = lookHotList.iterator();
             while (iterator.hasNext()) {
                 Article next = iterator.next();
+                dateTime = new DateTime(Long.parseLong(next.getTime()));
+                next.setTime(dateTime.toString("dd MMMM yyyy EEEE"));
                 if (next.getContent() != null) {
                     String content = next.getContent();
                     if (content.length() > 100) {
@@ -124,6 +129,8 @@ public class MainhomeServiceImpl implements MainhomeService {
             Iterator<Article> iterator = recentPublish.iterator();
             while (iterator.hasNext()) {
                 Article next = iterator.next();
+                dateTime = new DateTime(Long.parseLong(next.getTime()));
+                next.setTime(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
                 if (next.getTitle() != null) {
                     String title = next.getTitle();
                     if (title.length() > 20) {

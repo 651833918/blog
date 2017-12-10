@@ -6,6 +6,7 @@ import cn.powerr.blog.user.entity.User;
 import cn.powerr.blog.user.entity.UserExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,17 @@ public class Tests {
         userMapper.insertSelective(user);
         User resultUser = userMapper.selectByPrimaryKey(user.getUserId());
         System.out.println(resultUser.getUserId());
+    }
+
+    @Test
+    public void testjodaTime(){
+        DateTime dateTime = new DateTime(System.currentTimeMillis());
+        System.out.println(dateTime);
+        System.out.println(dateTime.dayOfYear());
+        System.out.println(dateTime.dayOfMonth());
+        System.out.println(dateTime.toLocalDateTime());
+        System.out.println(dateTime.toDateTime());
+        System.out.println("1512887671865");
+        System.out.println(System.currentTimeMillis());
     }
 }

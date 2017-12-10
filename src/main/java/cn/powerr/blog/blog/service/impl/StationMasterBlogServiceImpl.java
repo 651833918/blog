@@ -11,6 +11,7 @@ import cn.powerr.blog.user.entity.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,7 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
     private UserMapper userMapper;
     @Autowired
     private BlogMapper blogMapper;
+    private DateTime dateTime;
 
     @Override
     public Map searchArticle(Integer id, Integer pageNum) {
@@ -54,6 +56,8 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
             Iterator<Article> iterator = articles.iterator();
             while (iterator.hasNext()) {
                 Article next = iterator.next();
+                dateTime = new DateTime(Long.parseLong(next.getTime()));
+                next.setTime(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ssa"));
                 if (next.getContent() != null) {
                     String content = next.getContent();
                     if (content.length() > 100) {
@@ -77,6 +81,41 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
         return resultMap;
     }
 
+    @Override
+    public Map<String, Object> searchBlogAndUser(Integer id, Integer userId) {
+        Map<String, Object> resultMap = new HashMap<>();
+        User user = null;
+        Blog blog = null;
+        try {
+            userMapper.updateBlogLookNum(id);
+            user = userMapper.selectByPrimaryKey(id);
+            blog = blogMapper.selectBlogThroughUserId(id);
+        } catch (Exception e) {
+            log.error("查询用户或博客信息失败");
+        }
+        resultMap.put("user", user);
+        resultMap.put("blog", blog);
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> searchStationMaster(Integer id) {
+        Map<String, Object> resultMap = new HashMap<>();
+        User user = null;
+        Blog blog = null;
+        try {
+            userMapper.updateBlogLookNum(id);
+            user = userMapper.selectByPrimaryKey(id);
+            blog = blogMapper.selectBlogThroughUserId(id);
+        } catch (Exception e) {
+            log.error("查询用户或博客信息失败");
+        }
+        resultMap.put("user", user);
+        resultMap.put("blog", blog);
+        return resultMap;
+    }
+
+
     @Transactional
     @Override
     public Map<String, Object> searchBlogAndUser(Integer id) {
@@ -84,7 +123,6 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
         User user = null;
         Blog blog = null;
         try {
-            userMapper.updateBlogLookNum(id);
             user = userMapper.selectByPrimaryKey(id);
             blog = blogMapper.selectBlogThroughUserId(id);
         } catch (Exception e) {

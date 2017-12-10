@@ -6,7 +6,9 @@ import java.util.List;
 
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
+@MapperScan(value = "articleMapper")
 public interface ArticleMapper {
     int countByExample(ArticleExample example);
 
