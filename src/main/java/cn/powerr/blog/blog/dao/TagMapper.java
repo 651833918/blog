@@ -10,7 +10,7 @@ public interface TagMapper {
 
     int deleteByExample(TagExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer tagId);
 
     int insert(Tag record);
 
@@ -18,7 +18,7 @@ public interface TagMapper {
 
     List<Tag> selectByExample(TagExample example);
 
-    Tag selectByPrimaryKey(Integer id);
+    Tag selectByPrimaryKey(Integer tagId);
 
     int updateByExampleSelective(@Param("record") Tag record, @Param("example") TagExample example);
 

@@ -1,5 +1,7 @@
 package cn.powerr.blog.common.resp;
 
+import lombok.Data;
+
 public class ArticlePicResult {
 
     /**

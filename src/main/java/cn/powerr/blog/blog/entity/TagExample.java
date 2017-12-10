@@ -104,63 +104,63 @@ public class TagExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andTagIdIsNull() {
+            addCriterion("tag_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andTagIdIsNotNull() {
+            addCriterion("tag_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andTagIdEqualTo(Integer value) {
+            addCriterion("tag_id =", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andTagIdNotEqualTo(Integer value) {
+            addCriterion("tag_id <>", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andTagIdGreaterThan(Integer value) {
+            addCriterion("tag_id >", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andTagIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tag_id >=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andTagIdLessThan(Integer value) {
+            addCriterion("tag_id <", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andTagIdLessThanOrEqualTo(Integer value) {
+            addCriterion("tag_id <=", value, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andTagIdIn(List<Integer> values) {
+            addCriterion("tag_id in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andTagIdNotIn(List<Integer> values) {
+            addCriterion("tag_id not in", values, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andTagIdBetween(Integer value1, Integer value2) {
+            addCriterion("tag_id between", value1, value2, "tagId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andTagIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("tag_id not between", value1, value2, "tagId");
             return (Criteria) this;
         }
 

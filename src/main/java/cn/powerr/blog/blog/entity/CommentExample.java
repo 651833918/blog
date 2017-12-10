@@ -104,63 +104,63 @@ public class CommentExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andCommentIdIsNull() {
+            addCriterion("comment_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andCommentIdIsNotNull() {
+            addCriterion("comment_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andCommentIdEqualTo(Integer value) {
+            addCriterion("comment_id =", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andCommentIdNotEqualTo(Integer value) {
+            addCriterion("comment_id <>", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andCommentIdGreaterThan(Integer value) {
+            addCriterion("comment_id >", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andCommentIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_id >=", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andCommentIdLessThan(Integer value) {
+            addCriterion("comment_id <", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andCommentIdLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_id <=", value, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andCommentIdIn(List<Integer> values) {
+            addCriterion("comment_id in", values, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andCommentIdNotIn(List<Integer> values) {
+            addCriterion("comment_id not in", values, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andCommentIdBetween(Integer value1, Integer value2) {
+            addCriterion("comment_id between", value1, value2, "commentId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andCommentIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_id not between", value1, value2, "commentId");
             return (Criteria) this;
         }
 
