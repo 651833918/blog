@@ -104,63 +104,63 @@ public class BlogrollExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andBlogrollIdIsNull() {
-            addCriterion("blogroll_id is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdIsNotNull() {
-            addCriterion("blogroll_id is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdEqualTo(Integer value) {
-            addCriterion("blogroll_id =", value, "blogrollId");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdNotEqualTo(Integer value) {
-            addCriterion("blogroll_id <>", value, "blogrollId");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdGreaterThan(Integer value) {
-            addCriterion("blogroll_id >", value, "blogrollId");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("blogroll_id >=", value, "blogrollId");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdLessThan(Integer value) {
-            addCriterion("blogroll_id <", value, "blogrollId");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdLessThanOrEqualTo(Integer value) {
-            addCriterion("blogroll_id <=", value, "blogrollId");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdIn(List<Integer> values) {
-            addCriterion("blogroll_id in", values, "blogrollId");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdNotIn(List<Integer> values) {
-            addCriterion("blogroll_id not in", values, "blogrollId");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdBetween(Integer value1, Integer value2) {
-            addCriterion("blogroll_id between", value1, value2, "blogrollId");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andBlogrollIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("blogroll_id not between", value1, value2, "blogrollId");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 

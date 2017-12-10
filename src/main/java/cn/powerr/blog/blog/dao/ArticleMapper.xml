@@ -9,7 +9,7 @@
         <result column="looknum" property="looknum" jdbcType="INTEGER"/>
         <result column="time" property="time" jdbcType="VARCHAR"/>
         <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
-        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="LONGVARCHAR"/>
         <result column="commentnum" property="commentnum" jdbcType="INTEGER"/>
         <result column="state" property="state" jdbcType="INTEGER"/>
     </resultMap>
@@ -135,86 +135,86 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="cn.powerr.blog.user.entity.ArticleWithBLOBs" >
-    insert into article (id, user_id, title,
-      likenum, looknum, time,
-      tag_id, commentnum, state,
-      content, img_url)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
-      #{likenum,jdbcType=INTEGER}, #{looknum,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR},
-      #{tagId,jdbcType=INTEGER}, #{commentnum,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
-      #{content,jdbcType=LONGVARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR})
+    <insert id="insert" parameterType="cn.powerr.blog.blog.entity.Article">
+    insert into article (id, user_id, title, 
+      likenum, looknum, time, 
+      tag_id, img_url, state,
+      content)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{likenum,jdbcType=INTEGER}, #{looknum,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, 
+      #{tagId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR},  #{state,jdbcType=INTEGER}
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Article" keyProperty="id" useGeneratedKeys="true" >
+    <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Article">
         insert into article
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 id,
             </if>
-            <if test="userId != null" >
+            <if test="userId != null">
                 user_id,
             </if>
-            <if test="title != null" >
+            <if test="title != null">
                 title,
             </if>
-            <if test="likenum != null" >
+            <if test="likenum != null">
                 likenum,
             </if>
-            <if test="looknum != null" >
+            <if test="looknum != null">
                 looknum,
             </if>
-            <if test="time != null" >
+            <if test="time != null">
                 time,
             </if>
-            <if test="tagId != null" >
+            <if test="tagId != null">
                 tag_id,
             </if>
-            <if test="commentnum != null" >
-                commentnum,
-            </if>
-            <if test="state != null" >
-                state,
-            </if>
-            <if test="content != null" >
-                content,
-            </if>
-            <if test="imgUrl != null" >
+            <if test="imgUrl != null">
                 img_url,
             </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userId != null" >
+            <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="title != null" >
+            <if test="title != null">
                 #{title,jdbcType=VARCHAR},
             </if>
-            <if test="likenum != null" >
+            <if test="likenum != null">
                 #{likenum,jdbcType=INTEGER},
             </if>
-            <if test="looknum != null" >
+            <if test="looknum != null">
                 #{looknum,jdbcType=INTEGER},
             </if>
-            <if test="time != null" >
+            <if test="time != null">
                 #{time,jdbcType=VARCHAR},
             </if>
-            <if test="tagId != null" >
+            <if test="tagId != null">
                 #{tagId,jdbcType=INTEGER},
             </if>
-            <if test="commentnum != null" >
-                #{commentnum,jdbcType=INTEGER},
+            <if test="imgUrl != null">
+                #{imgUrl,jdbcType=VARCHAR},
             </if>
-            <if test="state != null" >
-                #{state,jdbcType=INTEGER},
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
             </if>
-            <if test="content != null" >
+            <if test="content != null">
                 #{content,jdbcType=LONGVARCHAR},
             </if>
-            <if test="imgUrl != null" >
-                #{imgUrl,jdbcType=LONGVARCHAR},
+            <if test="state != null">
+                #{state,INTEGER}
             </if>
         </trim>
     </insert>
@@ -270,6 +270,9 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
             <if test="record.imgUrl != null">
                 img_url = #{record.imgUrl,jdbcType=VARCHAR},
             </if>
+            <if test="record.username != null">
+                username = #{record.username,jdbcType=VARCHAR},
+            </if>
             <if test="record.content != null">
                 content = #{record.content,jdbcType=LONGVARCHAR},
             </if>
@@ -291,6 +294,7 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
         time = #{record.time,jdbcType=VARCHAR},
         tag_id = #{record.tagId,jdbcType=INTEGER},
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
+        username = #{record.username,jdbcType=VARCHAR},
         content = #{record.content,jdbcType=LONGVARCHAR},
         state = #{record.state,jdbcType=INTEGER}
         <if test="_parameter != null">
@@ -307,6 +311,7 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
         time = #{record.time,jdbcType=VARCHAR},
         tag_id = #{record.tagId,jdbcType=INTEGER},
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
+        username = #{record.username,jdbcType=VARCHAR},
         state = #{record.state,jdbcType=INTEGER}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -336,7 +341,9 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
             <if test="imgUrl != null">
                 img_url = #{imgUrl,jdbcType=VARCHAR},
             </if>
-
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
             <if test="content != null">
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
@@ -355,6 +362,7 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
       time = #{time,jdbcType=VARCHAR},
       tag_id = #{tagId,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR},
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
@@ -368,6 +376,7 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
       time = #{time,jdbcType=VARCHAR},
       tag_id = #{tagId,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

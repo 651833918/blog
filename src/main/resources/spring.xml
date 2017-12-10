@@ -23,7 +23,7 @@
     <!--配置mybatis-->
     <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath*:cn/powerr/blog/**/*.xml"/>
+        <property name="mapperLocations" value="classpath:cn/powerr/blog/**/*.xml"/>
         <!--mybatis分页插件引用-->
         <property name="plugins">
             <array>

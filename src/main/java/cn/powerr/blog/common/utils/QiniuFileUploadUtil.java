@@ -19,7 +19,7 @@ public class QiniuFileUploadUtil {
         UploadManager uploadManager = new UploadManager(cfg);
         Auth auth = Auth.create(Constants.QINIU_ACCESS_KEY, Constants.QINIU_SECRET_KEY);
         String upToken = auth.uploadToken(Constants.QINIU_HEAD_IMG_BUCKET_NAME);
-        Response response = uploadManager.put(file.getBytes(), null, upToken);
+        Response response = uploadManager.put(file.getBytes(),null, upToken);
         //解析上传成功的结果
         DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
         return putRet.key;
