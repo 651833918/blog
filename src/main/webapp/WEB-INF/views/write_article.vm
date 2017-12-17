@@ -2,25 +2,41 @@
 
 <section style="margin: auto;width: 5000px">
     <div>
-        <input id="title" style="height: 50px;font-size: large" type="text" placeholder="文章标题"></input>
+        #if(${editArticle})
+            <input id="title" style="height: 50px;font-size: large"  type="text" value="${editArticle.title}"></input>
+        #else
+            <input id="title" style="height: 50px;font-size: large" type="text" placeholder="请输入标题"></input>
+        #end
     </div>
     <div id="layout">
         <div id="my-editormd">
-            <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display:none;"></textarea>
+            #if(${editArticle})
+                <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                          style="display:none;">${editArticle.content}</textarea>
+            #else
+                <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc"
+                          style="display:none;"></textarea>
+            #end
             <!-- 注意：name属性的值-->
             <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
         </div>
     </div>
     <div style="text-align: center">
-        <button id="savaToDrafts">存草稿箱</button>
-        <button id="publishArticle">发表文章</button>
+        <button id="savaToDrafts" class="btn btn-default btn-zan">存草稿箱</button>
+        #if(${editArticle})
+            <button id="editArticle" class="btn btn-default btn-zan">完成编辑</button>
+        #else
+            <button id="publishArticle" class="btn btn-default btn-zan">发表文章</button>
+        #end
     </div>
+    <input id="id" value="${editArticle.id}"  style="visibility: hidden"/>
+
 </section>
 
 </div>
 
 <script src="/static/mdueditor/js/jquery.min.js"></script>
-<script src="/static/mdueditor/js/editormd.min.js"></script>
+<script src="/static/mdueditor/js/editormd.js"></script>
 <script type="text/javascript">
     var testEditor;
     $(function () {
@@ -52,19 +68,62 @@
             codeFold: true
         });
 
+        $("#editArticle").click(function () {
+            var title = $("#title").val();
+            var id =$("#id").val();
+            var content = testEditor.getMarkdown();
+            var articleData = {"id":id,"title": title, "content": content};
+            if (title != "" && content != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/editArticled",
+                    contentType: "application/json",
+                    data: JSON.stringify(articleData),
+                    success: function (data) {
+                        if (data == "edit_succ") {
+                            window.location.href = "/published";
+                        }
+                    }
+                });
+
+            } else {
+                alert("标题内容不能为空");
+            }
+        });
+
         $("#publishArticle").click(function () {
             var title = $("#title").val();
-            var content = $("#my-editormd-html-code").val();
+            var content = testEditor.getMarkdown();
             var articleData = {"title": title, "content": content};
+            if (title != "" && content != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/publishArticle",
+                    contentType: "application/json",
+                    data: JSON.stringify(articleData),
+                    success: function (data) {
+                        if (data == "publish_succ") {
+                            window.location.href = "/published";
+                        }
+                    }
+                });
+            } else {
+                alert("标题内容不能为空");
+            }
+        });
+
+        $("#logout").click(function () {
             $.ajax({
                 type: "POST",
-                url: "/publishArticle",
-                contentType: "application/json",
-                data: JSON.stringify(articleData)
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
             });
         });
     });
-
 </script>
 </body>
 </html>

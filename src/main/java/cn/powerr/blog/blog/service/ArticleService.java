@@ -1,6 +1,7 @@
 package cn.powerr.blog.blog.service;
 
 import cn.powerr.blog.blog.entity.Article;
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,5 +11,11 @@ public interface ArticleService {
 
     String uploadArticlePicture(MultipartFile file) throws IOException;
 
-    Article saveArticle(Article article);
+    ArticleWithBLOBs saveArticle(ArticleWithBLOBs article);
+
+    ArticleWithBLOBs refreshArticleMess(Integer articleId, Integer userId);
+
+    void delArticle(Integer articleId);
+
+    Integer editArticle(ArticleWithBLOBs articleWithBLOBs);
 }

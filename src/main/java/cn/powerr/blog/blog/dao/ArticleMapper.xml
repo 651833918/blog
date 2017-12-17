@@ -9,13 +9,14 @@
         <result column="looknum" property="looknum" jdbcType="INTEGER"/>
         <result column="time" property="time" jdbcType="VARCHAR"/>
         <result column="tag_id" property="tagId" jdbcType="INTEGER"/>
-        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
         <result column="commentnum" property="commentnum" jdbcType="INTEGER"/>
         <result column="state" property="state" jdbcType="INTEGER"/>
     </resultMap>
-    <resultMap id="ResultMapWithBLOBs" type="cn.powerr.blog.blog.entity.Article" extends="BaseResultMap">
+    <resultMap id="ResultMapWithBLOBs" type="cn.powerr.blog.blog.entity.ArticleWithBLOBs" extends="BaseResultMap">
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="LONGVARCHAR"/>
     </resultMap>
+
     <resultMap id="ResultMapWithUser" type="cn.powerr.blog.blog.entity.ArticleWithUser" extends="ResultMapWithBLOBs">
         <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap">
         </association>
@@ -81,10 +82,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, user_id, title, likenum, looknum, time, tag_id, img_url,commentnum,state
-  </sql>
+        id, user_id, title, likenum, looknum, time, tag_id, commentnum, state
+    </sql>
     <sql id="Blob_Column_List">
-    content
+    content, img_url
   </sql>
     <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
             parameterType="cn.powerr.blog.blog.entity.ArticleExample">
@@ -135,7 +136,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="cn.powerr.blog.user.entity.ArticleWithBLOBs" >
+    <insert id="insert" parameterType="cn.powerr.blog.blog.entity.ArticleWithBLOBs">
     insert into article (id, user_id, title,
       likenum, looknum, time,
       tag_id, commentnum, state,
@@ -145,75 +146,76 @@
       #{tagId,jdbcType=INTEGER}, #{commentnum,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
       #{content,jdbcType=LONGVARCHAR}, #{imgUrl,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.Article" keyProperty="id" useGeneratedKeys="true" >
+    <insert id="insertSelective" parameterType="cn.powerr.blog.blog.entity.ArticleWithBLOBs" keyProperty="id"
+            useGeneratedKeys="true">
         insert into article
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 id,
             </if>
-            <if test="userId != null" >
+            <if test="userId != null">
                 user_id,
             </if>
-            <if test="title != null" >
+            <if test="title != null">
                 title,
             </if>
-            <if test="likenum != null" >
+            <if test="likenum != null">
                 likenum,
             </if>
-            <if test="looknum != null" >
+            <if test="looknum != null">
                 looknum,
             </if>
-            <if test="time != null" >
+            <if test="time != null">
                 time,
             </if>
-            <if test="tagId != null" >
+            <if test="tagId != null">
                 tag_id,
             </if>
-            <if test="commentnum != null" >
+            <if test="commentnum != null">
                 commentnum,
             </if>
-            <if test="state != null" >
+            <if test="state != null">
                 state,
             </if>
-            <if test="content != null" >
+            <if test="content != null">
                 content,
             </if>
-            <if test="imgUrl != null" >
+            <if test="imgUrl != null">
                 img_url,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userId != null" >
+            <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="title != null" >
+            <if test="title != null">
                 #{title,jdbcType=VARCHAR},
             </if>
-            <if test="likenum != null" >
+            <if test="likenum != null">
                 #{likenum,jdbcType=INTEGER},
             </if>
-            <if test="looknum != null" >
+            <if test="looknum != null">
                 #{looknum,jdbcType=INTEGER},
             </if>
-            <if test="time != null" >
+            <if test="time != null">
                 #{time,jdbcType=VARCHAR},
             </if>
-            <if test="tagId != null" >
+            <if test="tagId != null">
                 #{tagId,jdbcType=INTEGER},
             </if>
-            <if test="commentnum != null" >
+            <if test="commentnum != null">
                 #{commentnum,jdbcType=INTEGER},
             </if>
-            <if test="state != null" >
+            <if test="state != null">
                 #{state,jdbcType=INTEGER},
             </if>
-            <if test="content != null" >
+            <if test="content != null">
                 #{content,jdbcType=LONGVARCHAR},
             </if>
-            <if test="imgUrl != null" >
+            <if test="imgUrl != null">
                 #{imgUrl,jdbcType=LONGVARCHAR},
             </if>
         </trim>
@@ -231,18 +233,27 @@
     <select id="selectMediumPost" resultMap="ResultMapWithUser">
         SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY likenum DESC
   </select>
-    <select id="selectReadHot" resultMap="BaseResultMap">
-    SELECT a.id,a.user_id,a.content,a.state,a.title,a.likenum,a.looknum,a.time,a.tag_id,a.img_url
-FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY looknum desc LIMIT 0,10
+    <select id="selectRecent" resultMap="ResultMapWithUser">
+        SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY time DESC
+    </select>
+    <select id="selectUserRecent" resultMap="ResultMapWithUser">
+        SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.user_id =#{userId} AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY time DESC
+    </select>
+    <select id="selectReadHot" resultMap="ResultMapWithUser">
+    SELECT a.id,a.user_id,a.content,a.state,a.title,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,u.head_img,u.nick_name,u.user_id
+FROM article AS a,user AS u WHERE a.user_id = u.user_id AND a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY looknum desc LIMIT 0,10
   </select>
-    <select id="selectCommentHot" resultType="cn.powerr.blog.blog.entity.Article">
-    SELECT a.id,a.user_id,a.state,a.content,a.title,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,a.commentnum
-FROM article AS  a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY commentnum desc LIMIT 0,10
+    <select id="selectCommentHot" resultMap="ResultMapWithUser">
+    SELECT a.id,a.user_id,a.state,a.content,a.title,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,a.commentnum,u.head_img,u.nick_name,u.user_id
+FROM article AS  a,user AS u WHERE a.user_id = u.user_id AND a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY commentnum desc LIMIT 0,10
   </select>
-    <select id="selectLikeHot" resultType="cn.powerr.blog.blog.entity.Article">
-    SELECT a.id,a.user_id,a.content,a.title,a.state,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,a.commentnum
-FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY likenum desc LIMIT 0,10
+    <select id="selectLikeHot" resultMap="ResultMapWithUser">
+    SELECT a.id,a.user_id,a.content,a.title,a.state,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,a.commentnum,u.head_img,u.nick_name,u.user_id
+FROM article AS a,user AS u WHERE a.user_id = u.user_id AND a.user_id =#{userId} AND a.state = 1 AND title IS NOT NULL AND content IS NOT NULL ORDER BY likenum desc LIMIT 0,10
   </select>
+    <select id="updateArticleByLookNum">
+        UPDATE article SET looknum = looknum+1 WHERE id = #{articleId}
+    </select>
     <update id="updateByExampleSelective" parameterType="map">
         update article
         <set>
@@ -267,14 +278,17 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
             <if test="record.tagId != null">
                 tag_id = #{record.tagId,jdbcType=INTEGER},
             </if>
-            <if test="record.imgUrl != null">
-                img_url = #{record.imgUrl,jdbcType=VARCHAR},
+            <if test="record.commentnum != null">
+                commentnum = #{record.commentnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.state != null">
+                state = #{record.state,jdbcType=INTEGER},
             </if>
             <if test="record.content != null">
                 content = #{record.content,jdbcType=LONGVARCHAR},
             </if>
-            <if test="record.content != null">
-                content = #{record.state,jdbcType=LONGVARCHAR},
+            <if test="record.imgUrl != null">
+                img_url = #{record.imgUrl,jdbcType=LONGVARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -290,9 +304,10 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
         looknum = #{record.looknum,jdbcType=INTEGER},
         time = #{record.time,jdbcType=VARCHAR},
         tag_id = #{record.tagId,jdbcType=INTEGER},
-        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+        commentnum = #{record.commentnum,jdbcType=INTEGER},
+        state = #{record.state,jdbcType=INTEGER},
         content = #{record.content,jdbcType=LONGVARCHAR},
-        state = #{record.state,jdbcType=INTEGER}
+        img_url = #{record.imgUrl,jdbcType=LONGVARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -306,13 +321,13 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
         looknum = #{record.looknum,jdbcType=INTEGER},
         time = #{record.time,jdbcType=VARCHAR},
         tag_id = #{record.tagId,jdbcType=INTEGER},
-        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+        commentnum = #{record.commentnum,jdbcType=INTEGER},
         state = #{record.state,jdbcType=INTEGER}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.powerr.blog.blog.entity.Article">
+    <update id="updateByPrimaryKeySelective" parameterType="cn.powerr.blog.blog.entity.ArticleWithBLOBs">
         update article
         <set>
             <if test="userId != null">
@@ -333,32 +348,35 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
             <if test="tagId != null">
                 tag_id = #{tagId,jdbcType=INTEGER},
             </if>
-            <if test="imgUrl != null">
-                img_url = #{imgUrl,jdbcType=VARCHAR},
+            <if test="commentnum != null">
+                commentnum = #{commentnum,jdbcType=INTEGER},
             </if>
-
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
             <if test="content != null">
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
-            <if test="state != null">
-                content = #{state,jdbcType=INTEGER},
+            <if test="imgUrl != null">
+                img_url = #{imgUrl,jdbcType=LONGVARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.powerr.blog.blog.entity.Article">
-    update article
-    set user_id = #{userId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      likenum = #{likenum,jdbcType=INTEGER},
-      looknum = #{looknum,jdbcType=INTEGER},
-      time = #{time,jdbcType=VARCHAR},
-      tag_id = #{tagId,jdbcType=INTEGER},
-      img_url = #{imgUrl,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR},
-      state = #{state,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.powerr.blog.blog.entity.ArticleWithBLOBs">
+        update article
+        set user_id = #{userId,jdbcType=INTEGER},
+        title = #{title,jdbcType=VARCHAR},
+        likenum = #{likenum,jdbcType=INTEGER},
+        looknum = #{looknum,jdbcType=INTEGER},
+        time = #{time,jdbcType=VARCHAR},
+        tag_id = #{tagId,jdbcType=INTEGER},
+        commentnum = #{commentnum,jdbcType=INTEGER},
+        state = #{state,jdbcType=INTEGER},
+        content = #{content,jdbcType=LONGVARCHAR},
+        img_url = #{imgUrl,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <update id="updateByPrimaryKey" parameterType="cn.powerr.blog.blog.entity.Article">
     update article
     set user_id = #{userId,jdbcType=INTEGER},
@@ -367,7 +385,7 @@ FROM article AS a WHERE a.user_id =#{userId} AND a.state = 1 AND title IS NOT NU
       looknum = #{looknum,jdbcType=INTEGER},
       time = #{time,jdbcType=VARCHAR},
       tag_id = #{tagId,jdbcType=INTEGER},
-      img_url = #{imgUrl,jdbcType=VARCHAR},
+      commentnum = #{commentnum,jdbcType=INTEGER},
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

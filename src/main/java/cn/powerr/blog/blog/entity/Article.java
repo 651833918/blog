@@ -19,11 +19,7 @@ public class Article {
 
     private Integer tagId;
 
-    private String imgUrl;
-
-    private String content;
-
-    private String commentnum;
+    private Integer commentnum;
 
     private Integer state;
 

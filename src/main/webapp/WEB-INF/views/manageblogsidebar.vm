@@ -53,7 +53,7 @@
             <li>
                 <article>
                     <header>
-                        <h3 style="text-align: right"><a href="/articleManage">文章管理</a></h3>
+                        <h3 style="text-align: right"><a href="/articleManage/1">文章管理</a></h3>
                     </header>
                     <a href="#" class="image"><img src="/static/images/blogmanagesidebar5.jpg" alt=""/></a>
                 </article>

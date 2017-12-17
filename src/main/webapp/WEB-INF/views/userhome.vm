@@ -6,7 +6,7 @@
     #foreach(${article} in ${articleInfo2})
         <article class="post">
             <header>
-                <h3 style="text-align: center;margin: auto"><a href="#">${article.title}</a></h3>
+                <h3 style="text-align: left;margin: auto;word-wrap:break-word;word-break:break-all"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a></h3>
             </header>
             <main style="margin-top: -30px">
                 <span>${article.content}</span>

@@ -19,7 +19,7 @@
 
     <!--博主简介-->
     <section id="intro">
-        <a class="logo" href=""><img src="${userInfo2.headImg}" alt=""/></a>
+        <a class="logo" disabled="true"><img src="${userInfo2.headImg}" alt=""/></a>
         <header>
             #if(${userInfo2.nickName})
                 <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo2.nickName}</h5>
@@ -61,7 +61,7 @@
             #foreach(${article} in ${readHot2})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
-                        <h5><a href="#">${article.title}</a>
+                        <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
                             <span href="#" class="icon fa-eye" style="color:darkred;">${article.looknum}</span>
                         </h5>
                     </div>
@@ -78,7 +78,7 @@
             #foreach(${article} in ${commentHot2})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
-                        <h5><a href="#">${article.title}</a>
+                        <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
                             <span href="#" class="icon fa-comment" style="color:darkred;">${article.commentnum}</span>
                         </h5>
                     ##                        <a href="#" class="author"><img src="${article.user.headImg}" alt=""/></a>
@@ -107,23 +107,15 @@
         </div>
     </section>
 
-    <!-- About -->
-    <section class="blurb">
-        <h2>About</h2>
-        <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet
-            placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
-        <ul class="actions">
-            <li><a href="#" class="button">Learn More</a></li>
-        </ul>
-    </section>
 
     <!-- Footer -->
     <section id="footer">
         <!--友情链接-->
         <nav class="links">
             <ul>
-                <li><a href="http://www.baidu.com">百度</a></li>
-                <li><a href="http://www.coder520.com">码码在线</a></li>
+                #foreach(${blogroll} in ${blogrollInfo2})
+                    <li><a href="${blogroll.url}">${blogroll.describe}</a></li>
+                #end
             </ul>
         </nav>
     </section>

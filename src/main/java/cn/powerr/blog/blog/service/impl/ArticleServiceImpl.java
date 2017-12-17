@@ -1,7 +1,8 @@
 package cn.powerr.blog.blog.service.impl;
 
 import cn.powerr.blog.blog.dao.ArticleMapper;
-import cn.powerr.blog.blog.entity.Article;
+import cn.powerr.blog.blog.entity.ArticleExample;
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.service.ArticleService;
 import cn.powerr.blog.common.constants.Constants;
 import cn.powerr.blog.common.utils.QiniuFileUploadUtil;
@@ -36,14 +37,45 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public Article saveArticle(Article article) {
-        Article articleRestlt = null;
+    public ArticleWithBLOBs saveArticle(ArticleWithBLOBs article) {
+        ArticleWithBLOBs articleRestlt = null;
         try {
-            int articleId = articleMapper.insertSelective(article);
-            articleRestlt = articleMapper.selectByPrimaryKey(articleId);
+            articleMapper.insertSelective(article);
+            articleRestlt = articleMapper.selectByPrimaryKey(article.getId());
         } catch (Exception e) {
             log.error("发表博客失败："+e.getMessage());
         }
         return articleRestlt;
+    }
+
+    @Override
+    public ArticleWithBLOBs refreshArticleMess(Integer articleId, Integer userId) {
+        articleMapper.updateArticleByLookNum(articleId);
+        ArticleWithBLOBs articleWithBLOBs = articleMapper.selectByPrimaryKey(articleId);
+
+        return articleWithBLOBs;
+    }
+
+    @Override
+    public void delArticle(Integer articleId) {
+        try{
+            ArticleExample example = new ArticleExample();
+            ArticleExample.Criteria criteria = example.createCriteria();
+            criteria.andIdEqualTo(articleId);
+            articleMapper.deleteByExample(example);
+        }catch (Exception e){
+            log.error("删除文章失败");
+        }
+    }
+
+    @Override
+    public Integer editArticle(ArticleWithBLOBs articleWithBLOBs) {
+        int result = 0;
+        try {
+            result = articleMapper.updateByPrimaryKeySelective(articleWithBLOBs);
+        } catch (Exception e) {
+            log.error("编辑文章失败");
+        }
+        return result;
     }
 }

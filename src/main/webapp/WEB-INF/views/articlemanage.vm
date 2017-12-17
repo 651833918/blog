@@ -2,66 +2,42 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-    <article class="post" back>
-        <form id="form" action="/saveBlog" method="post" enctype="multipart/form-data">
-            <div id="formData">
-                <section class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="alert alert-danger" id="baseMsg" style="display: none"></div>
-                        <div role="form" id="userBlogForm">
-                            <div class="form-group">
-                                <label for="title">博客标题</label>
-                                #if(${blogInfo.blogName})
-                                    <input type="text" class="form-control" id="Title" name="blogName"
-                                           placeholder="请输入博客名"
-                                           value="${blogInfo.blogName}" maxlength="20">
-                                #else
-                                    <input type="text" class="form-control" id="Title" name="blogName"
-                                           placeholder="请输入博客名" maxlength="20">
-                                #end
-                            </div>
-
-                            <div class="form-group">
-                                <label for="logo">博客Logo</label>
-                                <input type="file" class="form-control" id="logo2" name="file"/>
-                                <div id="logoImg">
-                                    <img src="${blogInfo.blogUrl}" style="height: 40px"/> <a
-                                        href="#" id="deleteLogo">删除</a>
-                                </div>
-
-                                <input type="hidden" name="Logo" id="Logo"
-                                       value=""/>
-                                <iframe id="logoTarget" name="logoTarget" src="#" style="display: none"></iframe>
-                            </div>
-                            <div class="form-group">
-                                <label for="subTitle">博客描述</label>
-                                #if(${blogInfo.blogIntro})
-                                    <input type="text" class="form-control" id="SubTitle"
-                                           name="blogIntro" value="${blogInfo.blogIntro}"
-                                           placeholder="请输入博客描述">
-                                #else
-                                    <input type="text" class="form-control" id="SubTitle"
-                                           name="blogIntro"
-                                           placeholder="请输入博客描述">
-                                #end
-                            </div>
-
-                            <div class="form-group">
-                                <label for="aboutMe" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <div id="popularToolbar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="panel-footer text-right bg-light lter">
-                        <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
-                    </footer>
-
-                </section>
-            </div>
-        </form>
-    </article>
+    #foreach(${article} in ${articlesManage})
+        <ul class="mini-posts" style="list-style-type:none">
+            <li style="margin-top: auto">
+                <a class="btn btn-default btn-zan"  href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
+                <a href="/editArticle/${article.id}" style="text-align: right" class="btn btn-default btn-zan"><span
+                        id="editArticle">编辑</span>
+                </a>
+                <a href="/delArticle/${article.id}/${articlesPageInfo.pageNum}" id="deleteArticle" style="text-align: right" class="btn btn-default btn-zan"><span
+                >删除</span>
+                </a>
+            </li>
+        </ul>
+    #end
+    <ul class="actions pagination">
+        #if(${articlesPageInfo.hasPreviousPage})
+            <li>
+                <button class="button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        #if(!${articlesPageInfo.hasPreviousPage})
+            <li>
+                <button class="disabled button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        <li><span style="color: #2ebaae">${articlesPageInfo.pageNum}/${articlesPageInfo.pages}</span></li>
+        #if(${articlesPageInfo.hasNextPage})
+            <li>
+                <button class="button big next" id="next">Next Page</button>
+            </li>
+        #end
+        #if(!${articlesPageInfo.hasNextPage})
+            <li>
+                <button class="disabled button big next" id="next">Next Page</button>
+            </li>
+        #end
+    </ul>
 </div>
 
 #parse("manageblogsidebar.vm")
@@ -83,9 +59,22 @@
 <script src="https://dn-leanote.qbox.me/member/js/member.js"></script>
 <script>
     $(function () {
-        $("#deleteLogo").click(function () {
-            $("#Logo").val("");
-            $("#logoImg").hide();
+        $("#next").click(function () {
+            window.location.href = "/articleManage/" +${articlesPageInfo.nextPage};
+        });
+        $("#pre").click(function () {
+            window.location.href = "/articleManage/" +${articlesPageInfo.prePage};
+        });
+        $("#logout").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
         });
     });
 </script>

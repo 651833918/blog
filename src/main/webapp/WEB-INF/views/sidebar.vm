@@ -21,7 +21,7 @@
             #foreach(${article} in ${likeHotList})
                 <article class="mini-post" style="margin-top: -20px;text-align: left;">
                     <header style="margin-top: -20px">
-                        <h3><a href="#">${article.title}</a><span href="#" class="icon fa-heart"
+                        <h3><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a><span href="#" class="icon fa-heart"
                                                                   style="color: darkred">${article.likenum}</span></h3>
                         <a href="/showPerosonPage/${article.user.userId}/1" class="author" style="margin-top: 2px"><img src="${article.user.headImg}" alt=""/></a>
                     </header>
@@ -40,7 +40,7 @@
                 <li style="margin-bottom: -10px;text-align: center">
                     <article>
                         <header>
-                            <h3 style="font-size: medium;"><a href="#">${article.title}</a></h3>
+                            <h3 style="font-size: medium;word-wrap:break-word;word-break:break-all;"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a></h3>
                             <time class="published" style="font-size: x-small">${article.time}</time>
                         </header>
                     ##                    <a href="#" class="image"><img src="/static/images/pic02.jpg" alt=""/></a>
@@ -50,14 +50,6 @@
         </ul>
     </section>
 
-    <!-- About -->
-    <section class="blurb">
-        <h2>About</h2>
-        <p>aaaa</p>
-        <ul class="actions">
-            <li><a href="#" class="button">Learn More</a></li>
-        </ul>
-    </section>
 
     <!-- Footer -->
     <section id="footer">

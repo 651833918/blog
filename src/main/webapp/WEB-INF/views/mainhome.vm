@@ -5,34 +5,28 @@
     <!--article每页三个展示最佳-->
     #foreach(${article} in ${lookHotList})
         <article class="post" back>
-            <header style="margin-top: -70px">
-                <div class="title">
-                    <h2 ><a href="#">${article.title}</a></h2>
-                </div>
-                <div class="meta">
-                    <time class="published">${article.time}</time>
-                    <a href="/showPerosonPage/${article.user.userId}/1" class="author">
-                        <span class="name" >${article.user.nickName}</span>
-                        <img src="${article.user.headImg}" alt=""/>
-                    </a>
+            <header style="margin-top: -100px;margin-bottom: 10px">
+                <div class="title"  style="margin-bottom: -40px">
+                    <h2 style="word-wrap:break-word;word-break:break-all;"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
+                    </h2>
                 </div>
             </header>
         ##            <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
-            <p>${article.content}</p>
-            <footer>
-                <ul class="actions">
-                    <li><a href="#" class="button big">Continue Reading</a></li>
-                </ul>
-                <ul class="stats">
-                    <li><span href="#" class="icon fa-eye" style="color:darkred;">${article.looknum}</span></li>
-                    <li><span href="#" class="icon fa-heart" style="color: darkred">${article.likenum}</span></li>
-                    <li><span href="#" class="icon fa-comment" style="color: darkred">${article.commentnum}</span></li>
-                </ul>
-            </footer>
+            <p >${article.content}</p>
+            <div style="display: inline">
+                #if(${article.tag})
+                    <span href="#" class="icon fa-tag">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                #end
+                <span class="icon fa-clock-o">${article.time}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span href="#" class="icon fa-eye">${article.looknum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span href="#" class="icon fa-heart">${article.likenum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span href="#" class="icon fa-comment">${article.commentnum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <font  style="font-size: 20px;float: right"><a href="/showPerosonPage/${article.user.userId}/1"><font color="purple">Author:</font>${article.user.nickName}</a></font>
+            </div>
         </article>
     #end
     <!-- Pagination -->
-    <ul class="actions pagination" >
+    <ul class="actions pagination">
         #if(${pageInfo.hasPreviousPage})
             <li>
                 <button class="button big previous" id="pre">Previous Page</button>

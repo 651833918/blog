@@ -4,6 +4,7 @@ import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.ArticleExample;
 import java.util.List;
 
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
@@ -16,34 +17,41 @@ public interface ArticleMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Article record);
+    int insert(ArticleWithBLOBs record);
 
-    int insertSelective(Article record);
+    int insertSelective(ArticleWithBLOBs record);
 
-    List<Article> selectByExampleWithBLOBs(ArticleExample example);
+    List<ArticleWithBLOBs> selectByExampleWithBLOBs(ArticleExample example);
 
     List<Article> selectByExample(ArticleExample example);
 
-    Article selectByPrimaryKey(Integer id);
+    ArticleWithBLOBs selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") Article record, @Param("example") ArticleExample example);
+    int updateByExampleSelective(@Param("record") ArticleWithBLOBs record, @Param("example") ArticleExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Article record, @Param("example") ArticleExample example);
+    int updateByExampleWithBLOBs(@Param("record") ArticleWithBLOBs record, @Param("example") ArticleExample example);
 
     int updateByExample(@Param("record") Article record, @Param("example") ArticleExample example);
 
-    int updateByPrimaryKeySelective(Article record);
+    int updateByPrimaryKeySelective(ArticleWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(Article record);
+    int updateByPrimaryKeyWithBLOBs(ArticleWithBLOBs record);
 
     int updateByPrimaryKey(Article record);
+
 
     List<ArticleWithUser> selectMainPost();
     List<ArticleWithUser> selectMediumPost();
 
-    List<Article> selectReadHot(@Param("userId") Integer userId);
+    List<ArticleWithUser> selectReadHot(@Param("userId") Integer userId);
 
-    List<Article> selectCommentHot(@Param("userId")Integer userId);
+    List<ArticleWithUser> selectCommentHot(@Param("userId")Integer userId);
 
-    List<Article> selectLikeHot(@Param("userId")Integer userId);
+    List<ArticleWithUser> selectLikeHot(@Param("userId")Integer userId);
+
+    List<ArticleWithUser> selectRecent();
+
+    List<ArticleWithUser> selectUserRecent(@Param("userId")Integer userId);
+
+    void updateArticleByLookNum(Integer articleId);
 }

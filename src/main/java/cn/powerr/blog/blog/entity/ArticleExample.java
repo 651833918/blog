@@ -544,145 +544,63 @@ public class ArticleExample {
             return (Criteria) this;
         }
 
-
-
-        public Criteria andImgUrlIsNull() {
-            addCriterion("img_url is null");
+        public Criteria andCommentnumIsNull() {
+            addCriterion("commentnum is null");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlIsNotNull() {
-            addCriterion("img_url is not null");
+        public Criteria andCommentnumIsNotNull() {
+            addCriterion("commentnum is not null");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlEqualTo(String value) {
-            addCriterion("img_url =", value, "imgUrl");
+        public Criteria andCommentnumEqualTo(Integer value) {
+            addCriterion("commentnum =", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotEqualTo(String value) {
-            addCriterion("img_url <>", value, "imgUrl");
+        public Criteria andCommentnumNotEqualTo(Integer value) {
+            addCriterion("commentnum <>", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlGreaterThan(String value) {
-            addCriterion("img_url >", value, "imgUrl");
+        public Criteria andCommentnumGreaterThan(Integer value) {
+            addCriterion("commentnum >", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("img_url >=", value, "imgUrl");
+        public Criteria andCommentnumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("commentnum >=", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLessThan(String value) {
-            addCriterion("img_url <", value, "imgUrl");
+        public Criteria andCommentnumLessThan(Integer value) {
+            addCriterion("commentnum <", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLessThanOrEqualTo(String value) {
-            addCriterion("img_url <=", value, "imgUrl");
+        public Criteria andCommentnumLessThanOrEqualTo(Integer value) {
+            addCriterion("commentnum <=", value, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlLike(String value) {
-            addCriterion("img_url like", value, "imgUrl");
+        public Criteria andCommentnumIn(List<Integer> values) {
+            addCriterion("commentnum in", values, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotLike(String value) {
-            addCriterion("img_url not like", value, "imgUrl");
+        public Criteria andCommentnumNotIn(List<Integer> values) {
+            addCriterion("commentnum not in", values, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlIn(List<String> values) {
-            addCriterion("img_url in", values, "imgUrl");
+        public Criteria andCommentnumBetween(Integer value1, Integer value2) {
+            addCriterion("commentnum between", value1, value2, "commentnum");
             return (Criteria) this;
         }
 
-        public Criteria andImgUrlNotIn(List<String> values) {
-            addCriterion("img_url not in", values, "imgUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgUrlBetween(String value1, String value2) {
-            addCriterion("img_url between", value1, value2, "imgUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andImgUrlNotBetween(String value1, String value2) {
-            addCriterion("img_url not between", value1, value2, "imgUrl");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameIsNull() {
-            addCriterion("username is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameIsNotNull() {
-            addCriterion("username is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameEqualTo(String value) {
-            addCriterion("username =", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameNotEqualTo(String value) {
-            addCriterion("username <>", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameGreaterThan(String value) {
-            addCriterion("username >", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
-            addCriterion("username >=", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameLessThan(String value) {
-            addCriterion("username <", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameLessThanOrEqualTo(String value) {
-            addCriterion("username <=", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameLike(String value) {
-            addCriterion("username like", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameNotLike(String value) {
-            addCriterion("username not like", value, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameIn(List<String> values) {
-            addCriterion("username in", values, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameNotIn(List<String> values) {
-            addCriterion("username not in", values, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameBetween(String value1, String value2) {
-            addCriterion("username between", value1, value2, "username");
-            return (Criteria) this;
-        }
-
-        public Criteria andUsernameNotBetween(String value1, String value2) {
-            addCriterion("username not between", value1, value2, "username");
+        public Criteria andCommentnumNotBetween(Integer value1, Integer value2) {
+            addCriterion("commentnum not between", value1, value2, "commentnum");
             return (Criteria) this;
         }
 

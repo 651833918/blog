@@ -2,7 +2,7 @@ package cn.powerr.blog.blog.service.impl;
 
 import cn.powerr.blog.blog.dao.ArticleMapper;
 import cn.powerr.blog.blog.dao.BlogMapper;
-import cn.powerr.blog.blog.entity.Article;
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.entity.ArticleExample;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import cn.powerr.blog.blog.entity.Blog;
@@ -39,37 +39,24 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
     private DateTime dateTime;
 
     @Override
-    public Map searchArticle(Integer id, Integer pageNum) {
-        List<Article> articles = null;
-        PageInfo<Article> pageInfo = null;
+    public Map searchArticle(Integer id, Integer pageNum,Integer pageSize) {
+        List<ArticleWithUser> articles = null;
+        PageInfo<ArticleWithUser> pageInfo = null;
         Map resultMap = new HashMap<>();
         try {
-            PageHelper.startPage(pageNum, 15);
-            ArticleExample example = new ArticleExample();
-            ArticleExample.Criteria criteria = example.createCriteria();
-            criteria.andStateEqualTo(1);
-            criteria.andUserIdEqualTo(id);
-            criteria.andTitleIsNotNull();
-            example.setOrderByClause("time DESC");
-            articles = articleMapper.selectByExampleWithBLOBs(example);
+            PageHelper.startPage(pageNum, pageSize);
+            articles = articleMapper.selectUserRecent(id);
             pageInfo = new PageInfo<>(articles);
-            Iterator<Article> iterator = articles.iterator();
+            Iterator<ArticleWithUser> iterator = articles.iterator();
             while (iterator.hasNext()) {
-                Article next = iterator.next();
+                ArticleWithUser next = iterator.next();
                 dateTime = new DateTime(Long.parseLong(next.getTime()));
                 next.setTime(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ssa"));
                 if (next.getContent() != null) {
                     String content = next.getContent();
-                    if (content.length() > 100) {
-                        String subContent = content.substring(0, 100);
+                    if (content.length() > 200) {
+                        String subContent = content.substring(0, 200);
                         next.setContent(subContent);
-                    }
-                }
-                if (next.getTitle() != null) {
-                    String title = next.getTitle();
-                    if (title.length() > 20) {
-                        String subTitle = title.substring(0, 20);
-                        next.setTitle(subTitle);
                     }
                 }
             }
@@ -137,16 +124,16 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
     @Override
     public Map<String, List> searchsidebarExceptTag(Integer userId) {
         Map<String, List> resultMap = new HashMap<>();
-        List<Article> readHot = null;
-        List<Article> commentHot = null;
-        List<Article> likeHot = null;
+        List<ArticleWithUser> readHot = null;
+        List<ArticleWithUser> commentHot = null;
+        List<ArticleWithUser> likeHot = null;
         try {
             readHot = articleMapper.selectReadHot(userId);
             commentHot = articleMapper.selectCommentHot(userId);
             likeHot = articleMapper.selectLikeHot(userId);
-            Iterator<Article> readIterator = readHot.iterator();
+            Iterator<ArticleWithUser> readIterator = readHot.iterator();
             while (readIterator.hasNext()) {
-                Article next = readIterator.next();
+                ArticleWithUser next = readIterator.next();
                 if (next.getTitle() != null) {
                     String title = next.getTitle();
                     if (title.length() > 20) {
@@ -155,9 +142,9 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
                     }
                 }
             }
-            Iterator<Article> commentIterator = commentHot.iterator();
+            Iterator<ArticleWithUser> commentIterator = commentHot.iterator();
             while (commentIterator.hasNext()) {
-                Article next = commentIterator.next();
+                ArticleWithUser next = commentIterator.next();
                 if (next.getTitle() != null) {
                     String title = next.getTitle();
                     if (title.length() > 20) {
@@ -166,9 +153,9 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
                     }
                 }
             }
-            Iterator<Article> likeIterator = likeHot.iterator();
+            Iterator<ArticleWithUser> likeIterator = likeHot.iterator();
             while (likeIterator.hasNext()) {
-                Article next = likeIterator.next();
+                ArticleWithUser next = likeIterator.next();
                 if (next.getTitle() != null) {
                     String title = next.getTitle();
                     if (title.length() > 20) {

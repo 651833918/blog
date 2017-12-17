@@ -4,6 +4,6 @@ import cn.powerr.blog.user.entity.User;
 import lombok.Data;
 
 @Data
-public class ArticleWithUser extends Article {
+public class ArticleWithUser extends ArticleWithBLOBs {
     private User user;
 }

@@ -28,5 +28,5 @@ public interface BlogMapper {
 
     int updateByPrimaryKey(Blog record);
 
-    Blog selectBlogThroughUserId(Integer id);
+    Blog selectBlogThroughUserId(@Param("id")Integer id);
 }

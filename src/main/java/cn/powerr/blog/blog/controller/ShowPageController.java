@@ -1,6 +1,6 @@
 package cn.powerr.blog.blog.controller;
 
-import cn.powerr.blog.blog.entity.Article;
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import cn.powerr.blog.blog.entity.Blog;
 import cn.powerr.blog.blog.service.MainhomeService;
@@ -41,7 +41,7 @@ public class ShowPageController {
             Map result = mainhomeService.searchLookHotInfo(pageNum);
             List lookHotList = (List) result.get("lookHot");
             PageInfo pageInfo = (PageInfo) result.get("pageInfo");
-            List<Article> recentPublishList = mainhomeService.searchRecentPublishInfo();
+            List<ArticleWithUser> recentPublishList = mainhomeService.searchRecentPublishInfo();
             List<User> users = mainhomeService.searchHotUser();
             model.addAttribute("likeHotList", likeHotList);
             model.addAttribute("lookHotList", lookHotList);

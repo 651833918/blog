@@ -1,9 +1,7 @@
 package cn.powerr.blog.blog.service.impl;
 
 import cn.powerr.blog.blog.dao.ArticleMapper;
-import cn.powerr.blog.blog.dao.CommentMapper;
-import cn.powerr.blog.blog.entity.Article;
-import cn.powerr.blog.blog.entity.ArticleExample;
+import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
 import cn.powerr.blog.blog.entity.ArticleWithUser;
 import cn.powerr.blog.blog.service.MainhomeService;
 import cn.powerr.blog.user.dao.UserMapper;
@@ -42,26 +40,19 @@ public class MainhomeServiceImpl implements MainhomeService {
     public Map searchLookHotInfo(Integer pageNum) {
         Map result = new HashMap();
         try {
-            PageHelper.startPage(pageNum, 6);
+            PageHelper.startPage(pageNum, 10);
             List<ArticleWithUser> lookHotList = articleMapper.selectMainPost();
             PageInfo<ArticleWithUser> pageInfo = new PageInfo<>(lookHotList);
             Iterator<ArticleWithUser> iterator = lookHotList.iterator();
             while (iterator.hasNext()) {
-                Article next = iterator.next();
+                ArticleWithUser next = iterator.next();
                 dateTime = new DateTime(Long.parseLong(next.getTime()));
                 next.setTime(dateTime.toString("dd MMMM yyyy EEEE"));
                 if (next.getContent() != null) {
                     String content = next.getContent();
-                    if (content.length() > 100) {
-                        String subContent = content.substring(0, 100);
+                    if (content.length() > 200) {
+                        String subContent = content.substring(0, 200);
                         next.setContent(subContent);
-                    }
-                }
-                if (next.getTitle() != null) {
-                    String title = next.getTitle();
-                    if (title.length() > 20) {
-                        String subTitle = title.substring(0, 20);
-                        next.setTitle(subTitle);
                     }
                 }
             }
@@ -116,29 +107,16 @@ public class MainhomeServiceImpl implements MainhomeService {
      */
     @Override
     @Transactional
-    public List<Article> searchRecentPublishInfo() {
-        List<Article> recentPublish = null;
+    public List<ArticleWithUser> searchRecentPublishInfo() {
+        List<ArticleWithUser> recentPublish = null;
         try {
-            ArticleExample articleExample1 = new ArticleExample();
-            ArticleExample.Criteria criteria = articleExample1.createCriteria();
-            criteria.andTitleIsNotNull();
-            criteria.andStateEqualTo(1);
-            articleExample1.setOrderByClause("time DESC");
             PageHelper.startPage(1, 10);
-            recentPublish = articleMapper.selectByExampleWithBLOBs(articleExample1);
-            Iterator<Article> iterator = recentPublish.iterator();
+            recentPublish = articleMapper.selectRecent();
+            Iterator<ArticleWithUser> iterator = recentPublish.iterator();
             while (iterator.hasNext()) {
-                Article next = iterator.next();
+                ArticleWithUser next = iterator.next();
                 dateTime = new DateTime(Long.parseLong(next.getTime()));
                 next.setTime(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
-                if (next.getTitle() != null) {
-                    String title = next.getTitle();
-                    if (title.length() > 20) {
-                        String subTitle = title.substring(0, 20);
-                        next.setTitle(subTitle);
-
-                    }
-                }
             }
         } catch (Exception e) {
             log.error("查询最近发表文章失败");

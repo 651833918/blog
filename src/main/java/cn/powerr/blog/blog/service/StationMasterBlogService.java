@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface StationMasterBlogService {
-    Map<String, List> searchArticle(Integer id, Integer pageNum);
+    Map<String, List> searchArticle(Integer id, Integer pageNum,Integer pageSize);
 
     Map<String, Object> searchBlogAndUser(Integer id, Integer userId);
 

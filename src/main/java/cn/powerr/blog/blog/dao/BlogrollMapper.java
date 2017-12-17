@@ -27,4 +27,6 @@ public interface BlogrollMapper {
     int updateByPrimaryKeySelective(Blogroll record);
 
     int updateByPrimaryKey(Blogroll record);
+
+    List<Blogroll> selectAll(Integer userId);
 }

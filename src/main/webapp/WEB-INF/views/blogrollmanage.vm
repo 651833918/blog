@@ -8,35 +8,28 @@
                 <div class="panel-body">
                     <div class="alert alert-danger" id="baseMsg" style="display: none"></div>
                     <div role="form" id="userBlogForm">
-
                         <div class="form-group">
-                            <label for="title" >博客标题</label>
-                            <input type="text" class="form-control" id="Title" name="Title"
-                                   placeholder="请输入博客名"
-                                   value="${blogInfo.blogName}">
+                            <label for="title">友链名</label>
+                            #if(${blogrollInfo.describe})
+                                <input type="text" class="form-control" id="Title" name="blogName"
+                                       value="${blogrollInfo.describe}" maxlength="20">
+                            #else
+                                <input type="text" class="form-control" id="Title" name="blogName"
+                                       placeholder="请输入友链名" maxlength="20">
+                            #end
                         </div>
 
-                        <div class="form-group">
-                            <label for="logo">博客Logo</label>
-                            <input type="hidden" name="Logo" id="Logo"
-                                   value="" />
-                            <form id="formLogo" action="/file/uploadBlogLogo" method="post"
-                                  enctype="multipart/form-data" target="logoTarget">
-                                <input type="file" class="form-control" id="logo2" name="file"
-                                       onChange='$("#formLogo").submit();' />
-                                <div id="logoImg">
-                                    <img src="${blogInfo.blogUrl}" style="height: 40px" /> <a
-                                        href="#" id="deleteLogo">删除</a>
-                                </div>
-                            </form>
-                            <iframe id="logoTarget" name="logoTarget" src="#" style="display: none"></iframe>
-                        </div>
 
                         <div class="form-group">
-                            <label for="subTitle">博客描述</label>
-                            <input type="text" class="form-control" id="SubTitle"
-                                   name="SubTitle" value="${blogInfo.blogIntro}"
-                                   placeholder="请输入博客描述">
+                            <label for="subTitle">友链地址</label>
+                            #if(${blogrollInfo.url})
+                                <input type="text" class="form-control" id="SubTitle"
+                                       name="blogIntro" value="${blogrollInfo.url}">
+                            #else
+                                <input type="text" class="form-control" id="SubTitle"
+                                       name="blogIntro"
+                                       placeholder="请输入友链地址">
+                            #end
                         </div>
 
                         <div class="form-group">
@@ -50,7 +43,11 @@
                     </div>
                 </div>
                 <footer class="panel-footer text-right bg-light lter">
-                    <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+                    #if(${blogrollInfo})
+                        <button type="submit" id="editBtn" class="btn btn-success">修改</button>
+                    #else
+                        <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+                    #end
                 </footer>
             </section>
         </div>
@@ -61,7 +58,6 @@
 
 </div>
 
-
 <!-- Scripts -->
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/skel.min.js"></script>
@@ -69,5 +65,42 @@
 <!--[if lte IE 8]>
 <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#editBtn").click(function () {
+            var describe = $("#Title").val();
+            var url = $("#SubTitle").val();
+            var data = {"describe": describe, "url": url};
+##            var id = ${blogrollInfo.blogrollId};
+            $.ajax({
+                type: "POST",
+                url: "/editBlogroll/${blogrollInfo.blogrollId}",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data == "edit_succ") {
+                        window.location.href = "/blogrollManage";
+                    }
+                }
+            });
+        });
+        $("#baseBtn").click(function () {
+            var describe = $("#Title").val();
+            var url = $("#SubTitle").val();
+            var data = {"describe": describe, "url": url};
+            $.ajax({
+                type: "POST",
+                url: "/addBlogroll",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data == "add_succ") {
+                        window.location.href = "/blogrollManage";
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

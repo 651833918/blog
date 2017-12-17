@@ -1,0 +1,34 @@
+#parse("header.vm")
+<div id="main">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+    <h3 style="text-align: center"><a style="color: lightseagreen " href="/showAddBlogroll"  >新增友链</a></h3>
+    #if(${blogrolls})
+        #foreach(${blogroll} in ${blogrolls})
+            <ul class="mini-posts" style="list-style-type:none">
+                <li style="margin-top: auto">
+                    ${blogroll.describe}
+                    <a href="/showEditBlogroll/${blogroll.blogrollId}" style="text-align: right" class="btn btn-default btn-zan"><span
+                            id="editBlogroll">编辑</span>
+                    </a>
+                    <a href="/delBlogroll/${blogroll.blogrollId}" id="deleteBlogroll"
+                       style="text-align: right" class="btn btn-default btn-zan"><span>删除</span>
+                    </a>
+                </li>
+            </ul>
+        #end
+    #end
+</div>
+#parse("manageblogsidebar.vm")
+</div>
+
+
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+</body>
+</html>
