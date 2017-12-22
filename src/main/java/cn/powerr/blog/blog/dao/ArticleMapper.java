@@ -1,11 +1,9 @@
 package cn.powerr.blog.blog.dao;
 
-import cn.powerr.blog.blog.entity.Article;
-import cn.powerr.blog.blog.entity.ArticleExample;
+import cn.powerr.blog.blog.entity.*;
+
 import java.util.List;
 
-import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
-import cn.powerr.blog.blog.entity.ArticleWithUser;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -51,7 +49,17 @@ public interface ArticleMapper {
 
     List<ArticleWithUser> selectRecent();
 
-    List<ArticleWithUser> selectUserRecent(@Param("userId")Integer userId);
+    List<ArticleWithTagAndUser> selectUserRecent(@Param("userId")Integer userId);
 
     void updateArticleByLookNum(Integer articleId);
+
+    ArticleWithTagAndUser selectWithTag(Integer articleId);
+
+    int updateArticleTag(@Param("articleId") Integer articleId, @Param("tagId") Integer tagId);
+
+    int updateArticleTagToNull(Integer tagId);
+
+    List<ArticleWithTagAndUser> selectArticlesWithTag(@Param(value = "tagId") Integer tagId,@Param(value = "userId") Integer userId);
+
+    void updateDraft(@Param("articleId")Integer articleId);
 }

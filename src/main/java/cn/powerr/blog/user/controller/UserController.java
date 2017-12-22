@@ -79,7 +79,7 @@ public class UserController {
         String password = req.getParameter("password");
         User user = userService.checkUser(username, password);
         session.setAttribute("sessionUser",user);
-        session.setMaxInactiveInterval(60*60*24);
+        session.setMaxInactiveInterval(60*60*24*30);
 //        model.addAttribute("user",user);
         if (user != null){
             return "login_succ";

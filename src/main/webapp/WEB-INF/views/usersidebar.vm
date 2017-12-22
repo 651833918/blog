@@ -41,15 +41,13 @@
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: blueviolet">博客标签</h5>
 
-
-            <article class="mini-post" style="text-align: center;margin: auto">
-                <div>
-                    <h5><a href="#">aaaaaa</a></h5>
-                </div>
-
-            </article>
-
-
+            #foreach(${tag} in ${tags2})
+                <article class="mini-post" style="text-align: center;margin: auto">
+                    <div>
+                        <h5><a href="/showArticlesWithTag/${tag.userId}/${tag.tagId}/1">${tag.tagName}</a></h5>
+                    </div>
+                </article>
+            #end
         </div>
     </section>
 
@@ -97,7 +95,7 @@
 
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
-                        <h5><a href="#">${article.title}</a>
+                        <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
                             <span href="#" class="icon fa-heart" style="color:darkred;">${article.likenum}</span>
                         </h5>
 
@@ -114,7 +112,7 @@
         <nav class="links">
             <ul>
                 #foreach(${blogroll} in ${blogrollInfo2})
-                    <li><a href="${blogroll.url}">${blogroll.describe}</a></li>
+                    <li><a target="_blank" href="${blogroll.url}">${blogroll.describe}</a></li>
                 #end
             </ul>
         </nav>

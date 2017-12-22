@@ -1,0 +1,81 @@
+#parse("header.vm")
+<div id="main">
+    <article class="post" back>
+        <div id="formData">
+            <section class="panel panel-default">
+                <div class="panel-body">
+                    <div class="alert alert-danger" id="baseMsg" style="display: none"></div>
+                    <div role="form" id="userBlogForm">
+                        <div class="form-group">
+                            <label for="title">标签名</label>
+                            #if(${tagInfo.tagName})
+                                <input type="text" class="form-control" id="Title" name="blogName"
+                                       value="${tagInfo.tagName}" maxlength="20">
+                            #else
+                                <input type="text" class="form-control" id="Title" name="blogName"
+                                       placeholder="请输入标签名" maxlength="20">
+                            #end
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer text-right bg-light lter">
+                    #if(${tagInfo})
+                        <button type="submit" id="editBtn" class="btn btn-success">修改</button>
+                    #else
+                        <button type="submit" id="baseBtn" class="btn btn-success">提交</button>
+                    #end
+                </footer>
+            </section>
+        </div>
+    </article>
+</div>
+#parse("manageblogsidebar.vm")
+</div>
+
+
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#editBtn").click(function () {
+            var tagName = $("#Title").val();
+            var data = {"tagName": tagName};
+        ##            var id = ${blogrollInfo.blogrollId};
+            $.ajax({
+                type: "POST",
+                url: "/editTag/${tagInfo.tagId}",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data == "edit_succ") {
+                        window.location.href = "/tagManage";
+                    }
+                }
+            });
+        });
+        $("#baseBtn").click(function () {
+            var tagName = $("#Title").val();
+            var data = {"tagName": tagName};
+            $.ajax({
+                type: "POST",
+                url: "/addTag",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data == "add_succ") {
+                        window.location.href = "/tagManage";
+                    }else {
+                        alert("不能有同名标签");
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

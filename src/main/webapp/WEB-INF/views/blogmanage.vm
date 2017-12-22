@@ -88,6 +88,17 @@
             $("#Logo").val("");
             $("#logoImg").hide();
         });
+        $("#logout").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        });
     });
 </script>
 </body>

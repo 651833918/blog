@@ -56,8 +56,8 @@
         <!--友情链接-->
         <nav class="links">
             <ul>
-                <li><a href="http://www.baidu.com">百度</a></li>
-                <li><a href="http://www.coder520.com">码码在线</a></li>
+                <li><a target="_blank" href="http://www.baidu.com">百度</a></li>
+                <li><a target="_blank" href="http://www.coder520.com">码码在线</a></li>
             </ul>
         </nav>
     </section>

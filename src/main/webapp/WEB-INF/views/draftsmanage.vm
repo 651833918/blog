@@ -2,13 +2,25 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-    <article class="post" back>
-
-    </article>
+    #foreach(${article} in ${draftsArticles})
+        <ul class="mini-posts" style="list-style-type:none">
+            <li style="margin-top: auto">
+                <span>${article.title}</span>
+                <a href="/editDraft/${article.id}" style="text-align: right" class="btn btn-default btn-zan">
+                    <span id="editArticle">编辑</span>
+                </a>
+                <a href="/pulishDraft/${article.id}" style="text-align: right" class="btn btn-default btn-zan">
+                    <span id="pulishDraft">发布</span>
+                </a>
+                <a href="/delDraft/${article.id}" id="deleteDraft"
+                   style="text-align: right" class="btn btn-default btn-zan"><span>删除</span>
+                </a>
+            </li>
+        </ul>
+    #end
 </div>
 
 #parse("manageblogsidebar.vm")
-
 </div>
 
 
@@ -19,10 +31,25 @@
 <!--[if lte IE 8]>
 <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="/static/assets/js/main.js"></script>
+<script src="https://dn-leanote.qbox.me/js/jquery-1.9.0.min.js"></script>
+<script src="https://dn-leanote.qbox.me/js/bootstrap.js"></script>
+<script src="https://dn-leanote.qbox.me/js/i18n/msg.zh-cn.js?m=2"></script>
+<script src="https://dn-leanote.qbox.me/admin/js/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="https://dn-leanote.qbox.me/js/common.js"></script>
+<script src="https://dn-leanote.qbox.me/member/js/member.js"></script>
 <script>
     $(function () {
-
+        $("#logout").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        });
     });
 </script>
 </body>
-</html>

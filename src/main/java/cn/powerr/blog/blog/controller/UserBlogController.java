@@ -1,11 +1,9 @@
 package cn.powerr.blog.blog.controller;
 
-import cn.powerr.blog.blog.entity.Article;
-import cn.powerr.blog.blog.entity.ArticleWithUser;
-import cn.powerr.blog.blog.entity.Blog;
-import cn.powerr.blog.blog.entity.Blogroll;
+import cn.powerr.blog.blog.entity.*;
 import cn.powerr.blog.blog.service.BlogrollService;
 import cn.powerr.blog.blog.service.StationMasterBlogService;
+import cn.powerr.blog.blog.service.TagService;
 import cn.powerr.blog.user.entity.User;
 import cn.powerr.blog.user.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +27,8 @@ public class UserBlogController {
     private UserService userService;
     @Autowired
     private BlogrollService blogrollService;
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping("/showUserBlog/{pageNum}")
     public String showUserBlog(@PathVariable("pageNum") Integer pageNum, Model model, HttpSession session) {
@@ -36,8 +36,10 @@ public class UserBlogController {
         try {
             Map articles = stationMasterBlogService.searchArticle(sessionUser.getUserId(), pageNum,15);
             List<Blogroll> blogrolls = blogrollService.searchBlogrolls(sessionUser.getUserId());
+            List<Tag> tags = tagService.searchTags(sessionUser.getUserId());
             PageInfo pageInfo = (PageInfo) articles.get("pageInfo");
             List<ArticleWithUser> articleInfo = (List<ArticleWithUser>) articles.get("articles");
+            model.addAttribute("tags2",tags);
             model.addAttribute("blogrollInfo2",blogrolls);
             model.addAttribute("pageInfo2", pageInfo);
             model.addAttribute("articleInfo2", articleInfo);
@@ -78,9 +80,11 @@ public class UserBlogController {
         }
         try {
             Map articles = stationMasterBlogService.searchArticle(userId, pageNum,15);
-            List<Blogroll> blogrolls = blogrollService.searchBlogrolls(userIdLocal);
+            List<Blogroll> blogrolls = blogrollService.searchBlogrolls(userId);
+            List<Tag> tags = tagService.searchTags(userId);
             PageInfo pageInfo = (PageInfo) articles.get("pageInfo");
             List<ArticleWithUser> articleInfo = (List<ArticleWithUser>) articles.get("articles");
+            model.addAttribute("tags3",tags);
             model.addAttribute("blogrollInfo3",blogrolls);
             model.addAttribute("pageInfo3", pageInfo);
             model.addAttribute("articleInfo3", articleInfo);

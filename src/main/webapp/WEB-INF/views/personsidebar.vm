@@ -44,12 +44,13 @@
             <h5 style="margin-top: -30px;text-align: center;color: blueviolet">博客标签</h5>
 
 
-            <article class="mini-post" style="text-align: center;margin: auto">
-                <div>
-                    <h5><a href="#">aaaaaa</a></h5>
-                </div>
-
-            </article>
+            #foreach(${tag} in ${tags3})
+                <article class="mini-post" style="text-align: center;margin: auto">
+                    <div>
+                        <h5><a href="/showArticlesWithTag/${tag.userId}/${tag.tagId}/1">${tag.tagName}</a></h5>
+                    </div>
+                </article>
+            #end
 
 
         </div>
@@ -116,7 +117,7 @@
         <nav class="links">
             <ul>
                 #foreach(${blogroll} in ${blogrollInfo3})
-                    <li><a href="${blogroll.url}">${blogroll.describe}</a></li>
+                    <li><a target="_blank" href="${blogroll.url}">${blogroll.describe}</a></li>
                 #end
             </ul>
         </nav>

@@ -1,10 +1,7 @@
 package cn.powerr.blog.blog.controller;
 
-import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
-import cn.powerr.blog.blog.entity.ArticleWithUser;
-import cn.powerr.blog.blog.entity.Blog;
-import cn.powerr.blog.blog.service.MainhomeService;
-import cn.powerr.blog.blog.service.StationMasterBlogService;
+import cn.powerr.blog.blog.entity.*;
+import cn.powerr.blog.blog.service.*;
 import cn.powerr.blog.user.entity.User;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +22,12 @@ public class ShowPageController {
     private MainhomeService mainhomeService;
     @Autowired
     private StationMasterBlogService stationMasterBlogService;
-
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
+    private BlogrollService blogrollService;
+    @Autowired
+    private TagService tagService;
 
     /**
      * 主页用于展示的文章信息等
@@ -54,6 +56,46 @@ public class ShowPageController {
         return mainHomeUrl;
     }
 
+    /**
+     * 返回具体的数据
+     *
+     * @param userId
+     * @param tagId
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @RequestMapping("/showArticlesWithTag/{userId}/{tagId}/{pageNum}")
+    public String showArticlesWithTag(@PathVariable(value = "userId") Integer userId,
+                                      @PathVariable(value = "tagId") Integer tagId,
+                                      @PathVariable(value = "pageNum") Integer pageNum,
+                                      Model model) {
+        Map map = articleService.showArticlesWithTag(userId, tagId, pageNum);
+        List<ArticleWithTagAndUser> articles = (List<ArticleWithTagAndUser>) map.get("articles");
+        PageInfo<ArticleWithTagAndUser> pageInfo = (PageInfo<ArticleWithTagAndUser>) map.get("pageInfo");
+        model.addAttribute("articlesWithTag", articles);
+        model.addAttribute("articlesWithTagPageInfo", pageInfo);
+        model.addAttribute("userId", userId);
+        model.addAttribute("tagId", tagId);
+        List<Blogroll> blogrolls = blogrollService.searchBlogrolls(userId);
+        List<Tag> tags = tagService.searchTags(userId);
+        model.addAttribute("articlesWithTagtags", tags);
+        model.addAttribute("articlesWithTagblogrollInfo", blogrolls);
+        Map<String, Object> blogAndUser = null;
+        blogAndUser = stationMasterBlogService.searchBlogAndUser(userId);
+        User userInfo = (User) blogAndUser.get("user");
+        Blog blogInfo = (Blog) blogAndUser.get("blog");
+        model.addAttribute("articlesWithTaguserInfo", userInfo);
+        model.addAttribute("articlesWithTagblogInfo", blogInfo);
+        Map<String, List> sidebarExceptTag = stationMasterBlogService.searchsidebarExceptTag(userId);
+        List<Article> readHot = sidebarExceptTag.get("readHot");
+        List<Article> likeHot = sidebarExceptTag.get("likeHot");
+        List<Article> commentHot = sidebarExceptTag.get("commentHot");
+        model.addAttribute("articlesWithTagreadHot", readHot);
+        model.addAttribute("articlesWithTaglikeHot", likeHot);
+        model.addAttribute("articlesWithTagcommentHot", commentHot);
+        return "articles_tag";
+    }
 
 
 }

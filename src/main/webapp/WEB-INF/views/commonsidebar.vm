@@ -3,21 +3,34 @@
 
     <!-- Intro -->
     <section id="intro">
-        <a class="logo" href=""><img src="${blogInfo1.blogUrl}" alt=""/></a>
+        <a class="logo" href="/showPerosonPage/${articlesWithTaguserInfo.userId}/1"><img src="${articlesWithTagblogInfo.blogUrl}" alt=""/></a>
         <header>
-            <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${blogInfo1.blogName}</h5>
-            <p style="word-wrap:break-word;overflow:hidden;">博客简介：${blogInfo1.blogIntro}</p>
-            <p>访问人数：<font style="color: purple">${userInfo1.looknum}</font></p>
+            #if(${articlesWithTagblogInfo.blogName})
+                <h5 style="word-wrap:break-word;overflow:hidden;">博客空间：${articlesWithTagblogInfo.blogName}</h5>
+            #else
+                <h4 style="text-align: left;color: indigo"></h4>
+            #end
+            #if(${articlesWithTagblogInfo.blogIntro})
+            ## style="word-wrap:break-word;overflow:hidden;" 解决英文单词过长问题
+                <p style="word-wrap:break-word;overflow:hidden;">博客简介：${articlesWithTagblogInfo.blogIntro}</p>
+            #end
+            <p>访问人数：<font style="color: purple">${articlesWithTaguserInfo.looknum}</font></p>
         </header>
     </section>
 
     <!--博主简介-->
     <section id="intro">
-        <a class="logo" disabled="true"><img src="${userInfo1.headImg}" alt=""/></a>
+        <a class="logo" disabled="true"><img src="${articlesWithTaguserInfo.headImg}" alt=""/></a>
         <header>
-            <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${userInfo1.nickName}</h5>
-            <p style="word-wrap:break-word;overflow:hidden;">博主简介：${userInfo1.userIntro}</p>
-            <p>博主邮箱：${userInfo1.email}</p>
+            #if(${articlesWithTaguserInfo.nickName})
+                <h5 style="word-wrap:break-word;overflow:hidden;">博主昵称：${articlesWithTaguserInfo.nickName}</h5>
+            #else
+                <h4 style="text-align: left;color: indigo"></h4>
+            #end
+            #if(${articlesWithTaguserInfo.userIntro})
+                <p style="word-wrap:break-word;overflow:hidden;">博主简介：${articlesWithTaguserInfo.userIntro}</p>
+            #end
+            <p>博主邮箱：${articlesWithTaguserInfo.email}</p>
         </header>
     </section>
 
@@ -29,8 +42,7 @@
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: blueviolet">博客标签</h5>
 
-
-            #foreach(${tag} in ${tags1})
+            #foreach(${tag} in ${articlesWithTagtags})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="/showArticlesWithTag/${tag.userId}/${tag.tagId}/1">${tag.tagName}</a></h5>
@@ -45,7 +57,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: mediumpurple">阅读排行</h5>
-            #foreach(${article} in ${readHot1})
+            #foreach(${article} in ${articlesWithTagreadHot})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
@@ -62,7 +74,7 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: rebeccapurple">评论排行</h5>
-            #foreach(${article} in ${commentHot1})
+            #foreach(${article} in ${articlesWithTagcommentHot})
                 <article class="mini-post" style="text-align: center;margin: auto">
                     <div>
                         <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
@@ -80,16 +92,16 @@
             <!-- Mini Post -->
             <!--每栏四个最佳-->
             <h5 style="margin-top: -30px;text-align: center;color: purple">推荐文章</h5>
-            #foreach(${article} in ${likeHot1})
+            #foreach(${article} in ${articlesWithTaglikeHot})
 
-            <article class="mini-post" style="text-align: center;margin: auto">
-                <div>
-                    <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
-                        <span href="#" class="icon fa-heart" style="color:darkred;">${article.likenum}</span>
-                    </h5>
+                <article class="mini-post" style="text-align: center;margin: auto">
+                    <div>
+                        <h5><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
+                            <span href="#" class="icon fa-heart" style="color:darkred;">${article.likenum}</span>
+                        </h5>
 
-                </div>
-            </article>
+                    </div>
+                </article>
             #end
         </div>
     </section>
@@ -100,7 +112,7 @@
         <!--友情链接-->
         <nav class="links">
             <ul>
-                #foreach(${blogroll} in ${blogrollInfo1})
+                #foreach(${blogroll} in ${articlesWithTagblogrollInfo})
                     <li><a target="_blank" href="${blogroll.url}">${blogroll.describe}</a></li>
                 #end
             </ul>

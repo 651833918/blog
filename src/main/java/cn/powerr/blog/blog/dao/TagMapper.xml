@@ -134,7 +134,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="selectTags" resultMap="BaseResultMap">
+      SELECT tag_id,tag_name,user_id FROM tag
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update tag
     <set >
       <if test="record.tagId != null" >

@@ -2,47 +2,33 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-    #foreach(${article} in ${articlesManage})
+    <h3 style="text-align: center;color: lightseagreen">${articleTag.tagName}</h3>
+    #foreach(${article} in ${articlesWithTag})
         <ul class="mini-posts" style="list-style-type:none">
             <li style="margin-top: auto">
-                #if(${article.tagId})
-                    <span class="fa fa-tag">${article.tag.tagName}</span>
-                #end
                 <a class="btn btn-default btn-zan"
                    href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
-                <a href="/editArticle/${article.id}" style="text-align: right" class="btn btn-default btn-zan">
-                    <span id="editArticle">编辑</span>
-                </a>
-                <a href="/delArticle/${article.id}/${articlesPageInfo.pageNum}" id="deleteArticle"
-                   style="text-align: right" class="btn btn-default btn-zan"><span>删除</span>
-                </a>
-                <select id="tag${article.id}">
-                    <option selected hidden>标签设定:</option>
-                    #foreach(${tag} in ${tags})
-                        <option id="tagOption" value="${tag.tagId},${article.id}">${tag.tagName}</option>
-                    #end
-                </select>
             </li>
         </ul>
     #end
     <ul class="actions pagination">
-        #if(${articlesPageInfo.hasPreviousPage})
+        #if(${articlesWithTagPageInfo.hasPreviousPage})
             <li>
                 <button class="button big previous" id="pre">Previous Page</button>
             </li>
         #end
-        #if(!${articlesPageInfo.hasPreviousPage})
+        #if(!${articlesWithTagPageInfo.hasPreviousPage})
             <li>
                 <button class="disabled button big previous" id="pre">Previous Page</button>
             </li>
         #end
-        <li><span style="color: #2ebaae">${articlesPageInfo.pageNum}/${articlesPageInfo.pages}</span></li>
-        #if(${articlesPageInfo.hasNextPage})
+        <li><span style="color: #2ebaae">${articlesWithTagPageInfo.pageNum}/${articlesWithTagPageInfo.pages}</span></li>
+        #if(${articlesWithTagPageInfo.hasNextPage})
             <li>
                 <button class="button big next" id="next">Next Page</button>
             </li>
         #end
-        #if(!${articlesPageInfo.hasNextPage})
+        #if(!${articlesWithTagPageInfo.hasNextPage})
             <li>
                 <button class="disabled button big next" id="next">Next Page</button>
             </li>
@@ -70,28 +56,11 @@
 <script>
     $(function () {
         $("#next").click(function () {
-            window.location.href = "/articleManage/" +${articlesPageInfo.nextPage};
+            window.location.href = "/getArticlesWithTag/${articleTag.tagId}/" +${articlesWithTagPageInfo.nextPage};
         });
         $("#pre").click(function () {
-            window.location.href = "/articleManage/" +${articlesPageInfo.prePage};
+            window.location.href = "/getArticlesWithTag/${articleTag.tagId}/" +${articlesWithTagPageInfo.prePage};
         });
-        #foreach(${article} in ${articlesManage})
-        $("#tag${article.id}").change(function () {
-        var tagIdAndArticleId = $("#tag${article.id}").val();
-            var tagAndArticle = tagIdAndArticleId.split(",");
-            var tagId = tagAndArticle[0];
-            var articleId = tagAndArticle[1];
-            $.ajax({
-                type: "POST",
-                url: "/setAricleTagId/" + articleId + "/" + tagId,
-                success: function (data) {
-                    if (data == "setTagId_succ") {
-                        window.location.href = "/articleManage/${articlesPageInfo.pageNum}";
-                    }
-                }
-            });
-        });
-        #end
         $("#logout").click(function () {
             $.ajax({
                 type: "POST",

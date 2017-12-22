@@ -2,13 +2,24 @@
 <div id="main">
     <!-- Post -->
     <!--article每页三个展示最佳-->
-    <article class="post" back>
-
-    </article>
+    <h3 style="text-align: center"><a style="color: lightseagreen " href="/showAddTag"  >新增标签</a></h3>
+    #if(${tags})
+        #foreach(${tag} in ${tags})
+            <ul class="mini-posts" style="list-style-type:none">
+                <li style="margin-top: auto">
+                    <a class="btn btn-default btn-zan"  href="/getArticlesWithTag/${tag.tagId}/1">${tag.tagName}</a>
+                    <a href="/showEditTagName/${tag.tagId}" style="text-align: right" class="btn btn-default btn-zan"><span
+                            id="editBlogroll">编辑</span>
+                    </a>
+                    <a href="/delTag/${tag.tagId}" id="deleteTag"
+                       style="text-align: right" class="btn btn-default btn-zan"><span>删除</span>
+                    </a>
+                </li>
+            </ul>
+        #end
+    #end
 </div>
-
 #parse("manageblogsidebar.vm")
-
 </div>
 
 
@@ -19,10 +30,5 @@
 <!--[if lte IE 8]>
 <script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="/static/assets/js/main.js"></script>
-<script>
-    $(function () {
-
-    });
-</script>
 </body>
 </html>

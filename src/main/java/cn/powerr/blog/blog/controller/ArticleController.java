@@ -1,9 +1,6 @@
 package cn.powerr.blog.blog.controller;
 
-import cn.powerr.blog.blog.entity.Article;
-import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
-import cn.powerr.blog.blog.entity.ArticleWithUser;
-import cn.powerr.blog.blog.entity.Blog;
+import cn.powerr.blog.blog.entity.*;
 import cn.powerr.blog.blog.service.ArticleService;
 import cn.powerr.blog.blog.service.StationMasterBlogService;
 import cn.powerr.blog.common.resp.ArticlePicResult;
@@ -86,6 +83,7 @@ public class ArticleController {
 
     /**
      * 展示文章界面
+     *
      * @param articleId
      * @param userId
      * @param model
@@ -115,7 +113,7 @@ public class ArticleController {
         } catch (Exception e) {
             log.error("用户信息或者博客信息查找失败");
         }
-        ArticleWithBLOBs articleWithBLOBs = articleService.refreshArticleMess(articleId, userId);
+        ArticleWithTagAndUser articleWithBLOBs = articleService.refreshArticleMess(articleId, userId);
         long time = Long.parseLong(articleWithBLOBs.getTime());
         dateTime = new DateTime(time);
         articleWithBLOBs.setTime(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
@@ -143,26 +141,39 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("/editArticle/{articleId}")
-    public String editArticle(@PathVariable(value = "articleId") Integer articleId, Model model,HttpSession session) {
+    public String editArticle(@PathVariable(value = "articleId") Integer articleId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("sessionUser");
         Integer userId = user.getUserId();
-        ArticleWithBLOBs articleWithBLOBs = articleService.refreshArticleMess(articleId, userId);
-        model.addAttribute("editArticle",articleWithBLOBs);
+        ArticleWithTagAndUser articleWithBLOBs = articleService.getEditArticle(articleId);
+        model.addAttribute("editArticle", articleWithBLOBs);
         return "write_article";
     }
 
     /**
      * 编辑文章
+     *
      * @return
      */
     @RequestMapping("/editArticled")
     @ResponseBody
     public String editArticled(@RequestBody ArticleWithBLOBs articleWithBLOBs) {
         Integer resp = articleService.editArticle(articleWithBLOBs);
-        if (resp > 0){
+        if (resp > 0) {
             return "edit_succ";
         }
         return "edit_fail";
+    }
+
+    @RequestMapping("/setAricleTagId/{articleId}/{tagId}")
+    @ResponseBody
+    public String setAricleTagId(@PathVariable(value = "articleId") Integer articleId,
+                                 @PathVariable(value = "tagId") Integer tagId) {
+
+        int result = articleService.updateTagId(articleId, tagId);
+        if(result >0){
+            return "setTagId_succ";
+        }
+        return "setTagId_fail";
     }
 
     /**
@@ -176,7 +187,7 @@ public class ArticleController {
     public String delArticle(@PathVariable(value = "articleId") Integer articleId,
                              @PathVariable(value = "articlePageNum") Integer articlePageNum, Model model) {
         articleService.delArticle(articleId);
-        return "redirect:/articleManage/"+articlePageNum;
+        return "redirect:/articleManage/" + articlePageNum;
     }
 
 }

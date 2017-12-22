@@ -42,7 +42,6 @@
                     <li><a href="/getPersonData">个人资料</a></li>
                     <li><a href="/blogManage">博客管理</a></li>
                     <li><a href="/writeArticle">写文章</a></li>
-                    <li><a href="/draftsManage">草稿箱</a></li>
                 #end
             </ul>
         </nav>

@@ -1,0 +1,87 @@
+#parse("header.vm")
+<!-- Main -->
+<div id="main">
+    <!-- Post -->
+    <!--article每页三个展示最佳-->
+    #foreach(${article} in ${articlesWithTag})
+        <article class="post">
+            <header>
+                <h3 style="text-align: center;margin: auto;word-wrap:break-word;word-break:break-all"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a></h3>
+            </header>
+            <main style="margin-top: -30px">
+                <span>${article.content}</span>
+            </main>
+            <footer>
+                <ul class="stats" style="text-align: right;margin: auto">
+                    <li><span href="#" class="icon fa-eye">${article.looknum}</span></li>
+                    <li><span href="#" class="icon fa-heart">${article.likenum}</span></li>
+                    <li><span href="#" class="icon fa-comment">${article.commentnum}</span></li>
+                    <li>
+                        <time class="published" style="color: darkslateblue ">${article.time}</time>
+                    </li>
+                </ul>
+            </footer>
+        </article>
+    #end
+
+    <!-- Pagination -->
+    <ul class="actions pagination">
+        #if(${articlesWithTagPageInfo.hasPreviousPage})
+            <li>
+                <button class="button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        #if(!${articlesWithTagPageInfo.hasPreviousPage})
+            <li>
+                <button class="disabled button big previous" id="pre">Previous Page</button>
+            </li>
+        #end
+        <li><span style="color: #2ebaae">${articlesWithTagPageInfo.pageNum}/${articlesWithTagPageInfo.pages}</span></li>
+        #if(${articlesWithTagPageInfo.hasNextPage})
+            <li>
+                <button class="button big next" id="next">Next Page</button>
+            </li>
+        #end
+        #if(!${articlesWithTagPageInfo.hasNextPage})
+            <li>
+                <button class="disabled button big next" id="next">Next Page</button>
+            </li>
+        #end
+    </ul>
+</div>
+#parse("commonsidebar.vm")
+
+</div>
+
+<!-- Scripts -->
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/skel.min.js"></script>
+<script src="/static/assets/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="/static/assets/js/main.js"></script>
+<script>
+    $(function () {
+        $("#next").click(function () {
+            window.location.href = "/showArticlesWithTag/${userId}/${tagId}/" +${articlesWithTagPageInfo.nextPage};
+        });
+        $("#pre").click(function () {
+            window.location.href = "/showArticlesWithTag/${userId}/${tagId}/" +${articlesWithTagPageInfo.prePage};
+        });
+        $("#logout").click(function () {
+            var logout = $("#logout").val();
+            $.ajax({
+                type: "POST",
+                url: "/user/logOut",
+                success: function (data) {
+                    if (data == "logout_succ") {
+                        window.location.href = "/mainHome/1";
+                    }
+                }
+            });
+        })
+
+    });
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package cn.powerr.blog.blog.entity;
 
 import cn.powerr.blog.user.entity.User;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 public class Article {

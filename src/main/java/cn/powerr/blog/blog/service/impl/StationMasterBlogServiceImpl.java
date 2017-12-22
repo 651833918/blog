@@ -2,10 +2,7 @@ package cn.powerr.blog.blog.service.impl;
 
 import cn.powerr.blog.blog.dao.ArticleMapper;
 import cn.powerr.blog.blog.dao.BlogMapper;
-import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
-import cn.powerr.blog.blog.entity.ArticleExample;
-import cn.powerr.blog.blog.entity.ArticleWithUser;
-import cn.powerr.blog.blog.entity.Blog;
+import cn.powerr.blog.blog.entity.*;
 import cn.powerr.blog.user.dao.UserMapper;
 import cn.powerr.blog.user.entity.User;
 import com.github.pagehelper.PageHelper;
@@ -40,16 +37,16 @@ public class StationMasterBlogServiceImpl implements cn.powerr.blog.blog.service
 
     @Override
     public Map searchArticle(Integer id, Integer pageNum,Integer pageSize) {
-        List<ArticleWithUser> articles = null;
-        PageInfo<ArticleWithUser> pageInfo = null;
+        List<ArticleWithTagAndUser> articles = null;
+        PageInfo<ArticleWithTagAndUser> pageInfo = null;
         Map resultMap = new HashMap<>();
         try {
             PageHelper.startPage(pageNum, pageSize);
             articles = articleMapper.selectUserRecent(id);
             pageInfo = new PageInfo<>(articles);
-            Iterator<ArticleWithUser> iterator = articles.iterator();
+            Iterator<ArticleWithTagAndUser> iterator = articles.iterator();
             while (iterator.hasNext()) {
-                ArticleWithUser next = iterator.next();
+                ArticleWithTagAndUser next = iterator.next();
                 dateTime = new DateTime(Long.parseLong(next.getTime()));
                 next.setTime(dateTime.toString("EEEE dd MMMM, yyyy HH:mm:ssa"));
                 if (next.getContent() != null) {

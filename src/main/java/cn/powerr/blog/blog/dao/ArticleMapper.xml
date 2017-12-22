@@ -16,7 +16,12 @@
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
         <result column="img_url" property="imgUrl" jdbcType="LONGVARCHAR"/>
     </resultMap>
-
+    <!--用于查询文章带上标签-->
+    <resultMap id="ResultMapWithTag" type="cn.powerr.blog.blog.entity.ArticleWithTagAndUser"
+               extends="ResultMapWithBLOBs">
+        <association property="tag" resultMap="cn.powerr.blog.blog.dao.TagMapper.BaseResultMap"/>
+        <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap"/>
+    </resultMap>
     <resultMap id="ResultMapWithUser" type="cn.powerr.blog.blog.entity.ArticleWithUser" extends="ResultMapWithBLOBs">
         <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap">
         </association>
@@ -236,8 +241,32 @@
     <select id="selectRecent" resultMap="ResultMapWithUser">
         SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY time DESC
     </select>
-    <select id="selectUserRecent" resultMap="ResultMapWithUser">
-        SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.user_id =#{userId} AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY time DESC
+    <select id="selectUserRecent" resultMap="ResultMapWithTag">
+SELECT
+	a.id,
+	a.content,
+	a.state,
+	a.title,
+	a.time,
+	a.tag_id,
+	a.looknum,
+	a.likenum,
+	a.img_url,
+	a.commentnum,
+	u.head_img,
+	u.user_id,
+	u.nick_name,
+	(SELECT tag_name FROM tag where tag.tag_id = a.tag_id) AS tag_name
+FROM
+	article AS a,
+	USER AS u
+WHERE
+	a.user_id = u.user_id
+AND a.user_id = #{userId}
+AND a.state = 1
+AND a.title IS NOT NULL
+AND a.content IS NOT NULL
+ORDER BY time DESC
     </select>
     <select id="selectReadHot" resultMap="ResultMapWithUser">
     SELECT a.id,a.user_id,a.content,a.state,a.title,a.likenum,a.looknum,a.time,a.tag_id,a.img_url,u.head_img,u.nick_name,u.user_id
@@ -254,6 +283,62 @@ FROM article AS a,user AS u WHERE a.user_id = u.user_id AND a.user_id =#{userId}
     <select id="updateArticleByLookNum">
         UPDATE article SET looknum = looknum+1 WHERE id = #{articleId}
     </select>
+    <select id="selectWithTag" resultMap="ResultMapWithTag">
+      SELECT a.id,
+	a.content,
+	a.state,
+	a.title,
+	a.time,
+	a.tag_id,
+	a.looknum,
+	a.likenum,
+	a.img_url,
+	a.commentnum,
+	(SELECT tag_name FROM tag where tag_id = a.tag_id) AS tag_name
+FROM article AS a
+WHERE a.id = #{articleId}
+    </select>
+    <select id="updateArticleTagToNull" resultType="int">
+        UPDATE article SET article.tag_id=NULL WHERE article.tag_id = #{tagId} AND article.state=1
+    </select>
+    <select id="selectArticlesWithTag" resultMap="ResultMapWithTag">
+    SELECT
+	a.id,
+	a.content,
+	a.state,
+	a.title,
+	a.time,
+	a.tag_id,
+	a.looknum,
+	a.likenum,
+	a.img_url,
+	a.commentnum,
+	u.head_img,
+	u.user_id,
+	u.nick_name,
+	(SELECT tag_name FROM tag where tag.tag_id = a.tag_id) AS tag_name
+FROM
+	article AS a,
+	USER AS u
+WHERE
+	a.user_id = u.user_id
+AND a.user_id = #{userId}
+AND a.tag_id = #{tagId}
+AND a.state = 1
+AND a.title IS NOT NULL
+AND a.content IS NOT NULL
+ORDER BY time DESC
+    </select>
+    <select id="updateDraft" >
+        UPDATE article
+SET article.state=1
+WHERE article.id = #{articleId}
+    </select>
+    <update id="updateArticleTag">
+        UPDATE article
+SET article.tag_id = #{tagId}
+WHERE article.id = #{articleId}
+    </update>
     <update id="updateByExampleSelective" parameterType="map">
         update article
         <set>

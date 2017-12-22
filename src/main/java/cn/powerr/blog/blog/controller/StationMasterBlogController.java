@@ -3,8 +3,10 @@ package cn.powerr.blog.blog.controller;
 import cn.powerr.blog.blog.entity.Article;
 import cn.powerr.blog.blog.entity.Blog;
 import cn.powerr.blog.blog.entity.Blogroll;
+import cn.powerr.blog.blog.entity.Tag;
 import cn.powerr.blog.blog.service.BlogrollService;
 import cn.powerr.blog.blog.service.StationMasterBlogService;
+import cn.powerr.blog.blog.service.TagService;
 import cn.powerr.blog.user.entity.User;
 import cn.powerr.blog.user.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +35,8 @@ public class StationMasterBlogController {
     private UserService userService;
     @Autowired
     private BlogrollService blogrollService;
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping("/showStationMasterBlog/{pageNum}")
     public String searchStationMasterBlog(@PathVariable("pageNum") Integer pageNum,Model model){
@@ -40,8 +44,10 @@ public class StationMasterBlogController {
         try {
             Map articles =  stationMasterBlogService.searchArticle(user.getUserId(),pageNum,15);
             List<Blogroll> blogrolls = blogrollService.searchBlogrolls(user.getUserId());
+            List<Tag> tags = tagService.searchTags(user.getUserId());
             PageInfo pageInfo = (PageInfo) articles.get("pageInfo");
             List<Article> articleInfo = (List<Article>) articles.get("articles");
+            model.addAttribute("tags1",tags);
             model.addAttribute("blogrollInfo1",blogrolls);
             model.addAttribute("pageInfo1",pageInfo);
             model.addAttribute("articleInfo1",articleInfo);
