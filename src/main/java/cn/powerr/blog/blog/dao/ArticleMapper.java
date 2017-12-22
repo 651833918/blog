@@ -62,4 +62,8 @@ public interface ArticleMapper {
     List<ArticleWithTagAndUser> selectArticlesWithTag(@Param(value = "tagId") Integer tagId,@Param(value = "userId") Integer userId);
 
     void updateDraft(@Param("articleId")Integer articleId);
+
+    int updateLikeNum(@Param("articleId") Integer articleId);
+
+    int updateCommentnum(@Param("articleId")Integer articleId);
 }

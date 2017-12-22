@@ -8,6 +8,9 @@
     <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
     <result column="commont_time" property="commontTime" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="CommentWithUserMap" type="cn.powerr.blog.blog.entity.CommentWithUser" extends="BaseResultMap">
+    <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap"/>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -148,6 +151,26 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+    <select id="selectCommentsWithUser" resultMap="CommentWithUserMap">
+SELECT
+	c.comment_id,
+	c.user_id,
+	c.article_id,
+	c.comment_content,
+	c.commont_time,
+(SELECT nick_name FROM `user` WHERE user_id = c.user_id) AS nick_name,
+(SELECT head_img FROM `user` WHERE user_id = c.user_id) AS head_img
+FROM
+	`comment` AS c
+WHERE
+	article_id = #{articleId}
+	ORDER BY commont_time DESC
+    </select>
+  <delete id="deleteCommentsByArticle">
+  DELETE FROM `comment`
+  WHERE
+	article_id = #{articleId}
+  </delete>
   <update id="updateByExampleSelective" parameterType="map" >
     update comment
     <set >

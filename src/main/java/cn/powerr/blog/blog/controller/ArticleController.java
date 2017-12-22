@@ -2,6 +2,7 @@ package cn.powerr.blog.blog.controller;
 
 import cn.powerr.blog.blog.entity.*;
 import cn.powerr.blog.blog.service.ArticleService;
+import cn.powerr.blog.blog.service.CommentService;
 import cn.powerr.blog.blog.service.StationMasterBlogService;
 import cn.powerr.blog.common.resp.ArticlePicResult;
 import cn.powerr.blog.user.entity.User;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +35,8 @@ public class ArticleController {
     @Autowired
     @Qualifier("articleServiceImpl")
     private ArticleService articleService;
-
+    @Autowired
+    private CommentService commentService;
     @Autowired
     private StationMasterBlogService stationMasterBlogService;
     DateTime dateTime;
@@ -117,6 +120,7 @@ public class ArticleController {
         long time = Long.parseLong(articleWithBLOBs.getTime());
         dateTime = new DateTime(time);
         articleWithBLOBs.setTime(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
+        dateTime = null;
         model.addAttribute("article", articleWithBLOBs);
         try {
             Map<String, List> sidebarExceptTag = stationMasterBlogService.searchsidebarExceptTag(userId);
@@ -129,7 +133,14 @@ public class ArticleController {
         } catch (Exception e) {
             log.error("排行信息错误");
         }
-
+        List<CommentWithUser> articleComments = commentService.getArticleComments(articleId);
+        for (int i = 0; i < articleComments.size(); i++) {
+            String commontTimeString = articleComments.get(i).getCommontTime();
+            long commontTime = Long.parseLong(commontTimeString);
+            dateTime = new DateTime(commontTime);
+            articleComments.get(i).setCommontTime(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
+        }
+        model.addAttribute("commentsWithUser", articleComments);
         return "article";
     }
 
@@ -170,7 +181,7 @@ public class ArticleController {
                                  @PathVariable(value = "tagId") Integer tagId) {
 
         int result = articleService.updateTagId(articleId, tagId);
-        if(result >0){
+        if (result > 0) {
             return "setTagId_succ";
         }
         return "setTagId_fail";
@@ -188,6 +199,33 @@ public class ArticleController {
                              @PathVariable(value = "articlePageNum") Integer articlePageNum, Model model) {
         articleService.delArticle(articleId);
         return "redirect:/articleManage/" + articlePageNum;
+    }
+
+    @RequestMapping("/clickLikeButton/{articleId}")
+    @ResponseBody
+    public String clickLikeButton(@PathVariable(value = "articleId") Integer articleId) {
+        int resp = articleService.clickLikeButton(articleId);
+        if (resp > 0) {
+
+            return "click_succ";
+        }
+        return "click_fail";
+    }
+
+    @RequestMapping("/submitComment/{articleId}")
+    @ResponseBody
+    public String submitComment(@PathVariable(value = "articleId") Integer articleId,
+                                @RequestBody Comment comment, HttpSession session) {
+        comment.setArticleId(articleId);
+        if (session.getAttribute("sessionUser") != null) {
+            comment.setUserId(((User) session.getAttribute("sessionUser")).getUserId());
+        }
+        comment.setCommontTime(String.valueOf(System.currentTimeMillis()));
+        int resp = commentService.submitComment(comment);
+        if (resp > 0) {
+            return "submit_succ";
+        }
+        return "submit_fail";
     }
 
 }

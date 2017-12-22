@@ -1,5 +1,5 @@
 #parse("header.vm")
-<div id="main">
+<div id="main" xmlns="http://www.w3.org/1999/html">
     <article class="post">
         <header style="margin-top: -60px;">
             <div class="title" style="margin-top: -30px;margin-bottom: -30px;text-align: center">
@@ -30,6 +30,44 @@
                 <span>${article.likenum}</span> 赞
             </a>
             <span class="control-item read-counts"><i class="fa fa-eye"></i> ${article.looknum} 人读过</span>
+            <span class="counter">
+	      <i class="icon icon-comment"></i><span id="commentNum">${article.commentnum}</span> 条评论
+	    </span>
+        </div>
+
+        <div>
+
+            <div class="clearfix">
+                <div class="avatar-wrap">
+                    <img class="avatar" id="visitUserLogo">
+                </div>
+                <div class="editor-wrap">
+                        <textarea class="editable" id="commentContent" name="commentContent" placeholder="评论"
+                                  style="height: 100px;"></textarea>
+                </div>
+            </div>
+            <div class="command clearfix" style="display: block;text-align: center">
+                <button id="commentBtn" class="btn btn-success">提交评论</button>
+            </div>
+
+
+
+            #foreach(${comment} in ${commentsWithUser})
+                <div style="display: inline-block">
+                    #if(${comment.userId})
+                        <div style="display: inline-block">
+                            <a class="author" href="/showPerosonPage/${comment.userId}/1"><img src="${comment.user.headImg}"
+                                                                                               alt=""/><font
+                                    color="purple" size="2px">${comment.user.nickName}</font>&nbsp;&nbsp;&nbsp;&nbsp;<font>${comment.commontTime}</font></a>
+                        </div>
+                    #else
+                        <font color="purple" size="2px">无名氏</font>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <font>${comment.commontTime}</font>
+                    #end
+                    <article >${comment.commentContent}</article>
+                </div>
+                </br>
+            #end
         </div>
     </article>
 </div>
@@ -51,9 +89,37 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#likeButton").click(function () {
-            alert("11111");
+        $("#commentBtn").click(function () {
+            var commentComent = $("#commentContent").val();
+            var data = {"commentContent": commentComent};
+            if (commentComent == ""||commentComent == null) {
+                alert("评论内容不能为空")
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/submitComment/${article.id}",
+                    contentType:"application/json",
+                    data: JSON.stringify(data),
+                    success:function (data) {
+                        if(data == "submit_succ"){
+                            window.location.href = "/getArticleMessage/${article.id}/${userInfo3.userId}";
+                        }
+                    }
+                });
+            }
         });
+        $("#likeButton").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/clickLikeButton/${article.id}",
+                success: function (data) {
+                    if (data == "click_succ") {
+                        $("#likeButton").attr('disabled', true);
+                    }
+                }
+            });
+        });
+
         $("#logout").click(function () {
             var logout = $("#logout").val();
             $.ajax({

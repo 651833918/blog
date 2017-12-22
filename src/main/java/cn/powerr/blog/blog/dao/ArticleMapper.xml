@@ -334,6 +334,12 @@ ORDER BY time DESC
 SET article.state=1
 WHERE article.id = #{articleId}
     </select>
+    <update id="updateCommentnum" >
+    UPDATE article SET commentnum = commentnum + 1 WHERE id = #{articleId}
+    </update>
+    <update id="updateLikeNum" >
+      UPDATE article SET likenum = likenum + 1 WHERE id = #{articleId}
+    </update>
     <update id="updateArticleTag">
         UPDATE article
 SET article.tag_id = #{tagId}

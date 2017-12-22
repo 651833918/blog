@@ -1,6 +1,7 @@
 package cn.powerr.blog.blog.service.impl;
 
 import cn.powerr.blog.blog.dao.ArticleMapper;
+import cn.powerr.blog.blog.dao.CommentMapper;
 import cn.powerr.blog.blog.dao.TagMapper;
 import cn.powerr.blog.blog.entity.ArticleExample;
 import cn.powerr.blog.blog.entity.ArticleWithBLOBs;
@@ -32,6 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     @Qualifier("articleMapper")
     private ArticleMapper articleMapper;
+    @Autowired
+    private CommentMapper commentMapper;
     @Autowired
     private TagMapper tagMapper;
     private DateTime dateTime;
@@ -74,13 +77,30 @@ public class ArticleServiceImpl implements ArticleService {
         return article;
     }
 
+    /**
+     * 点赞功能
+     * @param articleId
+     */
     @Override
+    public int clickLikeButton(Integer articleId) {
+        int resp = 0;
+        try {
+            resp = articleMapper.updateLikeNum(articleId);
+        } catch (Exception e) {
+            log.error("点赞失败");
+        }
+        return resp;
+    }
+
+    @Override
+    @Transactional
     public void delArticle(Integer articleId) {
         try{
             ArticleExample example = new ArticleExample();
             ArticleExample.Criteria criteria = example.createCriteria();
             criteria.andIdEqualTo(articleId);
             articleMapper.deleteByExample(example);
+            commentMapper.deleteCommentsByArticle(articleId);
         }catch (Exception e){
             log.error("删除文章失败");
         }

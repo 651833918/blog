@@ -3,6 +3,8 @@ package cn.powerr.blog.blog.dao;
 import cn.powerr.blog.blog.entity.Comment;
 import cn.powerr.blog.blog.entity.CommentExample;
 import java.util.List;
+
+import cn.powerr.blog.blog.entity.CommentWithUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface CommentMapper {
@@ -27,4 +29,8 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<CommentWithUser> selectCommentsWithUser(@Param("articleId") Integer articleId);
+
+    void deleteCommentsByArticle(@Param("articleId") Integer articleId);
 }

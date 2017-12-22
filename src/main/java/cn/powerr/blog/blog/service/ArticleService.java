@@ -35,4 +35,6 @@ public interface ArticleService {
     void publishDraft(Integer articleId);
 
     ArticleWithTagAndUser getEditArticle(Integer articleId);
+
+    int clickLikeButton(Integer articleId);
 }
