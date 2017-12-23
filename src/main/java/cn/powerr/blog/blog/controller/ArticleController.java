@@ -62,6 +62,13 @@ public class ArticleController {
     public String publishArticle(@RequestBody ArticleWithBLOBs article, HttpSession session, Model model) {
         String result = "publish_fail";
         User sessionUser = (User) session.getAttribute("sessionUser");
+        /**
+         * 防止前端页面解析<
+         */
+        String content = article.getContent();
+        String replaceLeft= content.replace("<", "&lt;");
+        String replaceRight = replaceLeft.replace(">", "&gt;");
+        article.setContent(replaceRight);
         article.setTime(String.valueOf(System.currentTimeMillis()));
         article.setState(1);
         article.setUserId(sessionUser.getUserId());
@@ -168,6 +175,10 @@ public class ArticleController {
     @RequestMapping("/editArticled")
     @ResponseBody
     public String editArticled(@RequestBody ArticleWithBLOBs articleWithBLOBs) {
+        String content = articleWithBLOBs.getContent();
+        String replaceLeft= content.replace("<", "&lt;");
+        String replaceRight = replaceLeft.replace(">", "&gt;");
+        articleWithBLOBs.setContent(replaceRight);
         Integer resp = articleService.editArticle(articleWithBLOBs);
         if (resp > 0) {
             return "edit_succ";

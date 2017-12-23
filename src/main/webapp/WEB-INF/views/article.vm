@@ -7,8 +7,14 @@
                 </h1>
                 <div style="display: inline-block">
                     <a class="author" href="/showPerosonPage/${userInfo3.userId}/1"><font
-                            color="purple" size="4px">Author:${userInfo3.nickName}</font><img src="${userInfo3.headImg}"
-                                                                                              alt=""/></a>
+                            color="purple" size="4px">Author:
+                        #if(${userInfo3.nickName})
+                        ${userInfo3.nickName}</font><img src="${userInfo3.headImg}"
+                                                         alt=""/></a>
+                            #else
+                                    ${userInfo3.username}</font><img src="${userInfo3.headImg}"
+                                                                     alt=""/></a>
+                        #end
                 </div>
                 <div>
                     #if(${article.tag})
@@ -56,15 +62,17 @@
                 <div style="display: inline-block">
                     #if(${comment.userId})
                         <div style="display: inline-block">
-                            <a class="author" href="/showPerosonPage/${comment.userId}/1"><img src="${comment.user.headImg}"
-                                                                                               alt=""/><font
-                                    color="purple" size="2px">${comment.user.nickName}</font>&nbsp;&nbsp;&nbsp;&nbsp;<font>${comment.commontTime}</font></a>
+                            <a class="author" href="/showPerosonPage/${comment.userId}/1"><img
+                                    src="${comment.user.headImg}"
+                                    alt=""/><font
+                                    color="purple"
+                                    size="2px">${comment.user.nickName}</font>&nbsp;&nbsp;&nbsp;&nbsp;<font>${comment.commontTime}</font></a>
                         </div>
                     #else
                         <font color="purple" size="2px">无名氏</font>&nbsp;&nbsp;&nbsp;&nbsp;
                         <font>${comment.commontTime}</font>
                     #end
-                    <article >${comment.commentContent}</article>
+                    <article>${comment.commentContent}</article>
                 </div>
                 </br>
             #end
@@ -92,16 +100,16 @@
         $("#commentBtn").click(function () {
             var commentComent = $("#commentContent").val();
             var data = {"commentContent": commentComent};
-            if (commentComent == ""||commentComent == null) {
+            if (commentComent == "" || commentComent == null) {
                 alert("评论内容不能为空")
             } else {
                 $.ajax({
                     type: "POST",
                     url: "/submitComment/${article.id}",
-                    contentType:"application/json",
+                    contentType: "application/json",
                     data: JSON.stringify(data),
-                    success:function (data) {
-                        if(data == "submit_succ"){
+                    success: function (data) {
+                        if (data == "submit_succ") {
                             window.location.href = "/getArticleMessage/${article.id}/${userInfo3.userId}";
                         }
                     }

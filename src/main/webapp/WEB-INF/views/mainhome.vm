@@ -6,14 +6,18 @@
     #foreach(${article} in ${lookHotList})
         <article class="post" back>
             <header style="margin-top: -100px;margin-bottom: 10px">
-                <div class="title"  style="margin-bottom: -40px">
-                    <h2 style="word-wrap:break-word;word-break:break-all;"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
+                <div class="title" style="margin-bottom: -40px">
+                    <h2 style="word-wrap:break-word;word-break:break-all;"><a
+                            href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
                     </h2>
                 </div>
             </header>
         ##            <a href="#" class="image featured"><img src="/static/images/pic01.jpg" alt=""/></a>
-            <p >${article.content}</p>
-            <div style="display: inline">
+            <div class="desc">
+                <p>${article.content}</p>
+            </div>
+
+            <div  style="display: inline">
                 #if(${article.tag})
                     <span href="#" class="icon fa-tag">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 #end
@@ -21,7 +25,13 @@
                 <span href="#" class="icon fa-eye">${article.looknum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <span href="#" class="icon fa-heart">${article.likenum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <span href="#" class="icon fa-comment">${article.commentnum}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <font  style="font-size: 20px;float: right"><a href="/showPerosonPage/${article.user.userId}/1"><font color="purple">Author:</font>${article.user.nickName}</a></font>
+            <font style="font-size: 20px;float: right"><a href="/showPerosonPage/${article.user.userId}/1"><font
+                    color="purple">Author:</font>
+                #if(${article.user.nickName})
+                    ${article.user.nickName}</a></font>
+                #else
+                        ${article.user.username}</a></font>
+                #end
             </div>
         </article>
     #end

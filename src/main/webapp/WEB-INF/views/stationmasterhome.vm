@@ -8,9 +8,13 @@
         <header>
             <h3 style="text-align: center;margin: auto;word-wrap:break-word;word-break:break-all"><a href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a></h3>
         </header>
+        <div class="desc">
         <main style="margin-top: -30px">
+            <div class="desc">
             <span>${article.content}</span>
+            </div>
         </main>
+        </div>
         <footer>
             <ul class="stats" style="text-align: right;margin: auto">
                 <li><span href="#" class="icon fa-eye">${article.looknum}</span></li>
@@ -21,6 +25,7 @@
                 </li>
             </ul>
         </footer>
+
     </article>
     #end
     <!-- Pagination -->

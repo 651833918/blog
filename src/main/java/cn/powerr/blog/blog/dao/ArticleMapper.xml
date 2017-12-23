@@ -19,11 +19,11 @@
     <!--用于查询文章带上标签-->
     <resultMap id="ResultMapWithTag" type="cn.powerr.blog.blog.entity.ArticleWithTagAndUser"
                extends="ResultMapWithBLOBs">
-        <association property="tag" resultMap="cn.powerr.blog.blog.dao.TagMapper.BaseResultMap"/>
-        <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap"/>
+        <association autoMapping="true" property="tag" resultMap="cn.powerr.blog.blog.dao.TagMapper.BaseResultMap"/>
+        <association autoMapping="true" property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap"/>
     </resultMap>
     <resultMap id="ResultMapWithUser" type="cn.powerr.blog.blog.entity.ArticleWithUser" extends="ResultMapWithBLOBs">
-        <association property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap">
+        <association autoMapping="true" property="user" resultMap="cn.powerr.blog.user.dao.UserMapper.BaseResultMap">
         </association>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -233,7 +233,7 @@
         </if>
     </select>
     <select id="selectMainPost" resultMap="ResultMapWithUser">
-    SELECT a.id,a.user_id,a.state,a.content,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.nick_name,u.user_id from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY looknum DESC,likenum DESC
+    SELECT a.id,a.user_id,a.state,a.content,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.nick_name,u.user_id,u.username from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY looknum DESC,likenum DESC
   </select>
     <select id="selectMediumPost" resultMap="ResultMapWithUser">
         SELECT a.id,a.content,a.state,a.title,a.time,a.looknum,a.likenum,a.img_url,a.commentnum,u.head_img,u.user_id,u.nick_name from article AS a,user u WHERE a.user_id = u.user_id AND a.state = 1 AND a.title IS NOT NULL AND a.content IS NOT NULL ORDER BY likenum DESC
@@ -256,10 +256,11 @@ SELECT
 	u.head_img,
 	u.user_id,
 	u.nick_name,
+	u.username,
 	(SELECT tag_name FROM tag where tag.tag_id = a.tag_id) AS tag_name
 FROM
 	article AS a,
-	USER AS u
+	`user` AS u
 WHERE
 	a.user_id = u.user_id
 AND a.user_id = #{userId}
@@ -301,7 +302,7 @@ WHERE a.id = #{articleId}
     <select id="updateArticleTagToNull" resultType="int">
         UPDATE article SET article.tag_id=NULL WHERE article.tag_id = #{tagId} AND article.state=1
     </select>
-    <select id="selectArticlesWithTag" resultMap="ResultMapWithTag">
+    <select id="selectArticlesWithTag" resultMap="ResultMapWithTag" >
     SELECT
 	a.id,
 	a.content,
@@ -319,7 +320,7 @@ WHERE a.id = #{articleId}
 	(SELECT tag_name FROM tag where tag.tag_id = a.tag_id) AS tag_name
 FROM
 	article AS a,
-	USER AS u
+	`user` AS u
 WHERE
 	a.user_id = u.user_id
 AND a.user_id = #{userId}

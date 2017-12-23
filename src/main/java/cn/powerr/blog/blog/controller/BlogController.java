@@ -264,6 +264,10 @@ public class BlogController {
     @RequestMapping("/savaToDrafts")
     @ResponseBody
     public String savaToDrafts(@RequestBody ArticleWithBLOBs article,HttpSession session){
+        String content = article.getContent();
+        String replaceLeft= content.replace("<", "&lt;");
+        String replaceRight = replaceLeft.replace(">", "&gt;");
+        article.setContent(replaceRight);
         User sessionUser = (User) session.getAttribute("sessionUser");
         article.setUserId(sessionUser.getUserId());
         article.setState(0);
