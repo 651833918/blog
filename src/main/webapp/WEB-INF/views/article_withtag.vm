@@ -8,7 +8,11 @@
             <li style="margin-top: auto">
                 <a class="btn btn-default btn-zan"
                    href="/getArticleMessage/${article.id}/${article.user.userId}">${article.title}</a>
+                <a href="/editArticle/${article.id}" style="text-align: right" class="btn btn-default btn-zan">
+                    <span id="editArticle">编辑</span>
+                </a>
             </li>
+
         </ul>
     #end
     <ul class="actions pagination">
