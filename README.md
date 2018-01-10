@@ -1,4 +1,21 @@
-### 个人博客系统
-个人博客 --SSM+Velocity+editor.md实现的个人博客，对接了七牛云进行了图片存储（已完成）
-包括mysql数据库的sql文件
-![](leanote://file/getImage?fileId=5a559cdd9d3fe51f34000000)
+##个人博客系统
+
+----------
+通过这个博客系统，记录日常学习经验。
+
+----------
+
+##技术栈：
+
+Spring
+SpringMVC
+Mybatis
+模板渲染：Velocity
+富文本编辑器：Editor.md
+后台数据库：Mysql
+图片存储：七牛云存储。
+
+----------
+##数据库设计：
+博客主要涉及到文章表，评论表，用户表，标签表，关键字表，友链表，具体的sql见**blog.sql**。
+
