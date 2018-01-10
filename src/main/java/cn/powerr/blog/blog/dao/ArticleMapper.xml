@@ -302,7 +302,7 @@ WHERE a.id = #{articleId}
     <select id="updateArticleTagToNull" resultType="int">
         UPDATE article SET article.tag_id=NULL WHERE article.tag_id = #{tagId} AND article.state=1
     </select>
-    <select id="selectArticlesWithTag" resultMap="ResultMapWithTag" >
+    <select id="selectArticlesWithTag" resultMap="ResultMapWithTag">
     SELECT
 	a.id,
 	a.content,
@@ -330,15 +330,15 @@ AND a.title IS NOT NULL
 AND a.content IS NOT NULL
 ORDER BY time DESC
     </select>
-    <select id="updateDraft" >
+    <select id="updateDraft">
         UPDATE article
 SET article.state=1
 WHERE article.id = #{articleId}
     </select>
-    <update id="updateCommentnum" >
+    <update id="updateCommentnum">
     UPDATE article SET commentnum = commentnum + 1 WHERE id = #{articleId}
     </update>
-    <update id="updateLikeNum" >
+    <update id="updateLikeNum">
       UPDATE article SET likenum = likenum + 1 WHERE id = #{articleId}
     </update>
     <update id="updateArticleTag">

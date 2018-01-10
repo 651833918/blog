@@ -12,7 +12,6 @@
                     <span id="editArticle">编辑</span>
                 </a>
             </li>
-
         </ul>
     #end
     <ul class="actions pagination">
