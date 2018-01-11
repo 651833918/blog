@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-23 00:15:49
+Date: 2018-01-11 19:42:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `article` (
   `commentnum` int(12) DEFAULT '0',
   `state` int(2) DEFAULT NULL COMMENT '0 草稿状态 1发表状态  默认为发表',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for blog
@@ -45,7 +45,7 @@ CREATE TABLE `blog` (
   `blog_url` varchar(255) DEFAULT NULL COMMENT '博客地址',
   `user_id` int(10) NOT NULL COMMENT '用户主键',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for blogroll
@@ -57,7 +57,7 @@ CREATE TABLE `blogroll` (
   `describe` varchar(255) DEFAULT NULL COMMENT '描述',
   `url` varchar(50) DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`blogroll_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for comment
@@ -70,7 +70,7 @@ CREATE TABLE `comment` (
   `comment_content` varchar(255) DEFAULT NULL,
   `commont_time` varchar(50) DEFAULT NULL COMMENT '评论时间',
   PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for keyword
@@ -91,7 +91,7 @@ CREATE TABLE `tag` (
   `tag_name` varchar(20) DEFAULT NULL COMMENT '标签名',
   `user_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user
@@ -109,4 +109,4 @@ CREATE TABLE `user` (
   `birthday` varchar(30) DEFAULT NULL,
   `looknum` int(12) DEFAULT '0' COMMENT '浏览量',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
